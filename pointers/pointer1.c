@@ -4,13 +4,21 @@
 #define SIZE 10000000
 
 int main(int argc, char* argv[]) {
-	int *arr, i;
+	int *ptr, var;
 	
-	arr = (int*) malloc(SIZE * sizeof(int));
-	for (i = 0; i < SIZE; i++) {
-		arr[i] = i;
-	}
-	free(arr);
+	var = 10;
+	ptr = &var;
+	printf("loc. de var = %p valor de var = %i\n", &var, var);
+	printf("loc. a la cual apunta ptr = %p el valor almacenado ptr = %i\n", ptr, (*ptr));
+	
+	var = var + 1;
+	(*ptr) = (*ptr) + 1;
+	printf("loc. de var = %p valor de var = %i\n", &var, var);
+	printf("loc. a la cual apunta ptr = %p el valor almacenado ptr = %i\n", ptr, (*ptr));
+	
+	ptr = ptr + 1;
+	printf("loc. de var = %p valor de var = %i\n", &var, var);
+	printf("loc. a la cual apunta ptr = %p el valor almacenado ptr = %i\n", ptr, (*ptr));
 	
 	return 0;
 }
