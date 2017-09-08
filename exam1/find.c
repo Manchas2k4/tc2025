@@ -37,7 +37,7 @@ int search(char* directory, char* name, char *word, char *program) {
 	
 	return found;
 }
-
+   
 void traverse(char *word, char *directory, char *program) {
 	char filename[NAME_MAX + 1];
 	DIR *dir;
