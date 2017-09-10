@@ -4,7 +4,7 @@ En el tema anterior hemos delineado la estructura interna del sistema de archivo
 
 Para empezar, vamos a ver un ejemplo sencillo que ilustra cómo se comunica un programa con el subsistema de archivos. El programa siguiente es una versión simplificada de la orden `cp`, que permite copiar archivos. Lo llamaremos `copiar`.
 
-```
+```c
 #include <stdio.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -60,7 +60,7 @@ En los siguientes párrafos vamos a estudiar las llamadas al sistema necesarias 
 ### Función open
 `open` es la función que utilizaremos para indicarle al kernel que habilite las instrucciones necesarias para trabajar con un archivo que especificaremos mediante una ruta. El kernel devolverá un descriptor de archivos con el que podremos referenciar al archivo en funciones posteriores. La declaración de open es:
 
-```
+```c
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
