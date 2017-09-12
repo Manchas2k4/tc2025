@@ -199,12 +199,17 @@
 
 <p>Veamos un ejemplo. Supongamos un archivo cuyos datos están en los bloques que nos indican las entradas de direcciones del nodo-i descrito en la siguiente figura:</p>
 
-<p></p>
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/imagentema1(5).png)
 
-<p></p>
-<p></p>
+<p>Vamos a seguir suponiendo que el bloque tiene un tamaño de 1024 bytes. Si un proceso quiere acceder a un byte que se encuentra en la posición 9, 125 del archivo, el kernel calcula que ese byte está en el número 8 del archivo (empezando a numerar los bloques lógicos desde 0).</p>
 
-<p></p>
+<p>En efecto:</p>
+
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/imagentema1(6).png)
+
+<p>Para ver a qué bloque del disco corresponde el bloque lógico número 8 del archivo, hay que consultar el número de bloque almacenado en la entrada número 8 (entrada de dirección directa) de la tabla de direcciones del nodo-i. En el caso de la figura, el bloque de disco buscado es el 412. Dentro de este bloque, el byte 9,125 del archivo corresponde con el byte 933 con respecto al inicio del bloque (los bytes del bloque se numeran de 0 a 1023).</p>
+
+<p>En efecto:</p>
 
 <p></p>
 
