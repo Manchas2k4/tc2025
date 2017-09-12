@@ -467,3 +467,212 @@ struct flock {
 Los candados fijados por un proceso sobre un archivo se borran cuando el proceso termina. Además, los candados no son heredados por los procesos hijos tras la llamada `fork`.
 
 Si `fcntl` no se ejecuta satisfactoriamente, regresa el valor de -1 y en `errno` estará codificado el tipo de error producido.
+
+#### 3.2.10.1 Ejemplo 1 – Banderas de estatus
+El siguiente programa toma una línea de comando que especifica un descriptor de archivo e imprime una descripción de las banderas de estatus para ese descriptor.
+
+```c
+#include <sys/types.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char *argv[]) {
+	int val;
+	
+	if (argc != 2) {
+		fprintf(stderr, "uso: %s <#descriptor>\n", argv[0]);
+		return -1;
+	}
+	
+	if ((val = fcntl(atoi(argv[1]), F_GETFL, 0)) < 0) {
+		fprintf(stderr, "error en fcntl  con el fd %d\n", atoi(argv[1]));
+	}
+	
+	switch (val & O_ACCMODE) {
+		case O_RDONLY:
+			fprintf(stdout, "read only");
+			break;
+		case O_WRONLY:
+			fprintf(stdout, "write only");
+			break;
+		case O_RDWR:
+			fprintf(stdout, "read & write");
+			break;
+		default:
+			fprintf(stderr, "acceso desconocido\n");
+			return -1;
+	}
+	
+	if (val & O_APPEND) {
+		fprintf(stdout, ", append");
+	}
+	if (val & O_NONBLOCK) {
+		fprintf(stdout, ", nonblocking");
+	}
+	
+	#if defined(O_SYNC)
+		if (val & O_SYNC) {
+			fprintf(stdout, ", sincrono");
+		}
+	#endif
+	
+	#if !defined(_POSIX_C_SOURCE) && defined(O_FSYNC)
+		if (val & O_FSYNC) {
+			fprintf(stdout, ", sincrono");
+		}
+	#endif
+	
+	fprintf(stdout, "\n");
+	return EXIT_SUCCESS;
+}
+```
+
+Notemos el uso de la macro `_POSIX_C_SOURCE` que nos permite compilar, condicionalmente, las banderas de acceso que no son parte de POSIX.1. Las siguientes líneas muestran la operación del programa cuando es ejecutado desde la línea de comandos:
+
+```c
+$ ./a.out 0 < /dev/tty
+read only
+$ ./a.out 1 > temp.foo
+$ cat temp.foo
+write only
+$ ./a.out 2 2>>temp.foo
+write only, append
+$ ./a.out 5 5<>temp.foo
+read & write
+$
+```
+
+La línea de comando `5 <> temp.foo` abre el archivo temp.foo para ser leído y escrito usando el descriptor 5.
+
+#### 3.2.10.2 Ejemplo 2 – Cambiando Banderas de Estatus
+Cuando modificamos ya sea las banderas del descriptor de archivos o la bandera de estatus del archivo, debemos ser muy cuidadosos al obtener el valor existente de las banderas, modificarlo como lo deseamos, y establecer ese nuevo valor.  No podemos simplemente hacer un `F_SETFD` o un `F_SETFL`, como si esto pudiera apagar los bits los valores previos de cualquier bit.
+
+```c
+#include <sys/types.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+#define BUFFSIZE 4096
+
+void set_fl(int fd, int flags) {
+	int val;
+	if ((val = fcntl(fd, F_GETFL, 0)) < 0) {
+		fprintf(stderr, "error fcntl F_GETFL\n");
+		return;
+	}
+	
+	val |= flags;
+	
+	if (fcntl(fd, F_SETFL, val) < 0) {
+		fprintf(stderr, "error fcntl F_SETFL\n");
+		return;
+	}
+}
+		
+
+int main() {
+	int n;
+	char buf[BUFFSIZE];
+	
+	set_fl(STDOUT_FILENO, O_SYNC);
+	
+	while ((n = read(STDIN_FILENO, buf, BUFFSIZE)) > 0) {
+		if (write(STDOUT_FILENO, buf, n) != n) {
+			fprintf(stderr, "write error\n");
+			return -1;
+		}
+	}
+	if (n < 0) {
+		fprintf(stderr, "read error\n");
+		return -1;
+	}
+	return EXIT_SUCCESS;
+}
+```
+
+Las siguientes líneas muestran la operación del programa cuando es ejecutado desde la línea de comandos:
+
+```$ ./a.out < entrada.txt > salida.txt```
+
+#### 3.2.10.3 Ejemplo 3 – Estableciendo candados
+Como ejemplo, vamos a ver el uso de `fcntl` para realizar bloqueos sobre un archivo y sincronizar el acceso al mismo por parte de dos procesos. El siguiente programa lee un número que se encuentra en un archivo y tras incrementarlo lo presenta en pantalla y lo vuelve a grabar en el disco. Esta operación se repite varias veces. Vamos a ver qué ocurre cuando son dos los procesos que acceden a un archivo para realizar la misma operación. Dependiendo del tipo de acceso, con bloqueo o sin él, los resultados serán distintos. El código del programa es el siguiente:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+#define EQ(str1, str2) (strcmp(str1, str2) == 0)
+
+#define ARCHIVO "tmp"
+
+void sin_bloqueo() {}
+
+void con_bloqueo(int fd, int orden) {
+	struct flock cerrojo;
+	
+	cerrojo.l_type = orden;
+	cerrojo.l_whence = SEEK_SET;
+	cerrojo.l_start = 0;
+	cerrojo.l_len = 0;
+	
+	if (fcntl(fd, F_SETLKW, &cerrojo) == -1) {
+		perror("fcntl");
+		exit(-1);
+	}
+}
+
+int main(int argc, char *argv[]) {
+	int fd;
+	int numero, i;
+	void (*bloquear) ();
+	
+	if (argc == 1) {
+		bloquear = sin_bloqueo;
+	} else if (argc == 2 && EQ(argv[1], "-b")) {
+		bloquear = con_bloqueo;
+	} else {
+		fprintf(stderr, "Forma de uso: %s [-b]\n", argv[0]);
+		return -1;
+	}
+	
+	if ((fd = open(ARCHIVO, O_RDWR | O_CREAT, 0644)) < 0) {
+		perror(ARCHIVO);
+		return -1;
+	}
+	
+	if (read(fd, &numero, sizeof(numero)) != sizeof(numero)) {
+		numero = 0;
+		write(fd, &numero, sizeof(numero));
+	}
+	
+	for (i = 0; i < 10; i++) {
+		lseek(fd, 0L, SEEK_SET);
+		(*bloquear) (fd, F_WRLCK);
+		read(fd, &numero, sizeof(numero));
+		numero++;
+		lseek(fd, 0L, SEEK_SET);
+		write(fd, &numero, sizeof(numero));
+		fprintf(stdout, "PID = %d, nro = %d\n", getpid(), numero);
+		(*bloquear) (fd, F_UNLCK);
+		sleep(1);
+	}
+	close(fd);
+	return EXIT_SUCCESS;
+}
+```
+
+Si ejecutamos las siguientes líneas de comando, veremos cómo se comportan los objetos en cada caso:
+
+```$ ./a.out & ./a.out &```
+```$ ./a.out & ./a.out –b &```
+
+## 3.3 Administración de archivos
+Ahora vamos a estudiar una serie de llamadas al sistemas que nos van a permitir acceder y cambiar la información de tipo administrativo y estadístico de un archivo.
+
