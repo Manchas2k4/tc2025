@@ -277,3 +277,153 @@ b.   La posición actual del apuntador de lectura/escritura.<br>
 c.   Un apuntador a una posición de la tabla de nodos-v para ese archivo.
 3. Cada archivo abierto (o dispositivo) tiene una estructura llamada nodo-v que contiene información acerca del tipo de archivo y apuntadores a las funciones que operan sobre ese archivo. Para la mayoría de los archivos, el nodo-v también contiene el nodo-i del archivo. Esta información es leída desde el disco cuando el archivo es abierto, de tal forma que toda la información necesaria del archivo esté rápidamente disponible.  En el caso particular de Linux, éste no maneja nodo-v. En su lugar manejar una estructura nodo-i genérico. Aunque la implementación difiere, el nodo-v es conceptualmente lo mismo que un nodo-i genérico. Ambos hacen referencia hacia una estructura nodo-i específica del sistema de archivos.
 
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/Imagenes_Tema3/a.png "Un proceso")
+
+La figura superior muestra el arreglo de estas tablas para un solo proceso que tiene dos diferentes archivos abiertos: un archivo está abierto sobre la entrada estándar (descriptor 0), y el otro está abierto sobre la salida 0 (descriptor 1). Esta configuración de tablas ha existido desde las primeras versiones de Unix, y es crítico para la forma en que se comparten archivos entre los procesos.
+
+Si dos procesos independientes tienen el mismo archivo abierto, el arreglo quedaría como lo muestra la siguiente figura.
+
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/Imagenes_Tema3/b.png "Dos procesos")
+
+Podemos ver que el primer proceso abierto el archivo a través del descriptor 3 y que el segundo proceso tiene el mismo archivo abierto usando el descriptor 4. Cada proceso que abrió el archivo tiene su propia tabla de archivos, pero maneja una sola tabla de nodos-v para ese archivo. La razón por la que cada proceso tiene su propia tabla de archivos es que cada proceso tiene su propio apuntador de lectura/escritura para ese archivo.
+
+Dada estas estructuras, ahora necesitamos ser un poco más específicos acerca de lo que sucede cuando ciertas operaciones son realizadas:
+
+* Después de que un `write` es completado, el apuntador de lectura/escritura en el archivo es incrementado en el número de bytes que se escribieron. Si esto causa que la posición actual de apuntador exceda el tamaño actual del archivo, entonces la información sobre el tamaño es modificado en el nodo-v (para este ejemplo, el archivo es extendido).
+* Si el archivo es abierto con la bandera de `O_APPEND`, la correspondiente bandera es actualizada en las banderas de estatus de la tabla de archivos. Cada que un `write` es realizado en un archivo que tiene activada esta bandera, primero se mueve el apuntador de lectura/escritura al final del archivo, en la posición indicada por el nodo-i. Esto permite que cada operación `write` siempre se haga al final del archivo.
+* Si un archivo es posicionado en su posición final usando `lseek`, sucede lo siguiente: la posición del apuntador es actualizado en la tabla de archivos al tamaño del archivo que está indicado en el nodo-i.
+* La función `lseek` sólo modifica la posición actual del apuntador en la tabla de archivos. No se realiza ninguna operación de entrada/salida.
+
+Es posible que más de un descriptor se encuentre apuntando a la misma tabla de archivos, como veremos que sucede después de ejecutar la función `dup`. Esto también sucede después de invocar a la función `fork` cuando el proceso padre e hijo apuntan a una determinada tabla de archivos. Cuando hablemos de la función `fcntl` veremos cómo obtener y modificar las banderas y el estatus del descriptor de archivos.
+
+Todo lo que hemos mencionado funciona para cualquier cantidad de archivos que estén leyendo el mismo archivo. Cada proceso tiene su propia tabla de archivos con su propio apuntador de lectura/escritura. Sin embargo, resultados inesperados pueden ocurrir cuando múltiples procesos escriben sobre un mismo archivo. Para evitar estas sorpresas veremos el concepto de operaciones atómicas.
+
+### 3.2.7 Operaciones Atómicas
+#### 3.2.7.1 Agregando a un archivo
+Considera un solo proceso que quiere agregar datos al final de un archivo. Las versiones anteriores de Unix no soportaban la opción de `O_APPEND` en `open`, de tal forma que el código del programa sería el siguiente:
+
+```c
+if (lseek(fd, OL, 2) < 0) 
+printf(“lseek error”);
+if (write(fd, buf, 100) != 100) 
+printf(“write error”);
+```
+
+Esto funciona muy bien para un solo proceso, pero surgen problemas si múltiples procesos usaran esta técnica para agregar al mismo archivo. Un posible escenario podría ser: múltiples instancias de un mismo programa están agregando mensajes a un archivo log.
+
+Vamos a asumir que dos procesos independientes, A y B, están agregando al mismo archivo.  Cada uno lo ha abierto, pero sin la bandera de `O_APPEND`. Esto nos daría el siguiente escenario:
+
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/Imagenes_Tema3/c.png "Sin O_APPEND")
+
+Cada proceso tiene su propia tabla de archivos, pero comparten el mismo nodo-v. Imaginémonos que el proceso A hacer un `lseek` y coloca su apuntador de lectura/escritura en la posición 1,500 (que resulta ser el fin del archivo). Entonces el kernel cambia de procesos, y B continúa corriendo. El proceso B realiza un `lseek` y coloca su apuntador en la misma posición de 1,500 (fin de archivo). Entonces B ejecuta la instrucción `write`, lo que hace que su apuntador de lectura/escritura se incremente en 100 (1,600). Como el archivo se ha extendido, el kernel actualiza el tamaño actual del archivo en el nodo-v a 1,600. Entonces el kernel cambia de procesos y A se reanuda. Cuando A ejecuta la función `write`, los datos son escritos en la posición del apuntador que tiene señalada A, que es el byte 1,500. Esto hace que se sobrescriba la información escrita por B.
+
+El problema es que nuestra operación lógica de “posiciónate al final del archivo y escribe” requiere de dos funciones separadas. La solución está en que posicionar y escribir se haga como una operación atómica. Cualquier operación que requiere de más una función no puede ser considerada atómica y siempre existe la posibilidad de que el kernel, temporalmente, suspenda el proceso entre alguna de las llamadas.
+
+Unix provee una manera atómica de hacer esta operación cuando nosotros utilizamos la bandera `O_APPEND` al momento de abrir un archivo.
+
+#### 3.2.7.2 Funciones pread y pwrite
+Unix incluye algunas extensiones que permiten a las aplicaciones posicionarse y realizar operaciones de entrada/salida de manera atómica. Estas extensiones son: `pread` y `pwrite`.
+
+```c
+#include <unistd.h>
+ssize_t pread (int filedes, void *buf, size_t nbytes, off_t offset);
+ssize_t pwrite (int filedes, void *buf, size_t nbytes, off_t offset);
+```
+
+Ambas funciones regresan -1 en caso de que exista algún error.
+
+Invocar `pread` es equivalente a llamar `lseek` seguido por una llamada a `read`, con las siguientes excepciones:
+
+* No hay manera de interrumpir las dos operaciones usando `pread`.
+* El apuntador del archivo no es actualizado.
+
+Ejecutar la función `pwrite` es equivalente a realizar un `lseek` seguido de un `write`, con excepciones similares a `pread`.
+
+#### 3.2.7.3 Creando un Archivo
+Otro ejemplo de un operación atómica se da cuando utilizamos las banderas de `O_CREAT` y `O_EXCL` en la función `open`. Cuando ambas opciones son especificadas, `open` fallará si es que el archivo existe. Al mismo tiempo de verificar la existencia también nos permite crear el archivo, todo en una operación atómica. Si no tuviéramos esta opción, deberíamos de intentar lo siguiente:
+
+```c
+if ((fd = open(pathname, O_WRONLY)) < 0) {
+	if (errno == ENOENT) { 
+if ((fd = creat(pathname, made)) < 0) {
+		printf(“creat error”);
+	}
+} else {	 
+printf(“write error”);
+}
+}
+```
+
+El problema ocurre si el archivo ya ha sido creado por otro proceso entre el `open` y el `creat`. Si el archivo es creado por otro proceso entre estas dos llamadas, y si el otro proceso escribe algo en el archivo, los datos serán borrados cuando `creat` se ejecute. Combinando la verificación de existencia y el proceso de creación en una solo operación atómica se evita este problema.
+
+### 3.2.8 Funciones dup y dup2
+La llamada `dup` duplica el descriptor de archivo que ya ha sido asignado y que está ocupando una entrada en la tabla de descriptores de archivo. Su declaración es:
+
+```c
+#include <unistd.h>
+int dup(int filedes);
+int dup2(int filedes, int filedes2);
+```
+
+`filedes` es un descriptor obtenido a través de una llamada previa a `creat`, `open`, `dup`, `fcntl` o `pipe`. El nuevo descriptor regresado por `dup` es el menor número entero posible que se pueda asignar. Con `dup2`,  es posible especificar el valor del nuevo descriptor con el argumente `filedes2`. Si `filedes2` ya se encuentra abierto, primero es cerrado. Si `filedes` es igual a `filedes2`, entonces `dup2` regresa `filedes2` sin que haya sido cerrado.
+
+La llamada a `dup` va a recorrer la tabla de descriptores y va a marcar como ocupado la primera entrada que encuentre libre, devolviéndonos el descriptor asociado a esa entrada. Si falla en su ejecución, devolverá el valor `-1`, indicando a través de `errno` el error producido.
+
+Los dos descriptores (original y duplicado) tienen en común que comparten el mismo archivo, por lo que a la hora de leer o escribir podemos usarlos indistintamente.
+
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/Imagenes_Tema3/d.png "Sin O_APPEND")
+
+Otra forma de duplicar un descriptor es usar la función `fcntl`, la cual describiremos más adelante. De hecho la llamada:
+
+```c
+dup(filedes);
+```
+es equivalente a:
+```c
+fcntl(filedes, F_DUPFD, 0);
+```
+Similarmente, la llamada:
+```c
+dup2(filedes, filedes2);
+```
+es equivalente a:
+```c
+close(filedes2);
+fcntl(filedes, F_DUPFD, filedes2);
+```
+
+En este último caso, `dup2` no es exactamente lo mismo que un `close` seguido de un `fcntl`.  Ya que `dup2` es una función atómica, mientras que la forma alterna involucra dos funciones, lo que puede hacer que surjan problemas cuando hablamos de procesos concurrentes. 
+
+### 3.2.9 Funciones sync, fsync y fdatasync
+Las tradicionales implementaciones de Unix tiene un buffer caché a través del cual pasan todas las operaciones de entrada/salida. Cuando se escriben en un archivo, el kernel coloca los datos en uno de estos buffer y agrega la instrucción de escritura en una fila con el fin de realizar las operaciones más tarde. Esto es llamado escritura retrasada. 
+
+El kernel, eventualmente, escribe los bloques a discos cuando se necesita re-usar el buffer para almacenar nuevos bloques de datos. Para asegurar la consistencia del sistema de archivos del disco con el contenido del buffer caché, tenemos las funciones de `sync`, `fsync` y `fdatasync`.
+
+```c
+#include <unistd.h>
+void sync(void);
+int fsync(int filedes);
+int fdatasync(int filesdes);
+```
+
+La función `sync` simplemente enfila todos los buffers de bloques modificados para escritura y termina; es decir, no espera que las operaciones de escritura se realicen.
+
+La función `sync` es normalmente llamada de forma periódica (usualmente cada 30 segundos) por un proceso del sistema llamada `update`. Esto garantiza un vaciado regular de los buffers de bloque. El comando `sync(1)` también llamada a la función `sync`.
+
+La función `fsync` se refiere al archivo especificado por `filedes`; y espera a que la escritura se haya realizado, antes de terminar. Un uso adecuado de `fsync` sería en una aplicación de base de datos que necesita asegurarse de que los bloques modificados sean escritos a disco.
+
+La función `fdatasyc` es muy similar a `fsync`, pero solo afecta a la parte de información de un archivo.
+
+### 3.2.10 Función fcntl
+Con la llamada `fcntl` vamos a tener control sobre un archivo abierto mediante una llamada previa a `open`, `creat`, `dup`, `fcntl` o `pipe`. Este control va consistir en las posibilidades de cambiar los modos permitidos de acceso al archivo,  y de bloquear el acceso a una parte del mismo o su totalidad. El bloqueo tiene especial importancia cuando varios procesos trabajan simultáneamente con un archivo, y es imprescindible que los accesos a determinados registros del mismo sean atómicos. Imaginemos el caso de dos procesos que acceden a una base de datos común, uno para actualizar los registros y otro para leer esos mismos registros. Si no implementamos ningún mecanismo de sincronización, puede darse el caso de que el proceso lector lea una información parcialmente actualizada. Esto ocurrirá cuando el proceso que actualiza interrumpa al proceso lector en mitad de una operación de consulta de la base de datos.
+
+La declaración de `fcntl` es la siguiente:
+
+```c
+#include <sys/types.h>
+#include <unistd.h>
+#include <fcntl.h>
+int fcntl(int filedes, int cmd, … /* int arg */);
+```
+
+`filedes` es el descriptor de un archivo previamente abierto. `arg` es un entero o un apuntador, dependiendo del valor que tome `cmd`. Los siguientes son valores permitidos de `cmd`:
