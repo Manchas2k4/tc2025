@@ -345,12 +345,12 @@ Otro ejemplo de un operación atómica se da cuando utilizamos las banderas de `
 ```c
 if ((fd = open(pathname, O_WRONLY)) < 0) {
 	if (errno == ENOENT) { 
-if ((fd = creat(pathname, made)) < 0) {
-		printf(“creat error”);
+		if ((fd = creat(pathname, made)) < 0) {
+			printf(“creat error”);
+		}
+	} else {	 
+		printf(“write error”);
 	}
-} else {	 
-printf(“write error”);
-}
 }
 ```
 
@@ -427,3 +427,41 @@ int fcntl(int filedes, int cmd, … /* int arg */);
 ```
 
 `filedes` es el descriptor de un archivo previamente abierto. `arg` es un entero o un apuntador, dependiendo del valor que tome `cmd`. Los siguientes son valores permitidos de `cmd`:
+
+|**F_DUPFD**|La llamada devuelve un descriptor de un archivo que se encuentra libre en este instante y que reúne las siguientes características:<br><ul><li>Es el menor descriptor de valor mayor o igual a `arg`.</li><li>Tiene asociado el mismo archivo que el descriptor `filedes`.</li><li>Tiene asociado el mismo apuntador al archivo que `filedes`.</li><li>El modo del archivo referenciado por el nuevo descriptor es el mismo que el de `filedes`.</li><li>Los indicadores de estado del archivo de ambos descriptores serán los mismos.</li><li>El descriptor se heredará de padre a hijos en las llamadas a `exec`.</li></ul>|
+|**F_GETFD**|La función devuelve el valor del indicador `close-on-exec` asociado al descriptor `filedes`. Si este indicador está activado, el archivo no se cerrará después de ejecutar una llamada a `exec`. Del valor devuelto por `fcntl`, sólo tendrá validez el bit menos significativo, que tendrá 0 si el indicador no está activo y 1 en caso contrario.|
+|**F_SETFD**|Fija el indicador `close-on-exec` asociado a `filedes` de acuerdo con el bit menos significativo de `arg`. Si el bit está a 1, el indicador está activo.|
+|**F_GETFL**|Devuelve los indicadores de estado y modo de acceso del archivo referenciado por filedes: `O_RDONLY`, `O_WRONLY`, `O_RDWR`, `O_NDELAY`, `O_APPEND`, etc.|
+|**F_SETFL**|Fija los indicadores de estado de `filedes` de acuerdo con el valor de `arg`.|
+|**F_GETOWN**|Devuelve el ID del proceso o el ID del grupo que actualmente está recibiendo las señales de `SIGIO` y `SIGURG`. Estas señales se verán en temas posteriores. |
+|**F_SETOWN**|Establece el ID del proceso o el ID del grupo que recibirán las señales de `SIGIO` y `SIGURG`. Un arg positivo especifica el ID del proceso. Un `arg` negativo implicar el ID de un grupo igual al valor absoluto de `arg`.|
+|**F_GETLK**|Devuelve el primer candado que se encuentra bloqueando la región del archivo referenciado por `filedes` y descrito en la estructura de tipo `struct flock` recibida como `arg`. La información devuelta sobreescribe la información pasada a `fcntl` en  `arg`. Si no se encuentra ningún candado sobre esa región, la estructura es devuelta sin cambios, excepto en el campo `l_type`, donde se activa el bit`F_UNLCK`.|
+|**F_SETLK**|Activa o desactiva un candado sobre la región del archivo referenciado por `filedes` y descrita por la estructura de tipo `struct flock` recibida como `arg`. La orden `F_SETLK` se utiliza para establecer un candado de lectura (`F_RDLCK`), de escritura (`F_WRLCK`) o para eliminar uno existente (F_UNLCK). Si no se puede establecer alguno de estos candados, la función termina inmediatamente y regresa el valor de -1.|
+|**F_SETLKW**|Esta orden es la misma que `F_SETLK`, con la diferencia de que si no se puede establecer algún candado, porque lo impiden otros ya establecidos, el proceso se pondrá a dormir hasta que se den las condiciones que lo permitan.|
+
+Un candado de lectura indica que el proceso actual está leyendo el archivo, por lo que ningún otro proceso debe escribir en el área bloqueada. Puede haber varios candados de lectura simultáneos sobre una misma región de un archivo.
+
+Un candado de escritura indica que el proceso actual está escribiendo en el archivo, por lo que ningún proceso debe leer o escribir del área bloqueada. Sólo puede haber un candado de escritura sobre una misma área del archivo.
+
+La estructura `struct flock` se define como sigue:
+
+```c
+struct flock {
+	short l_type; /* Tipo de candado: 
+			F_RDLCK – lectura, 
+			F_WRLCK – escritura, 
+			F_UNLCK – eliminar candado */
+	int l_whence; /* Punto al que se refiere la posición de la región a bloquear:
+			SEEK_SET – origen del archivo
+			SEEK_CUR – posición actual
+			SEEK_END – final del archivo*/
+	off_t l_start; /* Posición relativa de inicio a punto indicado por l_whence */
+	off_t l_len; /* Longitud de la región a bloquear. Si vale 0, se bloquea desde el punto indicado en l_start hasta  el final del archivo*/
+	pid_t l_pid; /* Identificador del proceso (PID) que tiene establecido el candado. Devuelto con la orden F_GETLK*/
+	long l_sysid; /* Identificador del sistema que tiene establecido el candado. Devuelto con la orden F_GETLK*/
+};
+```
+
+Los candados fijados por un proceso sobre un archivo se borran cuando el proceso termina. Además, los candados no son heredados por los procesos hijos tras la llamada `fork`.
+
+Si `fcntl` no se ejecuta satisfactoriamente, regresa el valor de -1 y en `errno` estará codificado el tipo de error producido.
