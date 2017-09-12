@@ -108,7 +108,7 @@
 <p>En la figura podemos ver cuatro partes:</p>
 
 <ul>
-<li><n>El sector de arranque</n> (MBR) ocupa la parte del principio del sistema de archivos, típicamente el primer sector, y puede contener el código de arranque. Este código es un pequeño programa (GRUB, NTLOADER, LILO) que se encarga de buscar el sistema operativo y cargarlo en memoria para inicializarlo.</li>
+<li><b>El sector de arranque</b> (MBR) ocupa la parte del principio del sistema de archivos, típicamente el primer sector, y puede contener el código de arranque. Este código es un pequeño programa (GRUB, NTLOADER, LILO) que se encarga de buscar el sistema operativo y cargarlo en memoria para inicializarlo.</li>
 <li></li>
 <li></li>
 <li></li>
