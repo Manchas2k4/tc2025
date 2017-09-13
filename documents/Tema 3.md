@@ -676,3 +676,168 @@ Si ejecutamos las siguientes líneas de comando, veremos cómo se comportan los 
 ## 3.3 Administración de archivos
 Ahora vamos a estudiar una serie de llamadas al sistemas que nos van a permitir acceder y cambiar la información de tipo administrativo y estadístico de un archivo.
 
+### 3.3.1 Funciones stat, Fstat y Lstat
+Todas son funciones que devuelven la información que se almacena en la tabla de nodos-i sobre el estado de un archivo concreto. La declaración de estas funciones es:
+
+```c
+#include <sys/types.h>
+#include <sys/stat.h>
+int stat(const char *path, struct stat *buf);
+int fstat(int filedes, struct stat *buf);
+int lstat(const char *path, struct stat *buf);
+```
+
+La diferencia entre `stat` y `fstat` es que la primera recibe como primer parámetro un apuntador al nombre del archivo (`path`), mientras que la segunda trabaja con un archivo ya abierto y le debemos pasar su descriptor (`filedes`).
+
+Ambas funciones devuelven, a través de la estructura apuntada por `buf`, la información estadística del archivo.
+
+`lstat` trabaja de forma similar a `stat` excepto cuando el nombre del archivo corresponde a un enlace simbólico. En este caso, `lstat` devuelve la información correspondiente al archivo que sirve de enlace mientras que `stat` devuelve información correspondiente al archivo al cual apunta el enlace.
+
+Si la llamada se ejecuta correctamente, devuelve el valor 0; en caso contrario, devuelve -1 y en `errno` podremos consultar el tipo de error producido.
+
+La información administrativa del archivo se almacena en una estructura de tipo `struct stat`. Este tipo está definido en el archivo cabecera `<sys/stat.h>`. Según la versión de Unix/Linux con la que trabajemos, la estructura `stat` tendrá algunas campos u otros (consultar `stat(5)`). A continuación listamos algunas de los campos estándar de esta estructura:
+
+```c
+struct stat {
+	mode_t st_mode; /* 16 bits que codifican el modo del archivo.*/
+inot_t st_ino; /* Número del nodo-i.*/
+	dev_t st_dev; /* Número del dispositivo que contiene el nodo-i.*/
+	dev_t st_rdev; /* Identificador de dispositivo. Tiene significado 
+				únicamente para los archivos especiales en modo 
+				carácter y en modo bloque.*/
+	nlink_t st_nlink; /* Número de enlaces al archivo.*/
+	uid_t st_uid; /* Identificador de usuario (UID) del propietario del
+				archivo.*/
+	gid_t set_gid; /* Identificador del grupo (GID) al que pertenece el propietario del archivo.*/
+	off_t st_size; /* Tamaño, en bytes, del archivo.*/
+	time_t st_atime; /* Fecha del último acceso al archivo (lectura).*/
+	time_t st_mtime; /* Fecha de la última modificación del archivo.*/
+	time_t st_ctime; /* Fecha del último cambio de la información
+				administrativa del archivo (cambio de propietario, permisos, etc.). Todas las fechas se miden en segundos con respecto a las 00:00:00 GMT del día 1 de enero de 1970.*/
+	blksize_t st_blksize; /* Bloque de E/S óptimo.*/
+	blkcnt_t st_blocks; /* Número de bloques de discos utilizados.*/
+};
+```
+
+Los tipos `dev_t`, `ino_t`, `mode_t`, `nlink_t`, `uid_t`, `gid_t`, `blksize_t`, `blkcnt_t`, `off_t` y `time_t` están definidos en el archivo cabecera `<sys/types.h>` y suelen ser alias de los tipos de datos `short`, `int` y `long`.
+
+### 3.3.3 Tipos de Archivo
+La mayoría de los archivos en Unix/Linux son archivos ordinarios (regulares) o directorios, pero existen tipos adicionales. Los tipos son:
+
+* Archivo ordinario: El tipo más común de archivo, el cual contiene datos en alguna forma. Para Unix/Linux no existe distinción entre información guardada en formato texto o binario. Cualquier interpretación del contenido del archivo es dejada al programa que procese el archivo. Un caso especial son los archivos binarios ejecutables. Para ejecutar un programa, el kernel debe entender su formato. 
+* Archivo directorio. Este archivo contiene los nombres de otros archivos y apuntadores a la información de los mismos. Cualquier proceso que tenga derecho de lectura sobre un archivo directorio puede leer su contenido, pero el único que puede escribir es el kernel. Un proceso puede usar las funciones descriptas en este tema para realizar cambios en un directorio.
+* Archivo especial de bloque: Un tipo de archivo que provee acceso de entrada/salida con buffer en unidades de tamaño fijo a dispositivos tales como discos duros.
+* Archivo especial de carácter: Un tipo de archivo que provee acceso de entrada/salida sin buffer en unidades de longitud variable a dispositivos. Todos los dispositivos en un sistema pueden ser de bloque o carácter.
+* FIFO: Un tipo de archivo usado para comunicación entre procesos. Algunas veces llamados pipes.
+* Socket: Un tipo de archivo utilizado para comunicaciones de red entre procesos. Un socket también puede ser usado para comunicaciones entre procesos en un solo host.
+* Enlace simbólico: Un tipo de archivo que apunta hacia otro archivo. 
+
+### 3.3.4 Modos de un Archivo
+Al estudiar la función `open` hemos visto que cada archivo tiene asociada una máscara de 9 bits que indica los permisos de lectura, escritura y ejecución que tiene el propietario, grupo y demás usuarios sobre el archivo. En realidad, estos 9 bits forman parte de una máscara más amplia, conocida como modo del archivo. La máscara de modo se compone de 16 bits cuyo significado es el que se muestra en la siguiente figura:
+
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/Imagenes_Tema3/e.png "Significado máscara de modo")
+
+En el archivo cabecera `<sys/stat.h>` hay definidas unas constantes para acceder a los bits de modo y extraer su información. Las constantes definidas son:
+
+Bits|Constante|Valor|Significado   
+:---:|:---:|:---:|:---:
+**15-12** | `S_IFMT`<br>`S_IFREG`<br>`S_IFDIR`<br>`S_IFCHR`<br>`S_IFBLK`<br>`S_IFIFO`<br>`S_IFSOCK`|`0170000`<br>`0100000`<br>`040000`<br>`020000`<br>`060000`<br>`010000`<br>`0140000`|Tipo de archivo:<br>Ordinario<br>Directorio<br>Especial modo carácter<br>Especial modo bloque<br>FIFO<br>Conector (Socket)
+**11**|`S_ISUID`|`04000`|Activar ID del usuario al ejecutar
+**10**|`S_ISGID`|`02000`|Activar ID del grupo al ejecutar
+**9**|`S_ISVTX`|`01000`|Stiky Bit
+**8**|`S_IRUSR`|`0400`|Permiso de lectura para el usuario
+**7**|`S_IWUSR`|`0200`|Permiso de escritura para el usuario
+**6**|`S_IXUSR`|`0100`|Permiso de ejecución para el usuario
+**5**|`S_IRGRP`|`040`|Permiso de lectura para el grupo
+**4**|`S_IWGRP`|`020`|Permiso de escritura para el grupo
+**3**|`S_IXGRP`|`010`|Permiso de ejecución para el grupo
+**2**|`S_IROTH`|`04`|Permiso de lectura para otros
+**1**|`S_IWOTH`|`02`|Permiso de escritura para otros
+**0**|`S_IXOTH`|`01`|Permiso de ejecución para otros
+
+Podemos usar estas constantes como filtros sobre el bit que nos interese. Hay que advertir que para determinar el tipo de archivo se debe usar la máscara `S_IFMT`. Por ejemplo, si queremos saber si un archivo es un directorio o no, se deber usar una expresión cómo:
+
+`if ((mode & S_IFMT) == S_IFDIR)`
+
+Porque si utilizamos,
+
+`if ((mode & S_IFDIR) == S_IFDIR)`
+
+Nos dará también el valor lógico de verdad cuando ese archivo sea de tipo especial de bloque.
+
+Hay tres bits cuyo significado no se ha definido de momento, son: `S_ISUID` (no. 11), `S_ISGID`(no. 10) y `S_ISVTX` (no. 9). Vamos a ver qué significan:
+
+* `S_ISUID`(cambiar el identificador del usuario en ejecución) le indica al kernel que cuando un proceso accede a este archivo, cambie el identificador de usuario del procesos y le ponga el del archivo. Esto tiene una aplicación cuando intentamos acceder a archivos que son de otro usuario y no tenemos permiso para escribir en ellos. Como ejemplo vamos a mencionar la orden `passwd` (utilizada para cambiar la clave de acceso). Al cambiar de clave, la nueva se debe guardar en el archivo `/etc/passwd`; sin embargo, este archivo sólo puede ser modificado por un usuario con privilegios de superusuario. Ante este impedimento, a un usuario normal le resultaría imposible cambiar de clave. No obstante, la realidad es distinta; como el programa `passwd` tiene activo el bits de `S_ISUID`, al ejecutarlo nos convertimos momentáneamente en superusuarios, porque nuestro UID cambia y toma el valor del usuario `root` (propietario de `passwd`), pudiendo así escribir sobre el archivo `/etc/passwd`, cuyo propietario es también `root`.
+* `S_ISGID` (cambiar el identificador del grupo en ejecución) tiene un significado parecido al de `S_ISUID`, pero referido al grupo de usuarios al que pertenece el propietario del archivo. Así, cuando ejecutamos un programa que tiene activo ese bit, nuestro GID (identificador de grupo) toma el valor del GID del propietario del programa.
+* `S_ISVTX` (stiky bit) le indica al kernel que este archivo es un programa con capacidad para que varios procesos compartan su segmento de código y que este segmento se debe mantener en memoria, aun cuando alguno de los procesos que lo utiliza deje de ejecutarse o pase al área de swap. La técnica de compartir el mismo código entre varios procesos permite gran ahorro de memoria en el caso de programa muy utilizados, como editores de texto, compiladores, etc.
+
+Otra manera de determinar el tipo de archivo es usar las macros definidas en `<sys/stat.h>`. El argumento de cada una de estas macros es el campo `st_mode` que se obtiene de la estructura `stat`.
+
+Macro|Tipo de archivo
+:---:|:---:
+**S_ISREG()**|Archivo ordinario
+**S_ISDIR()**|Archivo directorio
+**S_ISCHR()**|Archivo especial de carácter
+**S_ISBLK()**|Archivo especial de bloque
+**S_ISFIFO()**|FIFO o pipe
+**IS_ISLNK()**|Enlace simbólico
+**S_ISSOCK()**|Socket
+**S_TYPEISMQ()**|Fila de mensajes
+**S_TYPEISSEM()**|Semáforo
+**S_TYPEISSSHM()**|Objeto de memoria compartida
+
+Un ejemplo del uso de estas macros sería:
+
+```c
+#include <stdlib.h>
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
+int main(int argc, char *argv[]) {
+	int i;
+	struct stat buf;
+	char *ptr;
+	
+	for (i = 1; i < argc; i++) {
+		fprintf(stdout, "%s: ", argv[i]);
+		if (lstat(argv[i], &buf) < 0) {
+			fprintf(stdout, "error de lstat\n");
+		} else {
+			if (S_ISREG(buf.st_mode)) {
+				ptr = "ordinario";
+			} else if (S_ISDIR(buf.st_mode)) {
+				ptr = "directorio";
+			} else if (S_ISCHR(buf.st_mode)) {
+				ptr = "especial caracter";
+			} else if (S_ISBLK(buf.st_mode)) {
+				ptr = "especial bloque";
+			} else if (S_ISFIFO(buf.st_mode)) {
+				ptr = "fifo";
+			} else if (S_ISLNK(buf.st_mode)) {
+				ptr = "enlace simbólico";
+			} else if (S_ISSOCK(buf.st_mode)) {
+				ptr = "socket";
+			} else {
+				ptr = "*** tipo desconocido ***";
+			}
+			fprintf(stdout, "%s\n", ptr);
+		}
+	}
+	return EXIT_SUCCESS;
+}
+```
+
+El programa anterior imprime el tipo de archivo para cada argumento que recibe de la línea de comando. Este sería un ejemplo de su salida:
+
+```c
+$ ./a.out /etc/passwd /etc /dev/initctl /dev/log /dev/tty /dev/sda1  /dev/cdrom
+/etc/passwd: ordinario
+/etc: directorio
+/dev/initctl: fifo
+/dev/log: socket
+/dev/tty: especial caracter
+/dev/sda1: especial bloque
+/dev/cdrom: enlace simbólico
+$
+```
