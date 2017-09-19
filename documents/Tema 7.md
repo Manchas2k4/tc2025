@@ -10,6 +10,7 @@ Los procesos pueden enviarse señales unos a otros a través de la llamada `kill
 ![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/Tarea%207.jpg "Tarea 7 Foto 1")
 
 En la figura anterior vemos esquematizada la evolución temporal de un proceso y cómo, a lo largo de su ejecución, recibe las señales procedentes del kernel. La primera señal que recibe no provoca que el proceso cambie el curso de su ejecución, esto es debido a que la acción que está activada es que el proceso ignore la señal. El proceso prosigue su ejecución y recibe una segunda señal que lo fuerza a entrar en una rutina de tratamiento. Esta rutina, después de tratar la señal, puede optar por tres acciones: restaurar la ejecución del proceso al punto donde se produjo la interrupción, finalizar el proceso o restaurar alguno de los estados pasados del proceso y continuar la ejecución desde ese punto (más adelante veremos que esto se consigue con las funciones estándar `sigsetjmp` y `siglongjmp`). El proceso puede también recibir una señal que lo fuerce a entrar en la rutina de tratamiento por defecto.
+
 En las siguientes secciones volveremos a hablar sobre estos conceptos y veremos cómo se especifica cuál de las tres formas es la elegida para tratar una señal.
 ## 7.2 Tipos de Señales
 Cada señal tiene asociado un número entero positivo, que es intercambiado cuando algún proceso envía una señal a otro. En UNIX System V hay definidas 19 señales, 4.3BSD, Mac y Linux tienen 31, mientras que Solaris soporta 38.  Las señales están prácticamente en todas las versiones de UNIX, y a éstas cada fabricante le añade las que considera necesarias. Podemos clasificar las señales en los siguientes grupos:
@@ -21,8 +22,5 @@ Cada señal tiene asociado un número entero positivo, que es intercambiado cuan
 -	Señales para ejecutar un proceso paso a paso. Son usadas por los depuradores.
 En el archivo de cabecera `<signal.h>` están definidas las señales que pueden ser manejar por el sistema y sus nombres. 
 | **Señal**     | **Significado*|    
-| ------------- |:-------------:| 
-| col 3 is      | Desconexión. Es enviada cuando una terminal se desconecta de todo proceso del que es terminal de control. También se envía a todos los procesos de un grupo cuando el líder del grupo termina su ejecución. La acción por defecto de esta señal es terminar la ejecución del proceso que la recibe.| 
-| col 2 is      | centered      |   
-| zebra stripes | are neat      |   
+
 
