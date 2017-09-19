@@ -537,3 +537,4 @@ fd_set fd_var;
 FD_ZERO(&fd_var); /* Pone a cero todos los bits de fd_var. */
 FD_SET(5, &fd_var); /* Activa en fd_var el bit correspondiente al descriptor 5. */
 ```
+
