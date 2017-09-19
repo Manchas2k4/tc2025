@@ -72,5 +72,35 @@ int kill(pid_t pid, int sig);`
 **pid = -1**|La señal es enviada a todos aquellos procesos cuyo identificador real es igual al identificador efectivo del proceso que la envía. Si el proceso que la envía tiene identificador efectivo de superusuario, la señal es enviada a todos los procesos, excepto al proceso 0 (`swapper`) y al proceso 1 (`init`).
 **pid < -1**|La señal es enviada a todos los procesos cuyo identificador de grupo coincide con el valor absoluto de `pid`.
 
+En todos los casos, si el identificador efectivo del proceso no es el del superusuario o si el proceso que envía la señal no tiene privilegios sobre el proceso que la va a recibir, la llamada a `kill` falla.
+
+`sig` es el número de la señal que queremos enviar. Si `sig` vale 0 (señal nula), se efectúa una comprobación de errores, pero no se envía ninguna señal. Esta opción se puede utilizar para verificar la validez del identificador `pid`.
+
+Si el envío se realiza satisfactoriamente, `kill` devuelve 0; en caso contrario, devuelve -1 y en `errno` estará el código del proceso producido.
+En el siguiente ejemplo vemos cómo un proceso envía una señal a su proceso hijo para forzar su terminación.
+`#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+
+int main(int argc, char *argv[]) {
+	int pid;
+	
+	if ((pid = fork()) == 0) {
+		while (1) {
+			fprintf(stdout, "HIJO. PID = %d\n", getpid());
+			sleep(1);
+		}
+	}
+	sleep(10);
+	fprintf(stdout, "PADRE. Terminacion del proceso %d\n", pid);
+	kill(pid, SIGTERM);
+	exit(0);
+}`
+
+Si queremos que un proceso se envíe señales a sí mismo, podemos usar la llamada `raise`. Su declaración es:
+
+#include <signal.h>
+int raise(int sig);
 
 
