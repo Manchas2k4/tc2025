@@ -41,7 +41,7 @@ Cuando la tubería está llena, las llamadas a `write` quedan desbloqueadas hast
 
 Como ejemplo de aplicación, vamos a ver la forma de enviar datos desde un proceso emisor a un proceso receptor a través de una tubería sin nombre (ver la siguiente figura). Este ejemplo es el mismo que vimos para ilustrar la sincronización mediante señales de dos procesos.  Ahora veremos que sólo tenemos que preocuparnos por los aspectos de envío y recepción, ya que la sincronización es algo que resuelve el kernel.
 
-![alt text] (https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/8_1.png "Ejemplo")
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/8_1.png "Ejemplo")
 
 ```c
 #include <stdio.h>
