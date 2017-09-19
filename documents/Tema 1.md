@@ -244,6 +244,7 @@
 <h2>3.2 UN BREVE TUTORIAL</h2>
 
 <p>Antes de ver a profundidad al gcc, veremos un pequeño ejemplo que nos ayudará para empezar a usarlo. Hagamos un “hola mundo”.</p>
+
 ```c
 #include <stdio.h>
 
@@ -251,7 +252,14 @@ int main () {
   fprintf (stdout, "Hola Mundo!!!\n");
 }
 ```
-<p></p>
+<p>Para compilar y correr este programa, debemos ejecutar las siguientes instrucciones:</p>
+
+```
+$ gcc programa1.c -o programa
+$ ./programa1
+$Hola Mundo!!!
+$
+```
 
 <p></p>
 
