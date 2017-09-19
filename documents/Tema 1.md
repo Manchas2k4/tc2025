@@ -22,7 +22,7 @@
 
 <p>Unix/Linux puede ser dividido en tres capas:</p> 
 
-![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/github1.png)
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/github1.png)
 
 <p>El nivel más interno no pertenece realmente al sistema operativo, si no que es el hardware, la máquina sobre la que está implementado el sistema y cuyos recursos queremos gestionar.</p>
 
@@ -44,7 +44,7 @@
 
 <p>Las llamadas al sistema se ejecutan en modo kernel (o modo supervisor) y para entrar en este modo hay que ejecutar una sentencia en código máquina como trap (o interrupción de software). Es por esto que las llamadas al sistema pueden ser invocadas  directamente desde ensamblador y no desde C/C++.</p>
 
-![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/imagentema1.png)
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/imagentema1.png)
 
 <p>En la figura anterior podemos apreciar que el núcleo está dividido en dos subsistemas principales: subsistema de archivos y subsistema de control de procesos.</p>
 
@@ -103,7 +103,7 @@
 
 <p>La estructura de un sistema de archivos en Unix/Linux es:</p>
 
-![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/imagentema1(2).png)
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/imagentema1(2).png)
 
 <p>En la figura podemos ver cuatro partes:</p>
 
@@ -185,7 +185,7 @@
 
 <p>Para conseguir que el tamaño de un nodo-i sea pequeño y a la vez podamos manejar archivos grandes, las entradas de direcciones de un nodo-i se ajustan al siguiente esquema:</p>
 
-![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/imagentema1(3).png)
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/imagentema1(3).png)
 
 <p>Los nodos-i tienen 13 entradas. Las entradas marcadas como directas, en la figura, contienen direcciones de bloques en los que hay datos del archivo. La entrada marcada como indirecta simple direcciona un bloque de datos que contiene una tabla de direcciones de bloques de datos. Para acceder a los datos a través de una entrada indirecta, el kernel debe leer el bloque cuya dirección nos indica la entrada indirecta y buscar en él la dirección del bloque donde realmente está el dato, para a continuación leer ese bloque y acceder al dato. La entrada marcada como indirecta doble contiene la dirección de un bloque cuyas entradas actúan como entradas indirectas simples y la entrada indirecta triple direcciona un bloque cuyas entradas son indirectas dobles.</p>
 
@@ -193,23 +193,57 @@
 
 <p>Vamos a ver el caso práctico en el que los bloques son de 1 Kbyte y el bloque se direcciona con 32 bits (232 = 4 Gdirecciones posibles). En esta situación, un bloque de datos puede almacenar 256 direcciones de bloques y un archivo podría llegar a tener un tamaño de 16 Gbytes.</p>
 
-![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/imagentema1(4).png)
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/imagentema1(4).png)
 
 <p>Los procesos acceden a los datos de un archivo indicando la posición, con respecto al inicio del archivo, del byte que queremos leer o escribir. El archivo es visto como una secuencia de bytes que empieza en el byte número 0 y llega hasta el byte cuya posición, con respecto al inicial, coincide con el tamaño del archivo menos uno. El kernel se encarga de transformar las posiciones de los bytes, tal y como las ve el usuario, a direcciones de los bloques de disco.</p>
 
 <p>Veamos un ejemplo. Supongamos un archivo cuyos datos están en los bloques que nos indican las entradas de direcciones del nodo-i descrito en la siguiente figura:</p>
 
-![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/imagentema1(5).png)
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/imagentema1(5).png)
 
 <p>Vamos a seguir suponiendo que el bloque tiene un tamaño de 1024 bytes. Si un proceso quiere acceder a un byte que se encuentra en la posición 9, 125 del archivo, el kernel calcula que ese byte está en el número 8 del archivo (empezando a numerar los bloques lógicos desde 0).</p>
 
 <p>En efecto:</p>
 
-![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/imagentema1(6).png)
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/imagentema1(6).png)
 
 <p>Para ver a qué bloque del disco corresponde el bloque lógico número 8 del archivo, hay que consultar el número de bloque almacenado en la entrada número 8 (entrada de dirección directa) de la tabla de direcciones del nodo-i. En el caso de la figura, el bloque de disco buscado es el 412. Dentro de este bloque, el byte 9,125 del archivo corresponde con el byte 933 con respecto al inicio del bloque (los bytes del bloque se numeran de 0 a 1023).</p>
 
 <p>En efecto:</p>
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/imagentema1(7).png)
+
+<p>En este ejemplo el cálculo ha sido sencillo porque el byte buscado era accesible desde una entrada directa nodo-i.</p>
+
+<p>Vamos a ver qué ocurre si queremos localizar en el disco el byte que se encuentra en la posición 425,000 del archivo. Si calculamos su bloque lógico de archivo, veremos que se encuentra en el bloque 415.</p>
+
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/imagentema1(8).png)
+
+<p>El total de bloques que podemos acceder con las entradas directas es de 10. Con la entrada indirecta simple podemos acceder a 256 direcciones, y con la indirecta doble, a 65,536. Por lo que el byte buscado estará en una entrada indirecta doble.</p>
+
+<p>A esta entrada pertenecen los bloques comprendidos entre los números lógicos de archivo 266 y 65,581 (incluyéndolos) y el bloque buscado es el 415. Si nos fijamos en la figura, el número de bloque que contiene la entrada indirecta doble es el 12,456, que es el bloque de disco donde están las direcciones de los bloques con entradas indirectas simples.</p>
+
+<p>La entrada número 0 del bloque indirecto doble nos da acceso a los bloques de archivo comprendidos entre el 266 y el 521, ya que cada entrada actúa como indirecto simple y da acceso a 256 bloques de datos. En la entrada 0 vemos que el número de bloque de disco del bloque indirecto simple que buscamos es 158. Dentro del bloque indirecto simple, la entrada que nos interesa es la diferencia entre 415 (bloque lógico del archivo) y 266 (bloque inicial al que da acceso el indirecto doble) que es 149. Según la figura, la entrada 149 del bloque de disco 158 contiene el número 9,126. Es en el bloque de disco 9,126 donde se encuentra el dato que buscamos, y en el byte 40 de este bloque está el byte 425,00 de nuestro archivo.</p>
+
+![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/imagentema1(9).png)
+
+<p>Si observamos la figura anterior con más detenimiento, vemos que hay algunas entradas del nodo-i que están en 0. Esto significa que no referencian a ningún bloque del disco y que los bloques lógicos correspondientes del archivo no tienen datos. Esta situación se da cuando se crea un archivo y nadie escribe en los bytes correspondientes a estos bloques, por lo que permanecen en su valor inicial 0. Al no reservar el sistema bloques de discos para estos bloques lógicos, se consigue ahorro de los recursos del disco. Imaginemos que creamos un archivo y sólo escribimos un byte en la posición 1,048,276, esto significa que el archivo tiene un tamaño de 1 Mbyte. Si el sistema reservase bloques de discos para este archivo en función de su tamaño y no en función de los bloques lógicos que realmente tiene ocupados, nuestro archivo ocuparía 1024 bloques de discos en lugar de 1, como en realidad ocupa.</p>
+
+<h1>3. USANDO EL GNU CC</h1>
+
+<h2>3.1 CARACTERÍSTICAS DEL GNU CC</h2>
+
+<p>gcc es uno de los compiladores mas usados en los ambientes de programa Unix/Linux. Es un compilador muy versátil y flexible. El compilador gcc nos permite:</p>
+
+<ul>
+<li>Detener el proceso de compilación en cualquier etapa y examinar la salida que nos da el compilador en cada una de ellas.</li>
+<li>Es capaz de manejar varios dialectos de C, como ANSI C. Así como compilar programas en C++ y Objective C. </li>
+<li>Se puede controlar la cantidad y tipo de información de “debugging” que estará embebida en el archivo binario resultante.</li>
+<li>Realizar optimización del código generado.</li>
+</ul>
+
+<h2>3.2 UN BREVE TUTORIAL</h2>
+
+<p>Antes de ver a profundidad al gcc, veremos un pequeño ejemplo que nos ayudará para empezar a usarlo. Hagamos un “hola mundo”.</p>
 
 <p></p>
 
