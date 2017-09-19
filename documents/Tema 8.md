@@ -41,3 +41,62 @@ Cuando la tubería está llena, las llamadas a `write` quedan desbloqueadas hast
 
 Como ejemplo de aplicación, vamos a ver la forma de enviar datos desde un proceso emisor a un proceso receptor a través de una tubería sin nombre (ver la siguiente figura). Este ejemplo es el mismo que vimos para ilustrar la sincronización mediante señales de dos procesos.  Ahora veremos que sólo tenemos que preocuparnos por los aspectos de envío y recepción, ya que la sincronización es algo que resuelve el kernel.
 
+![alt text] (https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/8_1.png "Ejemplo")
+
+```c
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+#define MAX 256
+
+void limpia(char *cadena) {
+	char *p = strchr(cadena, '\n');
+	if (p) {
+		*p = '\0';
+	}
+}
+
+int main(int argc, char * argv[]) {
+	int tuberia[2];
+	int pid;
+	char mensaje[MAX];
+	
+	if (pipe(tuberia) < 0) {
+		perror("pipe");
+		return -1;
+	}
+	
+	if ((pid = fork()) < 0) {
+		perror("fork");
+		return -1;
+	} else if (pid == 0) {
+		while (read(tuberia[0], mensaje, MAX) > 0 &&
+			strcmp(mensaje, "FIN") != 0) {
+			limpia(mensaje);
+			fprintf(stdout, "PROCESOR RECEPTOR, MENSAJE: %s\n", mensaje);
+			strcpy(mensaje,"");
+		}
+		close(tuberia[0]);
+		close(tuberia[1]);
+		return 0;
+	} else {
+		do {
+			fprintf(stdout, "PROCESO EMISOR, MENSAJE: ");
+			fgets(mensaje, MAX, stdin);
+			limpia(mensaje);
+			write(tuberia[1], mensaje, strlen(mensaje) + 1);
+		} while (strcmp(mensaje, "FIN") != 0);
+		close(tuberia[0]);
+		close(tuberia[1]);
+		return 0;
+	}
+}
+```
+
+## 8.3 Comunicación Bidireccional
+Uno de los problemas que presenta el programa del apartado anterior es la falta de comunicación entre el proceso hijo y el padre, de tal forma que el proceso emisor puede pedirnos que introduzcamos más mensajes antes de que el proceso receptor haya presentado el mensaje que acabamos de enviarle. Para solucionar este problema tenemos que implementar algún tipo de protocolo entre los procesos.
+
+Para implementar esta comunicación, necesitamos otra tubería que sirva de canal entre el proceso receptor y el emisor. Podríamos sentirnos tentados a aprovechar una sola tubería como canal bidireccional, pero esto plantea problemas de sincronismo y tendríamos que ayudarnos de señales o semáforos para controlar el acceso a la tubería. En efecto, si un proceso escribe en la tubería un mensaje para otro proceso y se pone a leer de ella la respuesta que le envía éste, puede darse el caso de que lea el mensaje que él mismo envió.
+
+Lo mejor es valernos de dos tuberías (como se muestra en la siguiente figura), una lleva los mensajes que van del proceso A al proceso B, y la otra lleva los mensajes en sentido contrario.
