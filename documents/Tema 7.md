@@ -21,6 +21,10 @@ Cada señal tiene asociado un número entero positivo, que es intercambiado cuan
 -	Señales relacionadas con la interacción con la terminal. Por ejemplo, pulsar la tecla break.
 -	Señales para ejecutar un proceso paso a paso. Son usadas por los depuradores.
 En el archivo de cabecera `<signal.h>` están definidas las señales que pueden ser manejar por el sistema y sus nombres. 
-| **Señal**     | **Significado*|    
+
+señal|significado
+---|---
+
+
 
 
