@@ -343,7 +343,7 @@ Los puntos que se enumeran a continuación van a ser relevantes cuando estemos d
 Con respecto a este punto conviene tener en cuenta los siguientes apartados:
 
 <ul>
-<li>•	Las partes del programa que no sean transportables de un ordenador a otro deben estar perfectamente localizadas y aisladas del resto del programa.
+<li>Las partes del programa que no sean transportables de un ordenador a otro deben estar perfectamente localizadas y aisladas del resto del programa.
 
 Las incompatibilidades pueden deberse a diferentes causas:
 
@@ -385,10 +385,236 @@ La primera solución que podemos aportar consiste en escribir un archivo de proc
 Aunque esta solución es válida y cómoda, sin embargo, presenta algunos inconvenientes:
 
 <ol>
-<li>Cada vez que se ejecuta el archivo se recompilan todos los módulos fuentes.</li>
+<li>Cada vez que se ejecuta el archivo se recompilan todos los módulos fuentes.
 
 Supongamos que la aplicación se compone de 50 módulos y que por necesidades de depuración se han modificado 5 de ellos. Al ejecutar la orden de compilar, se van a recompilar los 50 módulos cuando sólo es necesario recompilar los 5 que han sido modificados. Esta forma de trabajo acarrea pérdidas de tiempo innecesarias.
+</li>
+
 
 <li>2.	En el archivo de procesamiento por lotes no quedan reflejadas todas las relaciones que existen entre los distintos archivos de la aplicación; en concreto, no están reflejadas las relaciones entre archivos de cabera y fuente.</li>
 </ol>
 
+El programa `make` fue diseñado para solucionar estas y otras deficiencias y poder automatizar las compilación de aplicaciones. Aunque aquí vamos a ver la forma de recompilar aplicaciones escritas en C/C++, el programa make se puede utilizar para gestionar proyectos escritos en otros lenguajes y para gestionar trabajos que no estén relacionados con el desarrollo de programas.
+
+La sintaxis de esta orden es:
+
+`make [-f makefile] [opciones] [objetivos]`
+
+El programa make lee del archivo makefile la especificación de cómo los componentes de una aplicación están relacionados entre sí y cómo procesarlos para crear una versión actualizada del programa.
+
+El archivo `makefile` se especifica con la opción `-f makefile`. Si esta opción no está presente, los archivos que se van a considerar por defecto son: `makefile` y `Makefile`. El nombre `Makefile` es el utilizado con más frecuencia por los programadores.
+
+Objetivos suele ser el nombre del programa o programas que se deben generar como resultado de la actualización realizada por `make`. Conocida la relación entre módulos, `make` revisa la fecha de la última modificación de los archivos y determina la cantidad mínima de recompilación necesaria para generar una nueva versión del programa.
+
+Una vez determinadas las órdenes que se deben ejecutar para regenerar la aplicación, el programa `make` se encarga de invocarlas.
+
+<h2>4.3 SINTAXIS DE UN ARCHIVO MAKEFILE</h2>
+
+Un archivo `Makefile` consiste de un conjunto de dependencias y reglas. Una dependencia tiene un objetivo (un archivo a crear) y un conjunto de archivos de los cuales depende. Las reglas describen cómo crear el archivo objetivo con base en los archivos dependencia.
+
+Ahora veremos un ejemplo de un archivo `Makefile`:
+```
+1 editor : editor.o screen.o keyboard.o
+2	gcc -o editor editor.o screen.o keyboard.o
+3 editor.o : editor.c editor.h keyboard.h screen.h
+4	gcc -c editor.c
+5 screen.o : screen.c screen.h
+6	gcc -c screen.c
+7 keyboard.o : keyboard.c keyboard.h
+8	gcc -c kerboard.c
+9 clean :
+10	-rm editor *.c
+```
+
+Para compilar editor, simplemente se ejecuta la siguiente instrucción:
+
+`$ make -f Makefile`
+
+Este archivo `Makefile` tiene 5 reglas. La primera, `editor`, es llamada objetivo por defecto (el archivo que `make` tratará de crear), tiene tres dependencias, `editor.o`, `screen.o` y `keyboard.o`; estos tres archivos deben de existir para que `editor` pueda ser creador. La línea 2 es el comando que make debe ejecutar. Las siguientes líneas contienen las reglas para crear cada archivo individual.
+
+<h2>4.3.1 OBJETIVOS FALSOS (PHONY)</h2>
+
+Además de los archivos objetivos normales, `make` nos permite especificar objetivos falsos (Phony Targets). Los objetivos falsos son nombrados así porque no corresponden a un archivo real. En el ejemplo anterior, `clean` es un objetivo falso. Estos objetivos existen para especificar comandos que `make` debe ejecutar. Sin embargo, dado que `clean` no tiene dependencias, sus comandos no son ejecutados automáticamente. Esto debido a lo siguiente: al momento de encontrar el objetivo `clean`, `make` ve si las dependencias existen y, como `clean` no tiene dependencias, `make` asume que el objetivo está actualizado. Si queremos usar este objetivo, el comando debería ser:
+
+`$ make -f makefile clean`
+
+De esta forma, `clean` remueve los archivos generados previamente (ejecutable y objeto). Si estamos pensando en distribuir nuestro programa, siempre es recomendable poner un objetivo `clean` que nos permita limpiar los directorios de trabajo.
+
+<h2>4.3.2 VARIABLES</h2>
+
+Para simplificar la edición y mantenimiento de los archivos Makefile, make nos permite crear y usar variables. Una variable es, simplemente, un nombre definido en el archivo que representa un texto; este texto es llamado valor de la variable. Una variable se define, de forma general, así:
+
+`VARNAME = texto`
+
+Para obtener el valor de esa variable, se debe encerrar el nombre entre paréntesis y precedido del símbolo $:
+
+`${VARNAME}`
+
+Las variables están, usualmente, definidas en la parte superior de un archivo Makefile. Por convención, los nombres de las variables se definen en mayúsculas, aunque no es requerido. 
+
+Si cambia algún valor sólo es necesario hacer un cambio en vez de muchos, simplificando el mantenimiento.
+
+Otro ejemplo de un archivo Makefile. Esta vez conteniendo el manejo de variables y objetivos falsos.
+
+```
+1 all: myapp
+2 # compilador
+3 CC = gcc
+4
+5 #donde instalar la aplicación
+6 INSTDIR = /usr/local/bin
+7
+8 #donde estan los archivos cabera
+9 INCLUDE = ./include/
+10	
+11 #opciones de compilación
+12 CFLAGS = -g -Wall -ansi
+13
+14 #opciones de distribución
+15 # CFLAGS = -O2 -Wall -ansi
+16
+17 myapp: main.o 2.o 3.o
+18	${CC} -o myapp main.o 2.o 3.o
+19
+20 main.o: main.c a.h
+21	${CC} -I${INCLUDE} ${CFLAGS} -c main.c	
+22
+23 2.o: 2.c a.h b.h
+24	${CC} -I${INCLUDE} ${CFLAGS} -c 2.c	
+25
+26 3.o: 3.c b.h c.h
+27	${CC} -I${INCLUDE} ${CFLAGS} -c 3.c	
+28
+29 clean:
+30	-rm myapp main.o 2.o 3.o
+31
+32 install: myapp
+33	@if [ -d ${INSTDIR} ]; \
+34			then \
+35			cp myapp ${INSTDIR}; \
+36			chmod a+x ${INSTDIR} /myapp; \
+37			chmod pg-w ${INSTDIR} /myapp; \
+38			echo “Instalado en ${INSTDIR}”; \
+39	else \
+40			echo “Error, ${INSTDIR} no existe”; \
+41	fi
+```
+
+El objetivo `install` es dependiente de `myapp`, de esta forma `make` sabe que primero es necesario crear la aplicación y después ejecutar la regla. En este caso la regla, en realidad, un script de shell. Debido a que `make` invoca un shell para ejecutar las reglas y usa un shell para cada regla, debemos agregar diagonales invertidas (\)a cada instrucción para que forme una sola línea lógica y sean pasadas como una sola instrucción al shell.
+
+El objetivo `install` ejecuta varias instrucciones, una después de otra, para instalar la aplicación en un directorio final. Pero no verifica si la instrucción se ejecutó correctamente, antes de pasar a la siguiente. Si queremos que exista esa verificación es necesario agregar && entre los comandos, de esta forma:
+
+```
+33	@if [ -d ${INSTDIR} ]; \
+34			then \
+35			cp myapp ${INSTDIR}; &&\
+36			chmod a+x ${INSTDIR} /myapp; &&\
+37			chmod pg-w ${INSTDIR} /myapp; &&\
+38			echo “Instalado en ${INSTDIR}”; \
+39	else \
+40			echo “Error, ${INSTDIR} no existe”; false; \
+41	fi
+```
+<h1>APÉNDICE: LA ESTRUCTURA DE UN COMPILADOR</h1>
+
+Por lo regular, consideramos al compilador como una caja simple que mapea un programa fuente a un programa destino con equivalencia semántica. Si abrimos esta caja un poco, podremos ver que hay dos procesos en esta asignación: análisis y síntesis.
+
+La parte de análisis divide el programa fuente en componentes e impone una estructura gramatical sobre ellas. Después utiliza esta estructura para crear una representación intermedia del programa fuente. Si la parte del análisis detecta que el programa fuente está mal formado en cuanto a la sintaxis, o que no tiene una semántica consistente, entonces debe proporcionar mensajes informativos para que el usuario pueda corregirlo. La parte del análisis también recolecta información sobre el programa fuente y la almacena en una estructura de datos llamada tabla de símbolos, la cual se papa junto con la representación intermedia a la parte de la síntesis.
+
+La parte de síntesis construye el programa destino deseado a partir de la representación intermedia y de la información en la tabla de símbolos. A la parte del análisis se le llama comúnmente el front-end del compilador; la parte de la síntesis (propiamente la traducción) es el back-end.
+
+Si examinamos el proceso de compilación con más detalle, podremos ver que opera como una secuencia de fases, cada una de las cuales transforma una presentación del programa fuente en otro. En la práctica varias fases pueden agruparse, y las representaciones intermedias entre las fases agrupadas no necesitan construirse de manera explícita. La tabla de símbolos, que almacena información sobre todo el programa fuente, se utiliza en todas las fases del compilador.
+
+Algunos compiladores tienen una fase de optimización de código independiente de la máquina, entre el front-end y el back-end. El propósito de esta optimización es realizar transformaciones sobre la representación intermedia, para que el back-end pueda producir un mejor programa destino de lo que hubiera producido con una representación intermedia sin optimizar.
+
+<h2>ANÁLISIS LÉXICO</h2>
+
+A la primera fase de un compilador se le llama análisis léxico o escaneo. El analizador léxico lee el flujo de los caracteres que componen el programa fuente y los agrupa en secuencias significativas, conocidas como lexemas. Para cada lexema, el analizador léxico produce como salida un token de la forma:
+
+`{ nombre_token, valor_atributo }`
+
+que pasa a la fase siguiente, el análisis de la sintaxis. En el token, el primer componente nombre-token es un símbolo abstracto que se utiliza durante el análisis sintáctico, y el segundo componente valor-atributo apunta a una entrada en la tabla de símbolos para este token. La información de la entrada en la tabla de símbolos se necesita para el análisis semántico y la generación de código.
+
+Por ejemplo, suponga que un programa fuente contiene la instrucción de asignación:
+
+`posicion = inicial + velocidad * 60`
+
+Los caracteres en esta asignación podrían agruparse en los siguientes lexemas y mapearse a los siguientes tokens que se pasan al analizador sintáctico:
+
+<ol>
+<li>`posicion` es un lexema que se asigna a un token `{id, 1}`, en donde id es un símbolo abstracto que representa la palabra identificador y 1 apunta a la entrada en la tabla de símbolos para posicion. La entrada en la tabla de símbolos para un identificador contiene información acerca de éste, como su nombre y tipo.</li>
+<li>2.	El símbolo de asignación = es un lexema que se asigna al token {=}. Como este token no necesita un atributo-valor, hemos omitido el segundo componente. Podríamos hacer utilizado cualquier símbolo abstracto como asignar para el nombre-token, pero por conveniencia de notación hemos optado por usar el mismo lexema como el nombre para el símbolo abstracto.</li>
+<li> `inicial` es un lexema que se asigna al token `{id, 2}`, en donde 2 apunta a la entrada en la tabla de símbolos para inicial.</li>
+<li>`+`es un lexema que se asigna al token `{+}`.</li>
+<li>`velocidad` es un lexema que se asigna al token `{id, 3}`, en donde 3 apunta a la entrada en la tabla de símbolos para `velocidad`.</li>
+<li>* es un lexema que se asigna al token {*}.</li>
+<li>`60` es un lexema que se asigna al token `{60}`.</li>
+</ol>
+
+El analizador léxico ignora los espacios en blanco que separan a los lexemas.
+
+La representación de la instrucción de asignación después del análisis léxico sería:
+
+`{id, 1} {=} {id,2} {+} {id,3} {*} {60}`
+
+En esta representación, los nombres de los tokens =, +, y * son símbolos abstractos para los operadores de asignación, suma y multiplicación, respectivamente.
+
+<h2>ANALIZADOR SINTÁCTICO</h2>
+
+La segunda fase del compilador es el análisis sintáctico o parsing. El parser (analizador sintáctico) utiliza los primeros componentes de los tokens producidos por el analizador léxico para crear una representación intermedia en forma de árbol que describa la estructura gramatical del flujo de tokens. Una representación típica es el árbol sintáctico, en el cual cada nodo interior representa una operación y los hijos del nodo representan los argumentos de la operación.
+
+Las fases siguientes del compilador utilizan la estructura gramatical para ayudar a analizar el programa fuente y generar el programa destino. 
+
+<h2>ANALIZADOR SEMÁNTICO</h2>
+
+El analizador semántico utiliza el árbol sintáctico y la información en la tabla de símbolos para comprobar la consistencia semántica del programa fuente con la definición del lenguaje. También recopila información sobre el tipo y la guarda, ya sea en el árbol sintáctico o en la tabla de símbolos, para usarla más tarde durante la generación de código intermedio.
+
+Una parte importante del análisis semántico es la comprobación (verificación) de tipos, en donde el compilador verifica que cada operador tenga operandos que coincidan. Por ejemplo, muchas definiciones de lenguajes de programación requieren que el índice de un arreglo sea entero; el compilador debe reportar un error si se utiliza un número de punto flotante para indexar el arreglo.
+
+Las especificaciones del lenguaje pueden permitir ciertas conversiones de tipo conocidas como coerciones. Por ejemplo, puede aplicarse un operador binario aritmético a un par de enteros o a un par de números de punto flotante. Si el operador se aplica a un número de punto flotante y a un entero, el compilador puede convertir u obligar a que se convierta en un número de punto flotante.
+
+<h2>GENERACIÓN DE CÓDIGO INTERMEDIO</h2>
+
+En el proceso de traducir un programa fuente a código destino, un compilador puede construir una o más representaciones intermedias, las cuales pueden tener una variedad de formas. Los árboles sintácticos son una forma de representación intermedia; por lo general, se utilizan durante el análisis sintáctico y semántico.
+
+Después del análisis sintáctico y semántico del programa fuente, muchos compiladores genera un nivel bajo explícito, o una representación intermedia similar al código máquina, que podemos considerar como un programa para una máquina abstracta. Esta representación intermedia debe tener dos propiedades importantes: debe ser fácil de producir y fácil de traducir en la máquina destino.
+
+Consideremos una forma intermedia llamada código de tres direcciones, que consiste en una secuencia de instrucciones similares a ensamblador, con tres operandos por instrucción. Cada operando puede actuar como registro. La salida del generador de código intermedio consiste en la secuencia de código de tres direcciones, por ejemplo:
+
+```
+t1 = inttofloat(6)
+t2 = id3 * t1
+t3 = id2 + t2
+id1 = t3
+```
+
+Hay varios puntos que vale la pena mencionar sobre las instrucciones de tres direcciones. En primer lugar, cada instrucción de tres direcciones tiene, por lo menos, un operador del lado derecho. Por ende, estas instrucciones corrigen el orden en el que se van a realizar las operaciones; la multiplicación va antes que la suma en el programa fuente. En segundo lugar, el compilador debe generar un nombre temporal para guardar el valor calculado por una instrucción de tres direcciones. En tercer lugar, algunas “instrucciones de tres direcciones” como la primera y la última de la secuencia anterior, tienen menos de tres operandos.
+
+<h2>OPTIMIZACIÓN DE CÓDIGO</h2>
+
+La fase de optimización de código independiente de la máquina trata de mejorar el código intermedio, de manera que se produzca un mejor código destino. Por lo general, mejor significa más rápido, pero pueden lograrse otros objetivos, como un código más corto, o un código destino que consuma menor poder. Por ejemplo, un algoritmo directo genera el código intermedio, usando una instrucción para cada operador en la representación tipo árbol que produce el analizador sintáctico.
+
+Un algoritmo simple de generación de código intermedio, seguido de la optimización de código, es una manera razonable de obtener un buen código de destino. El optimizador puede deducir que la conversión del 60, de un entero a punto flotante, puede realizarse de una vez por todas en un tiempo compilación, por lo que se puede eliminar la operación inttofloat sustituyendo el entero 60 por el número de punto flotante 60.0. Lo que es más, t3 se utiliza sólo una vez para transmitir su valor a id1, para que el optimizador pueda transformar en la siguiente secuencia más corta:
+
+```
+t1 = id3 * 60.0
+id1 = id2 * t1;
+```
+
+Hay una gran variación en la cantidad de optimización de código que realizan los distintos compiladores. En aquellos que realizan la mayor optimización, a los que se les denomina como “compiladores optimizadores”, se invierte mucho tiempo en esta fase. Hay optimizaciones simples que mejoran en forma considerable el tiempo de ejecución del programa destino, sin reducir demasiado la velocidad de la compilación.
+
+<h2>GENERACIÓN DE CÓDIGO</h2>
+
+El generador de código recibe como entrada una representación intermedia del programa fuente y la asigna al lenguaje destino. Si el lenguaje destino es código máquina, se seleccionan registro o ubicaciones (localidades) de memoria para cada una de las variables que utiliza el programa. Después, las instrucciones intermedias se traducen en secuencias de instrucciones de máquina que realizan la misma tarea. Un aspecto crucial de la generación de código es la asignación juiciosa de los registros para guardar las variables.
+
+Por ejemplo, usando los registros R1 y R2, el código intermedio 
+
+```
+LDF R2, id3
+MULF R2, R2, #60.0
+LDF R1, id2
+ADDF R1, R1, R2
+STF id1, R1
+```
+
+El primer operando de cada instrucción especifica un destino. La F de cada instrucción nos indica que trata con número de punto flotante. El código anterior carga el contenido de la dirección id3 en el registro R2, y después lo multiplica con la constante de punto flotante 60.0. El # indica que el número 60.0 se va a tratar como una constante inmediata. La tercer instrucción mueve id2 al registro R1 y la cuarta lo suma al valor que se había calculado antes en el registro R2. Por último, el valor en el registro R1 se almacena en la dirección de id1, por lo que el código implementa en forma correcta la instrucción de asignación. 
