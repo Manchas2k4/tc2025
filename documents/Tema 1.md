@@ -261,5 +261,35 @@ $Hola Mundo!!!
 $
 ```
 
+<p>El primer comando le indica a gcc que compile y ligue el archivo fuente programa1.c, creando un archivo ejecutable, especificado con el argumento -o, llamada programa1. El segundo comando ejecuta el programa, resultando en la salida que nos muestra la tercera línea.</p>
+
+<p>Muchas cosas suceden debajo de estas instrucciones. Primero, gcc pasa el archivo programa1.c a través de un preprocesador, cpp, que expande cualquier macro e inserta los contenidos de los archivos cabecera. El siguiente paso es compilar el código resultante del preproceso y así generar un código objeto. Y, finalmente, el enlazador (ligador, linker), ld, se encargará de crear el archivo binario, programa1.</p>
+
+<p>Podemos recrear cada paso manualmente, pasando a través de todo el proceso de compilación. Para indicarle a gcc que se detenga después del preproceso, usaremos la opción -E.</p>
+
+`$ gcc -E programa1.c -o programa1.cpp`
+
+<p>Si examinamos el archivo programa1.cpp, podremos ver el contenido que se ha agregado a causa del archivo stdio.h, junto con otros elementos del preproceso. El siguiente paso es convertir el archivo programa1.cpp en código objeto (proceso de compilación). Usamos gcc con la opción de -c para lograr esto:</p>
+
+`$ gcc -x cpp-output -c programa1.cpp -o programa1.o`
+
+<p>En esta sentencia se usa la opción -x para indicarle a gcc que empiece la compilación en el paso indicado, en este caso, con el código generado en el preproceso.
+
+Por último el proceso de enlace (linking) con el fin de crear el archivo ejecutable (binario):
+</p>
+
 <p></p>
 
+<p></p>
+
+<p></p>
+
+<p></p>
+
+<p></p>
+
+<p></p>
+
+<p></p>
+
+<p></p>
