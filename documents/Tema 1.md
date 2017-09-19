@@ -246,10 +246,12 @@
 <p>Antes de ver a profundidad al gcc, veremos un pequeño ejemplo que nos ayudará para empezar a usarlo. Hagamos un “hola mundo”.</p>
 ```c
 #include <stdio.h>
-int main() {
+
+int main () {
   fprintf (stdout, "Hola Mundo!!!\n");
 }
+```
 <p></p>
 
 <p></p>
-```
+
