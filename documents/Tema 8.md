@@ -522,10 +522,10 @@ Las máscaras de bits que codifican los números de los descriptores agrupan 32 
 
 Macro|Descripción
 --- | ---
-**FD_ZERO(fd_set *fdset);** | Pone a cero los bit de `fdset`.
-**FD_SET(int fd, fd_set *fdset);** | Activa en `fdset` el bit correspondiente al descriptor `fd`.
-**FD_CLEAR(int fd, fd_set *fdset);** | Desactiva en `fdset` el bit correspondiente al descriptor `fd`.
-**FD_ISSET(int fd, fd_set *fdset);** | Comprueba en `fdset` el bit correspondiente al descriptor `fd`.
+<b>FD_ZERO(fd_set *fdset);</b> | Pone a cero los bit de `fdset`.
+<b>FD_SET(int fd, fd_set *fdset);</b> | Activa en `fdset` el bit correspondiente al descriptor `fd`.
+<b>FD_CLEAR(int fd, fd_set *fdset);</b> | Desactiva en `fdset` el bit correspondiente al descriptor `fd`.
+<b>FD_ISSET(int fd, fd_set *fdset);</b> | Comprueba en `fdset` el bit correspondiente al descriptor `fd`.
 
 Un ejemplo de uso de estas macros puede ser:
 
