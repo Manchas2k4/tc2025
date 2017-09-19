@@ -278,18 +278,117 @@ $
 Por último el proceso de enlace (linking) con el fin de crear el archivo ejecutable (binario):
 </p>
 
-<p></p>
+`$ gcc programa1.o -o programa1`
 
-<p></p>
+La mayoría de los programas en C/C++ consisten de múltiples archivos fuentes. Cuando sucede esto, es necesario que cada archivo sea convertido a archivo objeto antes del proceso final de enlace. Este requerimiento es fácil de cumplir. Supongamos, por ejemplo, que estamos trabajando en el programa killerapp.c, que usa el código del archivo helper.c. Para compilar esta aplicación, deberíamos usar el siguiente comando:
 
-<p></p>
+`$ gcc killerapp.c helper.c -o killerapp`
 
-<p></p>
+De esta forma gcc recorre el mismo proceso de generación (preproceso-compilación-enlace), creando antes  los archivos objetos de cada archivo fuente.
 
-<p></p>
+<h2>3.2.1 ARCHIVO CABECERA Y LIBRERÍAS</h2>
 
-<p></p>
+Si en nuestro proyecto usamos librerías o archivos cabecera que no están en localizaciones estándar, las opciones -L{DIRNAME} y -I{DIRNAME) nos permiten especificar esas localidades y asegurar que se busque ahí antes de hacerlo en los directorios estándar. Por ejemplo, si almacenamos los archivos cabecera en la dirección `/usr/local/include/killerpapp`, entonces la instrucción que debemos utilizar sería:
 
-<p></p>
+`$ gcc someapp.c -I/usr/local/include/ -o killerapp`
 
-<p></p>
+De manera similar, supongamos que estamos probando una nueva librería de programa, libnew.so (.so es la extensión por convención que tienen todas las librerías compartidas), que temporalmente se encuentra guardada en el directorio /home/foo/lib. Supongan, además, que los archivos cabecera se encuentran almacenados en /home/foo/include, entonces la instrucción para gcc sería:
+
+`$ gcc myapp.c -L/home/foo(lib -I/home/foo/include -lnew`
+
+La opción `-l` le indica al enlazador (linker) que tome el código objeto de la librería especificada. En este ejemplo, queremos que el enlace se haga con respecto a `libnew.so`. Una convención largamente aceptada en Unix es que las librerías son llamadas `lib{algo}`.so por lo que gcc, como la mayoría de los compiladores, confía en esta convención. Si nos equivocamos (u omitimos) el uso de la opción `-l` cuando estemos enlazando librerías, el paso de enlace presentará errores de referencias no definidas.
+
+Por omisión gcc utiliza librerías compartidas, pero si queremos usar librerías estáticas, debemos usar la opción `-static`.
+
+`$ gcc curseapp.c -lncurses -static`
+
+El uso de librerías estáticas nos da como resultado archivos binarios más grandes que cuando usamos librerías compartidas. Entonces, ¿cuándo es conveniente usar librerías estáticas?  Si usamos librerías compartidas y necesitamos ejecutar el código del programa, es hasta ese momento que las librerías son enlazadas. Eso no sucede con las librerías estáticas, puesto que el enlace se realizó en el momento de compilación. Por eso cuando queremos garantizar que los usuarios puedan ejecutar un programa siempre, no importa la instalación que tenga el sistema, lo recomendable es compilar usando librerías estándar.
+
+<h2>3.2.2 OPCIONES DE OPTIMIZACIÓN</h2>
+
+La optimización de código es una forma de mejorar el rendimiento de un programa. Su principal desventaja es que el proceso de compilación toma más tiempo e incrementa la memoria usada.
+
+La opción `-O` indica a gcc que debe reducir tanto el código como el tiempo de ejecución. Equivale a usar el parámetro `-O1`. El tipo de optimización realizada, en este nivel, depende del procesador destino, pero siempre incluye un adecuado uso de saltos y uso de stack. 
+
+El nivel de optimización `-O2`  incluye el primer nivel de optimización agregando trucos que modifican la calendarización de instrucciones en el procesador. En este nivel, el compilador se asegura de que el procesador tenga instrucciones que ejecutar mientras está esperando el resultado de otras o por la latencia de la memoria principal o el cache. Esta opción es todavía más dependiente del procesador que la anterior. El nivel `-O3` incluye lo anterior más otras características específicas del procesador.
+
+Por lo general, el nivel `-O2` es suficiente.
+
+<h2>3.2.3 OPCIONES DE “DEBUGGING”</h2>
+
+La opción `-g` tiene tres niveles (1,2 y 3) que nos permiten especificar la cantidad de información que se incluirá en el archivo binario. El nivel 2, que es el de omisión (`-g2`), incluye una extensa tabla de símbolos, números de líneas e información acerca de las variables locales y globales. El nivel 3 incluye, además, las definiciones de todas las macros existentes. El nivel 1 genera solo la información relacionada con el manejo de stack, no incluye ninguna información relacionada con número de línea o variables.
+
+<h1>4. USANDO EL GNU MAKE</h1>
+
+<h2>4.1 DISTRIBUCIÓN DE ARCHIVOS EN UN PROYECTO</h2>
+
+La gestión inadecuada de un proyecto de programa grande puede obstaculizar su adecuado desarrollo. Aunque no existen unos criterios formalizados que permitan unificar la forma de enfocar y desarrollar una aplicación, sí podemos plantear una serie de consejos, fruto de experiencias, que nos pueden ayudar y facilitar la codificación de un programa de envergadura.
+
+Los puntos que se enumeran a continuación van a ser relevantes cuando estemos desarrollando una aplicación en lenguaje C/C++ y en un sistema operativo Unix/Linux: 
+
+<ol>
+<li>Dedicar un directorio o subdirectorio para almacenar los archivos que componen la aplicación.</li>
+<li>A la hora de nombrar los distintos archivos y directorios conviene utilizar nombres significativos. Aunque no hay una norma al respecto algunos de los nombres más usados son los siguientes:
+<ul>
+<li>src: Directorio donde residen los archivos en código fuente (.c, .cc, etc.).</li>
+<li>include: Directorio donde residen los archivos cabecera (.h).</li>
+<li>lib: Directorio donde residen las bibliotecas (.a).</li>
+<li>bin: Directorio donde residen los programas ejecutables que se han obtenido como resultado de la compilación y enlace.</li>
+<li>doc: Directorio donde residen la documentación externa que acompaña a la aplicación. Por ejemplo: manual de usuario, manual de administrador, etc.</li>
+</ul>
+</li>
+<li>Dividir el programa fuente en módulos que agrupen funciones y datos que tengan alguna relación semántica. Cuanto más minucioso sea el análisis previo, mayor el nivel de detalle que se puede alcanzar en esta división modular.</li>
+</ol>
+
+Con respecto a este punto conviene tener en cuenta los siguientes apartados:
+
+<ul>
+<li>•	Las partes del programa que no sean transportables de un ordenador a otro deben estar perfectamente localizadas y aisladas del resto del programa.
+
+Las incompatibilidades pueden deberse a diferentes causas:
+
+<ul>
+<li>El programa accede a recursos de hardware mediante procedimientos no estándar. Por ejemplo, acceso directo a la tarjeta de vídeo, reprogramación directa de dispositivos de entrada/salida, etc.</li>
+<li>El programa accede a recursos de software mediante procedimientos no estándar. Por ejemplo, acceso a estructuras de control del sistema operativo, uso de llamadas al sistema que no son compatibles, etc.</li>
+</ul>
+
+Hay que decir que utilizando la compilación condicional se pueden subsanar, de una forma elegante, gran parte de los problemas que impiden la transportabilidad del código fuente. Para ello hay que conocer cuáles son los sistemas donde se va a compilar la aplicación y utilizar directrices del preprocesador para incluir unas secciones del código u otras.
+</li>
+<li>Las partes del programa destinadas a la definición de los datos deben formar parte de un archivo de cabecera que se incluirá en los módulos que necesiten conocer esas estructuras de datos.
+
+Este planteamiento evitará la existencia de fuentes de errores tales como:
+
+<ul>
+<li>Definiciones redundantes de una misma estructura de datos.</li>
+<li>Inconsistencias producidas al modificar uno de los archivos donde aparece la definición de los datos sin haber modificado los restantes.</li>
+</ul>
+
+Los elementos que deben aparecer en un archivo de cabecera son:
+
+<ul>
+<li>Definiciones de aquellos tipos de datos que son compartidos por dos o más módulos.</li>
+<li>Definiciones de los prototipos de funciones que son compartidas por dos o más módulos.</li>
+</ul>
+
+Bajo ningún concepto debe figurar en los archivos cabecera la definición de los datos, es decir, la reserva de memoria para variables de un tipo determinado.
+</li>
+</ul>
+
+<h2>4.2 AUTOMATIZACIÓN DE TRABAJOS</h2>
+
+A medida que estructuramos los módulos de una aplicación y el número de éstos se incrementa, se va introduciendo complejidad con respecto a las órdenes que se deben emitir para generar el programa ejecutable. Para que estuviéramos consiguiendo un efecto contrario al perseguido. Es decir, en lugar de incrementar la elegancia y sencillez de la gestión, parece que estemos introduciendo sofisticaciones que no aportan ventaja alguna.
+
+El objetivo de esta sección es mostrar cómo podemos automatizar la parte relacionada con la gestión de órdenes para compilar las aplicaciones de una forma más cómoda y segura.
+
+La primera solución que podemos aportar consiste en escribir un archivo de procesamiento por lotes en el que se encuentren todas las órdenes necesarias para compilar una aplicación.
+
+Aunque esta solución es válida y cómoda, sin embargo, presenta algunos inconvenientes:
+
+<ol>
+<li>Cada vez que se ejecuta el archivo se recompilan todos los módulos fuentes.</li>
+
+Supongamos que la aplicación se compone de 50 módulos y que por necesidades de depuración se han modificado 5 de ellos. Al ejecutar la orden de compilar, se van a recompilar los 50 módulos cuando sólo es necesario recompilar los 5 que han sido modificados. Esta forma de trabajo acarrea pérdidas de tiempo innecesarias.
+
+<li>2.	En el archivo de procesamiento por lotes no quedan reflejadas todas las relaciones que existen entre los distintos archivos de la aplicación; en concreto, no están reflejadas las relaciones entre archivos de cabera y fuente.</li>
+</ol>
+
