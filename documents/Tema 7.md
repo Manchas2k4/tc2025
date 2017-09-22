@@ -99,8 +99,44 @@ int main(int argc, char *argv[]) {
 }`
 
 Si queremos que un proceso se envíe señales a sí mismo, podemos usar la llamada `raise`. Su declaración es:
-
+```
 #include <signal.h>
 int raise(int sig);
+```
+
+`sig` es el número de la señal que queremos enviar. `raise` se puede codificar a partir de `kill` de la siguiente manera:
+```
+int raise(int sig) {
+return kill(getpid(), sig);
+}
+```
+### 7.3.2 Tratamiento de Señales
+
+Para especificar qué tratamiento debe realizar un proceso al recibir una señal, se emplea la función `signal`. Su declaración es la siguiente:
+```
+#include <signal.h>
+void (*signal (int sig, void (*action) (int))) (int);
+```
+`signal` tiene una declaración que puede resultarnos extraña, pero es frecuente en los programas C/C++. Como podemos ver, `signal` es del tipo “función que devuelve un apuntador a una función `void` que recibe parámetros”.
+
+`sig` es el número de la señal sobre la que queremos especificar la forma de tratamiento.
+
+`action` es la acción que queremos que se inicie cuando se reciba la señal. action puede tomar tres tipos de valores:
+
+**Valores**|**Significado**
+---|---
+**SIG_DFL**|Indica que la acción a realizar cuando se recibe la señal es la acción por defecto asociada a la señal (manejador por defecto). Por lo general, esta acción es terminar el proceso y en algunos casos también incluye generar el archivo `core`.
+**SIG_IGN**|Indica que la señal se debe ignorar.
+**dirección**|Es la dirección de la rutina de tratamiento de la señal (manejador suministrado por el usuario). La declaración de esta función debe ajustarse el siguiente modelo.
+`#include <signal.h>
+void handler(sig [, code, scp])
+int sig, code;
+struct sigcontext *scp;`
+
+
+
+
+
+
 
 
