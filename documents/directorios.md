@@ -23,8 +23,8 @@
 ![alt text](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/d_d.png "Instrucciones")
   
   Implementa la solución del siguiente problema:
-  
-    Escribe un programa llamado `estadistica` que despliega recursivamente la información sobre el tipo de archivos que hay en un directorio. La forma de invocar el programa será:
+  
+  Escribe un programa llamado `estadistica` que despliega recursivamente la información sobre el tipo de archivos que hay en un directorio. La forma de invocar el programa será:
 
     `$ estadistica [directorio]`
 
