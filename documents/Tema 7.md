@@ -127,11 +127,178 @@ void (*signal (int sig, void (*action) (int))) (int);
 ---|---
 **SIG_DFL**|Indica que la acción a realizar cuando se recibe la señal es la acción por defecto asociada a la señal (manejador por defecto). Por lo general, esta acción es terminar el proceso y en algunos casos también incluye generar el archivo `core`.
 **SIG_IGN**|Indica que la señal se debe ignorar.
-**dirección**|Es la dirección de la rutina de tratamiento de la señal (manejador suministrado por el usuario). La declaración de esta función debe ajustarse el siguiente modelo.
-`#include <signal.h>
-void handler(sig [, code, scp])
-int sig, code;
-struct sigcontext *scp;`
+**dirección**|Es la dirección de la rutina de tratamiento de la señal (manejador suministrado por el usuario). La declaración de esta función debe ajustarse el siguiente modelo.```#include <signal.h> void handler(sig [, code, scp]) int sig, code; struct sigcontext *scp;```
+
+Cuando se recibe la señal `sig`, el kernel es quien se encarga de llamar a la rutina `handler` pasándole los parámetros `sig`, `code` y` scp`. `sig` es el número de la señal, `code` es una palabra que contiene la información sobre el estado del hardware en el momento de invocar a `handler` y `scp` contiene información de contexto definida en `<signal.h>`. Tanto `code` como `scp` son parámetros opcionales y dependientes de la arquitectura de la computadora
+
+La llamada a la rutina `handler` es asíncrona, lo cual quiere decir que puede darse en cualquier instante de la ejecución del programa. Esta rutina debe estar codificada para tratar las situaciones especiales que ocasionan que se produzca el envío de las señales.
+
+La llamada a `signal` devuelve el valor que tenía `action`, que puede servirnos para restaurarlo en cualquier instante posterior. Si se produce algún error, `signal` devuelve SIG_ERR y en `errno` estará el código del error producido.
+
+Los valores del `SIG_DFL, SIG_IGN` y `SIG_ERR` son direcciones de funciones ya que los debe poder devolver `signal`. Sin embargo deben ser direcciones que sepamos que nuca van a estar ocupadas por otras funciones. Para darle solución a este problema, las constantes anteriores se definen de la siguiente forma:
+```
+#define SIG_DFL ((void (*) ()) 0)
+#define SIG_IGN ((void (*) ()) 1)
+#define SIG_ERR ((void (*) ()) -1)
+```
+La conversión explícita de tipo que aparece delante de las constantes -1, 1 y 0 fuerza a que estas constantes sean tratadas como direcciones de inicio de funciones. Estas direcciones no van a contener ninguna función, ya que en todas las arquitecturas UNIX son zona reservada para el kernel. Además, la dirección -1 ni siquiera tiene existencia física.
+
+Como primer ejemplo de tratamiento de señales, vamos a codificar un programa que trata la señal de `SIGINT`, generada al pulsar las teclas `CTRL+C` (interrupción).
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+
+void sigint_handler(int sig) {
+	fprintf(stdout, "Señal número %d.\n", sig);
+}
+
+int main(int argc, char *argv[]) {	
+	if (signal(SIGINT, sigint_handler) == SIG_ERR) {
+		perror("signal");
+		exit(-1);
+	} 
+	while (1) {
+		fprintf(stdout, "En espera de CTRL+C\n");
+		sleep(30);
+	}
+exit(0);
+}
+```
+### 7.3.3 Señales Inestables
+
+En las primeras versiones del UNIX, las señales no eran confiables. Esto quiere decir, que la señales podían perderse: sí una señal ocurría, el proceso quizás no podría enterarse nunca. También, un proceso tenía poco control sobre una señal: solo podía cacharla o ignorarla,  no es posible bloquearla.
+Un problema que ocurría en las primeras versiones es que la acción para una señal era restaurada a la acción por defecto que tenía asignada la señal. El siguiente es un ejemplo clásico de un código utiliza para manejar una señal. 
+```
+void sigint_handler(int sig) {
+	…
+	if (signal(SIGINT, sigint_handler) == SIG_ERR) {
+		…
+	}
+}
+
+int main(int argc, char *argv[]) {	
+	if (signal(SIGINT, sigint_handler) == SIG_ERR) {
+		…
+	} 
+}
+```
+El problema con este fragmento de código es que existe una ventana de tiempo después de que la señal ha ocurrido y se realiza la siguiente llamada a `signal`. Durante este tiempo puede ocurrir una segunda señal. Esta segunda señal en vez de utilizar el manejador asignado, realizaría la acción por defecto.
+
+Otro problema con las versiones anteriores es que el proceso no es capaz de apagar una señal cuando no queremos que esa señal no suceda. Lo que se podía hacer era ignorar la señal. Pero existen ocasiones en que nosotros le queremos decir al sistema: “previene que las siguientes señales ocurran, pero recuérdame si suceden”. El clásico ejemplo que demuestra esta falla está indicado en el segmento de código que captura una señal y establece una bandera que indica que la señal ha ocurrido:
+```
+int sig_int_flag = 0;
+
+void sigint_handler(int sig) {
+	…
+	if (signal(SIGINT, sigint_handler) == SIG_ERR) {
+		…
+	}
+sig_int_flag ) 1;
+}
+
+int main(int argc, char *argv[]) {	
+	if (signal(SIGINT, sigint_handler) == SIG_ERR) {
+		…
+	} 
+	while (sig_int_flag == 0) {
+		pause();
+	}
+}
+```
+Aquí, el proceso utiliza la llamada `pause` para dormirse hasta que una señal es capturada. Cuando la señal es capturada, el manejador establece la bandera a un valor diferente de cero. El proceso es automáticamente despertado por el kernel después de que el manejador termina, nota que la bandera es diferente de cero y hacer todo lo que tiene que hacer. Pero, existe una ventana de tiempo donde todo puede ir mal. Si la señal ocurre después de verificar el valor de la bandera, pero antes de la llamada a `pause`, el proceso podría dormir por siempre (asimiento que la señal nueva es generara nuevamente), ya que esta ocurrencia de la señal es ignorada. 
+
+### 7.3.4 En Espera de Señales – Pause
+En ocasiones puede interesar que un proceso suspenda su ejecución en espera de que ocurra algún evento exterior a él. Por ejemplo, al ejecutar una entrada/salida. Para estas situaciones nos valemos de la llamada a pause, cuya declaración es la siguiente:
+```
+#include <unistd.h>
+pause();
+```
+`pause` hace que el proceso quede en espera de la llegada de alguna señal. Cuando esto ocurre, y después de ejecutarse la rutina de tratamiento de la señal, pause devuelve el valor -1 y en errno sitúa el valor `EINTR` que significa que se ha producido una interrupción de la llamada. En otras llamadas al sistema, ésta es una condición de error, pero en el caso de pause es su forma correcta de operar. El programa continúa con la sentencia que sigue a pause.
+
+El programa siguiente es un ejemplo en el que un proceso está esperando una señal y cuando recibe la señal `SIGUSR1` presenta en pantalla un número aleatorio.
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+
+void sigterm_handler(int sig) {
+	fprintf(stdout, "Terminación del proceso %d a petición del usuario.\n", getpid());
+	exit(-1);
+}
+
+void sigusr1_handler(int sig) {
+	signal(sig, SIG_IGN);
+	fprintf(stdout, "%d\n", rand());
+	signal(sig, sigusr1_handler);
+}
+
+int main(int argc, char * argv[]) {
+	fprintf(stdout, "PID = %d\n", getpid());
+	signal(SIGTERM, sigterm_handler);
+	signal(SIGUSR1, sigusr1_handler);
+	while (1) {
+		pause();
+	}
+exit(0);
+}
+```
+Para ejecutar este programa y que muestre los números aleatorios, debemos enviarle la señal `USR1` con la orden `kill`,
+
+`$ kill –s USR1 pid`
+
+Podemos terminar la ejecución del proceso enviándole la señal `SIGTERM`.
+
+`$ kill –s TERM pid`
+
+### 7.3.5 Saltos Globales – SIGsetjmp y SIGlongjmp
+En párrafos anteriores hemos indicado que la rutina de tratamiento de una señal puede hacer que el proceso vuelve a alguno de los estados por los que ha pasado con anterioridad. Esto no sólo es aplicable a las rutinas de tratamiento de señales sino que se puede extender a cualquier función. Para realizar esto nos valemos de las funciones estándar `sigsetjmp` y `siglongjmp`. Sus declaraciones las podemos ver a continuación:
+```
+#include <setjmp.h>
+int sigsetjmp (jmp_buf env, int savemask);
+void siglongjmp (jmp_buf env, int val);
+```
+Si `savemask` es 0,  `sigsetjmp` guarda el entorno de pila en `env` para un uso posterior de `siglongjmp`. `sigsetjmp` devuelve el valor 0 en su primera llamada. El tipo de `env`, `jmp_buf`, está definido en el archivo cabecera `<setjmp.h>`.
+
+`siglongjmp` restaura el entorno guardado en env por una llamada previa a `sigsetjmp`. Después de haberse ejecuta la llamada a `siglongjmp`, el flujo de la ejecución del programa vuelve al punto donde se hizo la llamada a `sigsetjmp`. Pero en este caso `sigsetjmp` devuelve el valor val que hemos pasado mediante `siglongjmp`. Esta es la forma de averiguar si `sigsetjmp` está saliendo de una llamada para guardar el entorno o de una llamada `siglongjmp`. `siglongjmp` no puede hacer que `sigsetjmp` devuelva 0, ya que en el caso de que val sea igual a 0, `sigsetjmp` va a regresa 1.
+
+En la siguiente figura podemos ver representa la forma de trabajar de `sigsetjmp` y `siglongjmp`.
+
+Las funciones `sigsetjmp` y `siglongjmp` se puede ver como una forma elaborada de implementa una sentencia `goto` capaz de saltar desde una función a etiquetas que están en la misma o en otra función. Las etiquetas serían los entornos guardados por `sigsetjmp` en la variable `env`.
+
+Como ejemplo, vamos a ver un programa que cuenta desde 1 hasta 10 incrementando su valor cada 10 segundos. Además, cada 10 segundos se va a establecer un punto de retorno de tal forma que si se recibe la señal `SIGUSR1` en algún momento, el programa va a reiniciar su ejecución en ese punto.
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <setjmp.h>
+
+jmp_buf env;
+
+void sigusr1_handler(int sig) {
+	//signal(SIGUSR1, sigusr1_handler);
+	siglongjmp(env, 1);
+}
+
+int main(int argc, char * argv[]) {
+	int i;
+	
+	fprintf(stdout, "PID = %d\n", getpid());
+	signal(SIGUSR1, sigusr1_handler);
+	for (i = 0; i < 10; i++) {
+		if (sigsetjmp(env, 1) == 0) {
+			fprintf(stdout, "Punto de retorno en el estado %d.\n", i);
+		} else {
+			fprintf(stdout, "Regresando al punto de retorno en el estado %d.\n", i);
+		}
+		sleep(10);
+	}
+}
+```
+### 7.3.6 Función sigaction
+La función `sigaction` nos permite examinar o modificar (o ambas) la acción asociada con una señal en particular. Esta función reemplaza a la llamada `signal` de las primeras versiones de UNIX. De hecho, es posible implementar `signal` usando `sigaction`.
+
+
 
 
 
