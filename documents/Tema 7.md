@@ -22,9 +22,85 @@ Cada señal tiene asociado un número entero positivo, que es intercambiado cuan
 -	Señales para ejecutar un proceso paso a paso. Son usadas por los depuradores.
 En el archivo de cabecera `<signal.h>` están definidas las señales que pueden ser manejar por el sistema y sus nombres. 
 
-señal|significado
+**señal**|**significado**
 ---|---
+SIGHUP|Desconexión. Es enviada cuando una terminal se desconecta de todo proceso del que es terminal de control. También se envía a todos los procesos de un grupo cuando el líder del grupo termina su ejecución. La acción por defecto de esta señal es terminar la ejecución del proceso que la recibe.
+**SIGINT**|Interrupción. Se envía a  todo proceso asociado con una terminal de control cuando se pulsa la tecla de interrupción (`CTRL + C`). Su acción por defecto es terminar la ejecución del proceso que la recibe.
+**SIGQUIT**|Salir. Similar a SIGINT, pero es generada al pulsar la tecla de salida (`CTRL + \`). Su acción por defecto es genera un archivo core y terminar el proceso.
+**SIGILL**|Instrucción ilegal. Es enviada cuando el hardware detecta una instrucción ilegal. En los programa escritos en C/C++ suele producirse este tipo de errores cuando manejamos apuntadores a funciones que no han sido correctamente inicializados. Su acción por defecto es general un archivo core y terminar el proceso.
+**SIGTRAP**|`Trace trap`. Es enviada después de ejecutar cada instrucción, cuando el proceso se está ejecutando paso a paso. Su acción por defecto es genera un archivo `core` y terminar el proceso. Es utilizado cuando se utiliza un depurador.
+**SIGIOT**|`I/O trap instruction`. Se envía cuando se da un fallo de hardware. La naturaleza de este fallo depende de la computadora. Es enviada cuando llamamos a la función abort, que provoca el suicidio del procesos generando un archivo `core`.
+**SIGEMT**|`Emulator trap instruction.` También indica un fallo de hardware. Raras veces se utiliza. Su acción por defecto es generar un archivo core y terminar el proceso.
+**SIGFPE**|Error de punto flotante. Es enviada cuando el hardware detecta un error de punto flotante, como el uso de un número de punto flotante con un forma desconocido, errores de desbordamiento, etc. Su acción por defecto es generar un archivo `core` y terminar el proceso.
+**SIGKILL**|Terminación abrupta. Esta señal provoca irremediablemente la terminación del proceso. No puede ser ignorada y siempre que se recibe se ejecuta su acción por defecto, que consiste en generar un archivo `core` y terminar el proceso.
+**SIGBUS**|Error de bus. Se produce cuando se da un error de acceso a memoria. Las dos situaciones típicas que la provocan suelen ser intentar acceder a una dirección que físicamente no existe o intentar acceder a una dirección impar, violando así las reglas de alineación que impone el hardware. Su acción por defecto es generar un archivo `core` y terminar el proceso.
+**SIGSEGV**|Violación de segmento. Es enviada a un proceso cuando intenta acceder a datos que se encuentran fuera de su segmento de datos. Su acción por defecto es generar un archivo `core` y terminar el proceso.
+**SIGSYS**|Argumento erróneo en una llamada al sistema. No se usa.
+**SIGPIPE**|Intento de escritura en un pipe del que no hay nadie leyendo. Esto suele ocurrir cuando el proceso de lectura termina de una forma anormal. Su acción por defecto es generar un archivo `core` y terminar el proceso.
+**SIGALRM**|Despertador. Es enviada a un proceso cuando alguno de sus temporizadores descendentes llega a cero. Su acción por defecto es terminar el proceso. Se basa en el tiempo real.
+**SIGTERM**|Finalización controlada. Es la señal utilizada para indicarle a un proceso que debe terminar su ejecución. Esta señal no es tajante como `SIGKILL` y puede ser ignorada. Lo correcto es que la rutina de tratamiento de esta señal se encargue de tomar las acciones necesarias antes de terminar un proceso (como, por ejemplo, borrar los archivos temporales) y llame a la rutina `exit`. Esta señal es enviada a todos los procesos cuando se emite una orden `shutdown`. Su acción por defecto es terminar el proceso.
+**SIGUSR1**|Señal número 1 de usuario. Esta señal está reservada para uso del programador. Ninguna aplicación estándar va a utilizarla y su significado es el que le quiera dar el programador en su aplicación. Su acción por defecto es terminar el proceso.
+**SIGUSR2**|Señal número 2 de usuario. Su significado es idéntico al de SIGUSR1.
+**SIGCLD/SIGCHLD**|Terminación del proceso hijo. Es enviada al proceso padre cuando alguno de sus procesos hijos termina. Esta señal es ignorada por defecto.
+**SIGPWR**|Fallo de alimentación. Esta señal tiene diferentes interpretaciones. En algunos sistemas es enviada cuando se detecta un fallo de alimentación y le indica al proceso que dispone tan sólo de unos instantes de tiempo antes de que se produzca una caída del sistema. En otros sistemas, esta señal es enviada, después de recuperarse de un fallo de alimentación, a todos aquellos procesos que estaban en ejecución y que se han podido rearrancar. En estos casos, los procesos deben disponer de mecanismos para restaurar las posibles pérdidas producidas durante la caída de la alimentación.
+**SIGVTALRM**|Despertador. Es enviada a un proceso cuando alguno de sus temporizadores descendentes llega a cero. Su acción por defecto es terminar el proceso. Se basa en el tiempo que el proceso está en modo usuario. Se puede usar junto con `SIGPROF` para medir el tiempo usado por el proceso en modo usuario y kernel.
+**SIGPROF**|Despertador. Es enviada a un proceso cuando alguno de sus temporizadores descendentes llega a cero. Su acción por defecto es terminar el proceso. Se basa en el tiempo que el proceso está en modo kernel. Se puede usar junto con `SIGVTALRM` para medir el tiempo usado por el proceso en modo usuario y kernel.
+**SIGIO/SIGPOLL**|Señal de entrada/salida asíncrona. Cuando se realiza la operación `I_SETSIG` sobre un descriptor de archivos a través de la llamada `ioctl`, el kernel envía esta señal cuando un evento ocurre sobre el descriptor, por ejemplo cuando existen datos que leer/escribir. Indica que un dispositivo o archivo está listo para una operación de entrada/salida. Su acción por defecto es ignorar la señal.
+**SIGWINCH**|Cambio del tamaño de una ventana. Se usa en interfaces gráficas orientadas a ventanas como X-WINDOWS. Su acción por defecto es ignorar la señal.
+**SIGSTOP**|Señal de pausa de un proceso. Esta señal no proviene de una terminal de control. La señal no puede ser ignorada, ni capturada y su acción por defecto es pausar el proceso. El proceso solo podrá continuar después de haber recibido la señal de `SIGCONT`.
+**SIGTSTP**|Señal de pausa procedente de una terminal. Es generado por el teclado (tecla `SUSP` o `CTRL – Z`).  El proceso solo podrá continuar después de haber recibido la señal de `SIGCONT`. A diferencia de `SIGSTOP` esta señal puede ser ignorada o manejada. Su acción por defecto es ignorar la señal.
+**SIGCONT**|Continuar. Señal para reanudar la ejecución de un proceso. Su acción por defecto es ignorar la señal.
+**SIGTTIN**|La reciben los procesos que se ejecutan en segundo plano y que intentan leer datos de una terminal de control. Su acción por defecto es parar el proceso.
+**SIGTTOU**|La reciben los procesos que se ejecutan en segundo plano y que intentan escribir en una terminal de proceso. Su acción por defecto es parar el proceso.
+**SIGURG**|Indica que ha llegado un dato urgente a través de un canal de entrada/salida asíncrono. Un ejemplo sería cuando hay datos que leer de un descriptor de archivo que está conectado a un socket. Su acción por defecto es ignorar la señal.
+**SIGXCPU**|Le indica al proceso que la recibe que ha superado su tiempo de CPU asignado. Su acción por defecto es ignorar la señal.
+**SIGXFSZ**|La indica al proceso que la recibe que superado el tamaño máximo de archivo que puede manejar. Su acción por defecto es terminar el proceso.
+## 7.3 Manejo de Señales
+Ahora estudiaremos el manejo de señales que brinda UNIX.
+### 7.3.1 Envío de señales – kill y raise
+Para enviar una señal desde un proceso a otro o a un grupo de procesos, emplearemos la llamada `kill`. Su declaración es:
 
+`#include <signal.h>
+int kill(pid_t pid, int sig);`
 
+`pid` identifica el conjunto de procesos al que queremos enviarle la señal. `pid` es un número entero y los distintos valores que puede tomar tienen los siguientes valores.
+
+**PID**|**Significado**
+---|---
+**pid > 0**|Es el `PID` del proceso al que le enviamos la señal.
+**pid = 0**|La señal es enviada a todos los procesos que pertenecen al mismo grupo que el proceso que la envía.
+**pid = -1**|La señal es enviada a todos aquellos procesos cuyo identificador real es igual al identificador efectivo del proceso que la envía. Si el proceso que la envía tiene identificador efectivo de superusuario, la señal es enviada a todos los procesos, excepto al proceso 0 (`swapper`) y al proceso 1 (`init`).
+**pid < -1**|La señal es enviada a todos los procesos cuyo identificador de grupo coincide con el valor absoluto de `pid`.
+
+En todos los casos, si el identificador efectivo del proceso no es el del superusuario o si el proceso que envía la señal no tiene privilegios sobre el proceso que la va a recibir, la llamada a `kill` falla.
+
+`sig` es el número de la señal que queremos enviar. Si `sig` vale 0 (señal nula), se efectúa una comprobación de errores, pero no se envía ninguna señal. Esta opción se puede utilizar para verificar la validez del identificador `pid`.
+
+Si el envío se realiza satisfactoriamente, `kill` devuelve 0; en caso contrario, devuelve -1 y en `errno` estará el código del proceso producido.
+En el siguiente ejemplo vemos cómo un proceso envía una señal a su proceso hijo para forzar su terminación.
+`#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+
+int main(int argc, char *argv[]) {
+	int pid;
+	
+	if ((pid = fork()) == 0) {
+		while (1) {
+			fprintf(stdout, "HIJO. PID = %d\n", getpid());
+			sleep(1);
+		}
+	}
+	sleep(10);
+	fprintf(stdout, "PADRE. Terminacion del proceso %d\n", pid);
+	kill(pid, SIGTERM);
+	exit(0);
+}`
+
+Si queremos que un proceso se envíe señales a sí mismo, podemos usar la llamada `raise`. Su declaración es:
+
+#include <signal.h>
+int raise(int sig);
 
 
