@@ -87,4 +87,7 @@
 * Enviar a través de la sección de "Tareas" de Blackboard.
 
 
+<br>
+<br>
+
 **DR© Tecnológico de Monterrey Campus Querétaro| Departamento de Desarrollo Académico| México, 2012**
