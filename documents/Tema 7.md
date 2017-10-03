@@ -422,6 +422,191 @@ function* signalX(int sig, function *fun) {
 	return oact.sa_handler;
 }
 ```
+### 7.3.7 Funciones para manejar conjuntos de señales
+
+Existe un tipo de dato (`sigset_t`) que nos permite manejar un conjunto de señales. Con este tipo de dato usaremos algunas funcionas como `sigprocmask` para decirle al kernel que no permita que ninguna de las  señales incluidas en este conjunto ocurran. Para manipular estos conjuntos de señales tenemos 5 funciones:
+```
+#include <signal.h>
+int sigemptyset(sigset_t *set);
+int sigfillset(sigset_t *set);
+int sigaddset(sigset_t *set, int sig);
+int sigdelset(sigset_t *set, int sig);
+int sigismember(const sigset_t *set, int sig);
+```
+La función `sigemptyset` inicializa a `set` con un valor que indica que todas las señales son excluidas. La función `sigfillset` inicializa a `set` con un valor que indica que todas las señales van a ser incluidas. 
+
+Una vez que hemos inicializado el conjunto de señales, podemos agregar o eliminar señales de ese grupo. La función `sigaddset` nos permite agregar una señal al conjunto, mientras que `sigdelset` nos permite eliminar una señal del conjunto.
+Por último, `sigismember` nos permite determinar si una señal específica se encuentra defina dentro del conjunto.
+
+### 7.3.8 Función sigprocmask
+
+Cada proceso tiene una máscara de señales que define el conjunto de señales que actualmente no se están entregando al proceso (bloqueadas). Un proceso puede examinar y/o cambiar esta máscara a través de la llamada a `sigprocmask`. Su definición es la siguiente:
+```
+#include <signal.h>
+int sigprocmask(int how, const sigset_t *restrict set, 
+			sigset_t *restrict oset);
+```
+Primero, si oset es un apuntador no nulo, la función regresa la máscara actual del proceso a través de `oset`.
+Segundo, si `set` es un apuntador no nulo, el argumento how indica cómo es que la máscara actual será modificada. Los posibles valores que puede tomar how son:
+
+**Valores**|**Significado**
+---|---
+**SIG_BLOCK**|La nueva máscara del proceso es la unión entre la máscara actual y el conjunto indicado por set. Es decir que `set` tiene señales adicionar que queremos bloquear.
+**SIG_UNBLOCK**|La nueva máscara para el proceso es la intersección de la máscara actual y el conjunto indicado por set. Es decir que `set` tiene señales que queremos desbloquear.
+**SIG_SETMASK**|La nueva señal es la que está siendo indicar por `set`.
+
+Si set es un apuntador nulo, la máscara de señales no es cambiada y `how` es ignorado. 
+
+Si cuando se ejecuta la llamada a `sigprocmask` existe una señal pendiente de ser atendida, se entregará al proceso. Y éste la deberá atender antes de que la función termine.
+
+### 7.3.9 Función sigpending
+
+La función `sigpending` regresa el conjunto de señales que están siendo bloqueadas y que, por lo tanto, no han sido entregadas al proceso. Este conjunto de señales es devuelto a través del argumento set.
+```
+#include <signal.h>
+int sigpending(sigset_t * set);
+```
+ El siguiente programa empieza bloquea la señal `SIGQUIT`, guardando antes la máscara de señales (para poder restaurarla después) y luego se va a dormir por 5 segundos. Cualquier ocurrencia de la señal `quit` durante este periodo de tiempo es bloqueado y no se entregará al proceso hasta que la desbloquee.  Al final de los 5 segundos, reinstalamos la máscara original y, al mismo tiempo, checamos que existe una señal que esté pendiente de ser entregada.
+```
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <unistd.h>
+
+void sigquit_handler(int sig) {
+	fprintf(stdout, "Capturando SIGQUIT.\n");
+	if (signal(SIGQUIT, SIG_DFL) == SIG_ERR) {
+		perror("No se puede restablecer SIGQUIT");
+		exit(1);
+	}
+}
+
+int main(int argc, char *argv[]) {
+	sigset_t newmask, oldmask, pendmask;
+	
+	if(signal(SIGQUIT, sigquit_handler) == SIG_ERR) {
+		perror("no puede capturarse SIGQUIT");
+		exit(1);
+	}
+	
+	sigemptyset(&newmask);
+	sigaddset(&newmask, SIGQUIT);
+	if (sigprocmask(SIG_BLOCK, &newmask, &oldmask) < 0) {
+		perror("SIG_BLOCK");
+		exit(1);
+	}
+	
+	sleep(5);
+	if (sigpending(&pendmask) < 0) {
+		perror("sigpending");
+		exit(1);
+	}
+	if (sigismember(&pendmask, SIGQUIT)) {
+		fprintf(stdout, "\nSIGQUIT pendiente.\n");
+	}
+	
+	if (sigprocmask(SIG_SETMASK, &oldmask, NULL) < 0) {
+		perror("SIG_SETMASK");
+		exit(1);
+	}
+	fprintf(stdout, "\nSIGQUIT desbloqueado.\n");
+	
+	sleep(5);
+	exit(0);
+}
+```
+### 7.3.10 Función sigsuspend
+
+Anteriormente visto que es posible cambiar la máscara de señales para bloquear o desbloquear alguna en particular. Podemos usar esta técnicas para proteger regiones críticas de código que no queremos que sean interrumpidas por una señal. El siguiente código intenta hacer esto, para ellos que la señal a ocurrir es `SIGINT`.
+```
+sigset_t newmask, oldmask;
+
+sigemptyset(&newmask);
+sigaddset(&newmask, SIGINT);	
+
+if (sigprocmask(SIG_BLOCK, &newmask, &oldmask) < 0) {
+	perror("SIG_BLOCK");
+	exit(1);
+}
+
+/* región crítica de código */
+	
+if (sigprocmask(SIG_SETMASK, &oldmask, NULL) < 0) {
+	perror("SIG_SETMASK");
+	exit(1);
+}
+
+/* ventana abierta */
+pause();
+```
+/* continua el proceso */
+Si la señal es enviada al proceso mientras está bloqueada, la señal será entregada hasta que sea desbloqueada. Para la aplicación, esto puede parecer como si la señal ocurriera entre el desbloqueo y pause (dependiendo de cómo el kernel implementa las señales). Si esto sucede, o si la señal sucede realmente en ese punto, estamos en un problema. Cualquier ocurrencia de la señal en esta ventana de tiempo se pierde en el sentido de que quizás no se capture esa señal otra vez, haciendo que pause bloquee el proceso de manera indefinida. Este es otro problema que se tenía con las primeras implementaciones de señales.
+Para corregir este problema, necesitamos de una función que nos permita reinicializar la máscara de señales y, al mismo tiempo, poner el proceso a dormir en una operación atómica. Esta característica nos la provee la función sigsuspend.
+#include <signal.h>
+int sigsuspend(const sigset_t *sigmask);
+La máscara de señal del proceso es establecida con el valor al que hace referencia el apuntado sigmask. Entonces el proceso es suspendido hasta que una señal es capturada o hasta que ocurra una señal que termine el proceso. Si la señal es capturada, el control es pasado al manejador. Cuando el manejador termina, entonces sigsuspend termina y la máscara de señal del proceso es restablecida al valor que tenía hasta antes del sigsuspend.
+Esta función no regresa un valor exitoso de terminación. Si la función regresa el control al proceso, siempre devuelve 1 y la variable errno es igualada a EINTR (indicando una llamada a sistema interrumpida).
+ El siguiente programa es un ejemplo de su uso:
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+
+void sigint_handler(int sig) {
+	fprintf(stdout, "\nsig_int: señal recibida %d\n", sig);
+}
+
+int main(int argc, char *argv[]) {
+	sigset_t newmask, oldmask, waitmask;
+	
+	fprintf(stdout, "inicia programa.\n");
+	
+	if (signal(SIGINT, sigint_handler) == SIG_ERR) {
+		perror("SIGINT");
+		exit(1);
+	}
+	sigemptyset(&waitmask);
+	sigaddset(&waitmask, SIGUSR1);
+	sigemptyset(&newmask);
+	sigaddset(&newmask, SIGINT);
+	
+	if(sigprocmask(SIG_BLOCK, &newmask, &oldmask) < 0) {
+		perror("SIG_BLOCK");
+		exit(1);
+	}
+	
+	fprintf(stdout, "región crítica.\n");
+	if (sigsuspend(&waitmask) != -1) {
+		perror("WAIT");
+		exit(1);
+	}
+	sleep(30);
+	fprintf(stdout, "terminando región crítica.\n");
+	
+	if(sigprocmask(SIG_SETMASK, &oldmask, NULL) < 0) {
+		perror("SIG_SETMASK");
+		exit(1);
+	}
+	
+	fprintf(stdout, "termina programa.\n");
+	exit(0);
+}
+Al ejecutar este programa, tendremos siguiente comportamiento:
+$ ./sigsuspend
+inicia programa - PID 5249.
+región crítica.
+^C
+sig_int: señal recibida 2
+^C
+^C
+^C
+terminando región crítica.
+
+sig_int: señal recibida 2
+termina programa.
+Como pueden ver, mientras el proceso está en región crítica la señal es bloqueada. Es hasta después de que termina la región, cuando se vuelve a aceptar la señal de SIGINT.
+
+
+
 
 
 
