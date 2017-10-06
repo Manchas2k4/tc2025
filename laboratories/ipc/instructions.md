@@ -25,7 +25,7 @@ permiten implementar un problema clásico de sincronización: "el barbero dormil
   
   Implementa la solución del siguiente problema:
   
-    Una barbería tiene una sala de espera con n silla y una sala de afeitado con una silla de
+  Una barbería tiene una sala de espera con n silla y una sala de afeitado con una silla de
   barbero. Si no hay clientes a los que atender, el barbero se va a dormir. Si entra un cliente en
   la barbería y todas las sillas están ocupadas, entonces el cliente se va. Si el barbero está
   ocupado, pero hay sillas disponibles, el cliente se sienta en una de las sillas libres. Si el
@@ -37,7 +37,7 @@ permiten implementar un problema clásico de sincronización: "el barbero dormil
     $ barbero
     $ cliente periodo_de_regreso
   ```
-    El programa barberia sólo se encargará de crear aquellos elementos IPC que vayas a
+  El programa barberia sólo se encargará de crear aquellos elementos IPC que vayas a
   necesitar. El barbero y los clientes desplegaran información sobre el estado en que se
   encuentra cada uno. El parámetro del cliente es el periodo que estará dormido antes de que
   “le vuelva a crecer el cabello” y tenga que volver a la barbería.
