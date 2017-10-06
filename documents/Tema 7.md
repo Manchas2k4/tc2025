@@ -541,12 +541,16 @@ pause();
 ```
 /* continua el proceso */
 Si la señal es enviada al proceso mientras está bloqueada, la señal será entregada hasta que sea desbloqueada. Para la aplicación, esto puede parecer como si la señal ocurriera entre el desbloqueo y pause (dependiendo de cómo el kernel implementa las señales). Si esto sucede, o si la señal sucede realmente en ese punto, estamos en un problema. Cualquier ocurrencia de la señal en esta ventana de tiempo se pierde en el sentido de que quizás no se capture esa señal otra vez, haciendo que pause bloquee el proceso de manera indefinida. Este es otro problema que se tenía con las primeras implementaciones de señales.
-Para corregir este problema, necesitamos de una función que nos permita reinicializar la máscara de señales y, al mismo tiempo, poner el proceso a dormir en una operación atómica. Esta característica nos la provee la función sigsuspend.
+Para corregir este problema, necesitamos de una función que nos permita reinicializar la máscara de señales y, al mismo tiempo, poner el proceso a dormir en una operación atómica. Esta característica nos la provee la función `sigsuspend`.
+```
 #include <signal.h>
 int sigsuspend(const sigset_t *sigmask);
-La máscara de señal del proceso es establecida con el valor al que hace referencia el apuntado sigmask. Entonces el proceso es suspendido hasta que una señal es capturada o hasta que ocurra una señal que termine el proceso. Si la señal es capturada, el control es pasado al manejador. Cuando el manejador termina, entonces sigsuspend termina y la máscara de señal del proceso es restablecida al valor que tenía hasta antes del sigsuspend.
-Esta función no regresa un valor exitoso de terminación. Si la función regresa el control al proceso, siempre devuelve 1 y la variable errno es igualada a EINTR (indicando una llamada a sistema interrumpida).
+```
+La máscara de señal del proceso es establecida con el valor al que hace referencia el apuntado `sigmask`. Entonces el proceso es suspendido hasta que una señal es capturada o hasta que ocurra una señal que termine el proceso. Si la señal es capturada, el control es pasado al manejador. Cuando el manejador termina, entonces `sigsuspend` termina y la máscara de señal del proceso es restablecida al valor que tenía hasta antes del `sigsuspend`.
+
+Esta función no regresa un valor exitoso de terminación. Si la función regresa el control al proceso, siempre devuelve 1 y la variable `errno` es igualada a `EINTR` (indicando una llamada a sistema interrumpida).
  El siguiente programa es un ejemplo de su uso:
+ ```
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
@@ -590,7 +594,9 @@ int main(int argc, char *argv[]) {
 	fprintf(stdout, "termina programa.\n");
 	exit(0);
 }
+```
 Al ejecutar este programa, tendremos siguiente comportamiento:
+```
 $ ./sigsuspend
 inicia programa - PID 5249.
 región crítica.
@@ -603,6 +609,7 @@ terminando región crítica.
 
 sig_int: señal recibida 2
 termina programa.
+```
 Como pueden ver, mientras el proceso está en región crítica la señal es bloqueada. Es hasta después de que termina la región, cuando se vuelve a aceptar la señal de SIGINT.
 
 
