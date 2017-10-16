@@ -32,4 +32,4 @@ Esta actividad será evaluada utilizando los siguientes criterios:
 -50	| La contribución consiste de menos de 200 palabras.
 -90	| La contribución no es relevante y/o contiene puro "rollo mareador".
 DA	| La contribución en un plagio.
-
+ 
