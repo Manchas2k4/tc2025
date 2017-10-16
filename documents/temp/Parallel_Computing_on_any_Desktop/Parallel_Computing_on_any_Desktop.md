@@ -9,7 +9,7 @@ Esta actividad promueve las siguientes habilidades, valores y actitudes: dominio
 ## DESCRIPCIÓN DE LA ACTIVIDAD
 Individualmente, lee el siguiente artículo:
 
-* **Parallel Computing on any Desktop** escrito por Ami Marowka y publicado en el Communications of the ACM en septiembre del 2007.
+* [Parallel Computing on any Desktop] (https://github.com/Manchas2k4/advanced_programming/blob/master/documents/temp/Parallel_Computing_on_any_Desktop/parallel_computing.pdf) escrito por Ami Marowka y publicado en el Communications of the ACM en septiembre del 2007.
 
 Debes publicar en el foro una contribución tal como se describe a continuación.
 
