@@ -32,6 +32,7 @@ ube el archivo tarball a Blackboard, en la sección de “Envío de tareas”.
 
 ## EVALUACIÓN
 Esta actividad será evaluada utilizando los siguientes criterios:
+
 100 |	La actividad cumple con todos los requerimientos.
 --- | :---
 -10	| No se incluyó en comentario los datos del autor.
