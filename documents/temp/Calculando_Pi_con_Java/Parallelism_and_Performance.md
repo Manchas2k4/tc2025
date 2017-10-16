@@ -6,17 +6,11 @@ Sp = T1 / Tp
 
 Where:
 
-Sp
+Sp: The speedup obtained from using p processors.
 
-      The speedup obtained from using p processors.
+T1: The time it takes the program to be executed sequentially.
 
-T1
-
-      The time it takes the program to be executed sequentially.
-
-Tp
-
-      The time it takes the program to be executed in parallel using p processors.
+Tp: The time it takes the program to be executed in parallel using p processors.
 
 ## LINEAR SPEEDUP
 **Linear speedup** or **ideal speedup** is obtained when Sp = _p_. When running an algorithm with linear speedup, doubling the number of processors doubles the speed. As this is ideal, it is considered very good scalability.
@@ -30,17 +24,11 @@ Sp = 1 / (F + (1 - F) / _p_)
 
 Where:
 
-_p_
+_p_: The number of processors.
 
-      The number of processors.
+Sp: The speedup obtained from using p processors.
 
-Sp
-
-      The speedup obtained from using p processors.
-
-F
-
-      The fraction of the program that must be executed sequentially. 0 ≤ F ≤ 1.
+F: The fraction of the program that must be executed sequentially. 0 ≤ F ≤ 1.
 
 If _p_ tends to ∞, the maximum speedup tends to 1 / F.
 
