@@ -2,12 +2,18 @@
 ## OBJETIVOS
 Durante esta actividad el alumno será capaz de:	
 * Utilizar `threads` en Java para calcular en paralelo una estimación del valor de Pi.
+
 Esta actividad promueve las siguientes habilidades, valores y actitudes: análisis y síntesis, capacidad de resolver problemas, creatividad, y uso eficiente de la informática y las telecomunicaciones.
-DESCRIPCIÓN DE LA ACTIVIDAD
-Esta actividad debe ser elaborada de manera individual.
-Escribe un programa completo en Java que utilice por lo menos dos threads para calcular un valor aproximado de Pi en paralelo. Compara varios tiempos de ejecución de la versión secuencial y la versión paralela y realiza un breve reporte donde documentes el speedup obtenido.
-¿QUÉ SE DEBE ENTREGAR?
+
+## DESCRIPCIÓN DE LA ACTIVIDAD
+**Esta actividad debe ser elaborada de manera individual.**
+
+Escribe un programa completo en Java que utilice por lo menos dos `threads` para __calcular un valor aproximado de Pi en paralelo__. Compara varios tiempos de ejecución de la versión secuencial y la versión paralela y realiza un breve reporte donde documentes el _**speedup obtenido**_.
+
+## ¿QUÉ SE DEBE ENTREGAR?
 En la parte superior de los archivos fuente de Java coloca en comentarios tus datos personales. Por ejemplo:
+
+```c
 /*----------------------------------------------------------------
  *
  * Actividad de programación: Calculando Pi con threads en Java
@@ -15,13 +21,20 @@ En la parte superior de los archivos fuente de Java coloca en comentarios tus da
  * Autor: 123456 Johnny Bravo
  *
  *--------------------------------------------------------------*/
-Coloca en un archivo tarball llamado tarea1.tgz todos los archivos fuentes de tu programa así como el reporte del speedup en formato PDF.
+ ```
+
+Coloca en un archivo tarball llamado `tarea1.tgz` todos los archivos fuentes de tu programa así como el reporte del _speedup_ en formato PDF.
+
 Sube el archivo tarball a Blackboard, en la sección de “Envío de tareas”.
-Fecha límite: Miércoles, 9 de septiembre.
-EVALUACIÓN
+
+**Fecha límite:** Miércoles, 9 de septiembre.
+
+## EVALUACIÓN
 Esta actividad será evaluada utilizando los siguientes criterios:
-100	La actividad cumple con todos los requerimientos.
--10	No se incluyó en comentario los datos del autor.
-10	El programa fuente produce uno o más errores al momento de compilarlo.
-50-90	El programa funciona, pero produce algunos errores a tiempo de ejecución y/o los resultados no son del todo correctos.
-DA	La solución es un plagio.
+
+100	| La actividad cumple con todos los requerimientos.
+--- | :---
+-10 | 	No se incluyó en comentario los datos del autor.
+10 |	El programa fuente produce uno o más errores al momento de compilarlo.
+50-90	| El programa funciona, pero produce algunos errores a tiempo de ejecución y/o los resultados no son del todo correctos.
+DA |	La solución es un plagio.
