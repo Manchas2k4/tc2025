@@ -9,7 +9,7 @@ Esta actividad promueve las siguientes habilidades, valores y actitudes: anális
 ## DESCRIPCIÓN DE LA ACTIVIDAD
 **Esta actividad puede ser elaborada de manera individual o en parejas.**
 
-Toma el código fuente del [servidor de web]() y añádele tu propia implementación de un _pool_ de `MAX_POOL_SIZE` _THREADS_. El _pool_ es una estructura de datos FIFO (_first-in first-out_). El propósito de usar un pool de _threads_ es evitar la creación y destrucción de un _thread_ cada vez que llega una nueva petición de un cliente. Los _threads_ deben ser creados una sola vez y, en lugar de dejarlos morir, reciclarlos de manera indefinida.
+Toma el código fuente del [servidor de web](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/temp/Pool_con_Java/webserver.zip) y añádele tu propia implementación de un _pool_ de `MAX_POOL_SIZE` _THREADS_. El _pool_ es una estructura de datos FIFO (_first-in first-out_). El propósito de usar un pool de _threads_ es evitar la creación y destrucción de un _thread_ cada vez que llega una nueva petición de un cliente. Los _threads_ deben ser creados una sola vez y, en lugar de dejarlos morir, reciclarlos de manera indefinida.
 
 Esta es la descripción general de cómo debe funcionar el _pool_ de _threads_: Al llegar una nueva petición, se toma el primer _thread_ disponible en el _pool_ y se utiliza para procesar la petición. Cuando el _thread_ termine su procesamiento, se debe poner en estado de “wait” y colocarse al final del _pool_. Si en un momento dado llega una petición de un cliente y no existe un _thread_ disponible en el _pool_, el _thread_ principal debe responder con un código `503 Service Unavailable`.
 
