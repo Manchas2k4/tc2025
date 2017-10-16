@@ -8,7 +8,7 @@ Esta actividad promueve las siguientes habilidades, valores y actitudes: anális
 ## DESCRIPCIÓN DE LA ACTIVIDAD
 **Esta actividad debe ser elaborada de manera individual.**
 
-Escribe un programa completo en Java que utilice por lo menos dos `threads` para __calcular un valor aproximado de Pi en paralelo__. Compara varios tiempos de ejecución de la versión secuencial y la versión paralela y realiza un breve reporte donde documentes el _**speedup obtenido**_.
+Escribe un programa completo en Java que utilice por lo menos dos `threads` para [calcular un valor aproximado de Pi en paralelo](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/temp/Calculando_Pi_con_Java/Computing_Pi.md). Compara varios tiempos de ejecución de la versión secuencial y la versión paralela y realiza un breve reporte donde documentes el [speedup](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/temp/Calculando_Pi_con_Java/Parallelism_and_Performance.md) obtenido.
 
 ## ¿QUÉ SE DEBE ENTREGAR?
 En la parte superior de los archivos fuente de Java coloca en comentarios tus datos personales. Por ejemplo:
