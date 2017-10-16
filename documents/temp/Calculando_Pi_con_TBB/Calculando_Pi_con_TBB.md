@@ -34,7 +34,7 @@ ube el archivo tarball a Blackboard, en la sección de “Envío de tareas”.
 Esta actividad será evaluada utilizando los siguientes criterios:
 
 100 |	La actividad cumple con todos los requerimientos.
---- | :---
+----- | :---
 -10	| No se incluyó en comentario los datos del autor.
 10	| El programa fuente produce uno o más errores al momento de compilarlo.
 50-90 |	El programa funciona, pero produce algunos errores a tiempo de ejecución y/o los resultados no son del todo correctos.
