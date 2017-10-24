@@ -2,14 +2,14 @@
 ## OBJETIVOS
 Durante esta actividad el alumno será capaz de:
 
-*Utilizar el Fork/Join _framework_ de Java 7 para paralelizar eficientemente el procesamiento de una imagen digital.
+* Utilizar el Fork/Join _framework_ de Java 7 para paralelizar eficientemente el procesamiento de una imagen digital.
 
 Esta actividad promueve las siguientes habilidades, valores y actitudes: análisis y síntesis, capacidad de resolver problemas, creatividad, y uso eficiente de la informática y las telecomunicaciones.
 
 ## DESCRIPCIÓN DE LA ACTIVIDAD
 **Esta actividad debe ser elaborada de manera individual.**
 
-Escribe dos versiones de un programa en Java que convierta una imagen PNG de color a escala de grises. La primera versión debe hacerlo de forma secuencial; la segunda versión debe hacerlo en paralelo utilizando la clase `java.util.concurrent.RecursiveAction` del Fork/Join _framework_. Compara varios tiempos de ejecución de ambas versiones y realiza un breve reporte en donde documentes el [speedup]() obtenido.
+Escribe dos versiones de un programa en Java que convierta una imagen PNG de color a escala de grises. La primera versión debe hacerlo de forma secuencial; la segunda versión debe hacerlo en paralelo utilizando la clase `java.util.concurrent.RecursiveAction` del Fork/Join _framework_. Compara varios tiempos de ejecución de ambas versiones y realiza un breve reporte en donde documentes el [speedup](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/Parallelism_and_Performance.md) obtenido.
 
 Usa estos factores al momento de hacer la conversión a escala de grises: Rojo 29.9%, Verde 58.7% y Azul 11.4%.
 
