@@ -15,8 +15,8 @@ Usa estos factores al momento de hacer la conversión a escala de grises: Rojo 2
 
 Puedes probar tu programa con las siguientes imágenes:
 
-* [natalie1.jpg]() (1590×1143 pixeles, 1.7 MB)
-* [natalie2.png]() (2560×1600 pixeles, 4.1 MB) 
+* [natalie1.jpg](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/natalie1.png) (1590×1143 pixeles, 1.7 MB)
+* [natalie2.png](https://github.com/Manchas2k4/advanced_programming/blob/master/documents/images/natalie2.png) (2560×1600 pixeles, 4.1 MB) 
 
 ## ¿QUÉ SE DEBE ENTREGAR?
 En la parte superior de los archivos fuente de Java coloca en comentarios tus datos personales. Por ejemplo:
