@@ -1,6 +1,6 @@
 #include "header.h"
 
-void a_producer(char* program) {
+void a_consumer(char* program) {
 	int semid, shmid, i, j, k;
 	Buffer *b;
 	key_t key;
@@ -24,17 +24,16 @@ void a_producer(char* program) {
 	srand( getpid() );
 	for (k = 0; k < 10; k++) {
 		i = (rand() % 5) + 1;
-		printf("Producer %i trying to put %i items\n", getpid(), i);
-		sem_wait(semid, EMPTY, i);
+		printf("Consumer %i trying to get %i items\n", getpid(), i);
+		sem_wait(semid, FULL, i);
 		
-		printf("Producer %i trying to get the lock over the buffer.\n", getpid());
+		printf("Consumer %i trying to get the lock over the buffer.\n", getpid());
 		sem_wait(semid, MUTEX, 1);
-		printf("Producer %i got the lock.\n", getpid());
-		printf("Producer %i is putting the following products: ", getpid());
+		printf("Consumer %i got the lock.\n", getpid());
+		printf("Consumer %i is getting the following products: ", getpid());
 		for (j = 0; j < i; j++) {
-			b->data[b->next] = (rand() % 3) + 1;
-			printf("%3i", b->data[b->next]);
-			b->next++;
+			printf("%3i", b->data[b->next - 1]);
+			b->next--;
 		}
 		printf("\n");
 		
@@ -44,9 +43,9 @@ void a_producer(char* program) {
 		}
 		printf("]\n");
 		sem_signal(semid, MUTEX, 1);
-		printf("Producer %i has released the lock.\n", getpid());
+		printf("Consumer %i has released the lock.\n", getpid());
 		
-		sem_signal(semid, FULL, i);
+		sem_signal(semid, EMPTY, i);
 		
 		sleep(rand() % 10 + 1);
 	}
@@ -74,7 +73,7 @@ int main(int argc, char* argv[]) {
 			perror(argv[0]);
 			return -1;
 		} else if (pid == 0) {
-			a_producer(argv[0]);
+			a_consumer(argv[0]);
 		} else {
 			//do_nothing
 		}
