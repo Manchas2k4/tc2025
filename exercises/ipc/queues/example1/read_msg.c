@@ -1,12 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/ipc.h>
-#include <sys/msg.h>
+#include "header.h"
 
 int main(int argc, char* argv[]) {
     struct message msg;
-    int msqid, length = sizeof(struct message) - sizeof(long);
+    int msqid;
+    int length = sizeof(struct message) - sizeof(long);
     long msg_type;
     key_t key;
     
@@ -16,8 +13,8 @@ int main(int argc, char* argv[]) {
     }
  
     msg_type = atol(argv[1]);
-    if (msg_type < 0) {
-        printf("%s: the msg_type must be a positive number greater than zero.\n", argv[0]);
+    if (msg_type < 0 || msg_type > 4) {
+        printf("%s: the msg_type must be between 0 and 4.\n", argv[0]);
         return -1;
     }
     
@@ -32,7 +29,7 @@ int main(int argc, char* argv[]) {
     }
     
     while (msgrcv(msqid, &msg, length, msg_type, IPC_NOWAIT) != -1) {
-		printf("MESSAGE READ: msg_type = %li process = %i value = %i\n", msg.type, msg.process, msg.value);
+		printf("MESSAGE READ: msg_type = %li process = %li value = %i\n", msg.type, msg.process, msg.value);
 	}
 	
 	return 0;

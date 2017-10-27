@@ -13,6 +13,7 @@ int main(int argc, char* argv[]) {
         perror(argv[0]);
         return -1;
     }
+    
     printf("The queue %i has been created.\n", msqid);
     return 0;
 }
