@@ -1,13 +1,12 @@
 #include "header.h"
 #include <string.h>
-#include <time.h>
 
-void serves_client(int nsfd) {
+void* serves_client(void *param) {
 	int number_sent, number_guess;
 	int guess, answer;
+	int nsfd = *( (int*) param);
 	
 	srand(getpid());
-	//srand(time(0));
 	do {
 		guess = 0;
 		number_guess = (rand() % 100) + 1;
@@ -31,6 +30,7 @@ void serves_client(int nsfd) {
 
 void server(char* ip, int port, char* program) {
 	int sfd, nsfd, pid;
+	pthread_t thread_id; 
 	struct sockaddr_in server_info, client_info;
 
 	if ( (sfd = socket(AF_INET, SOCK_STREAM, 0)) < 0 ) {
@@ -54,19 +54,7 @@ void server(char* ip, int port, char* program) {
 			exit(-1);
 		}
 		
-		/* CONCURRENTE*/
-		if ( (pid = fork()) < 0 ) {
-			perror(program);
-		} else if (pid == 0) {
-			close(sfd);
-			serves_client(nsfd);
-			exit(0);
-		} else {
-			close(nsfd);
-		}
-		/*CONCURRENTE */
-		
-		//serves_client(nsfd); // ITERATIVO
+		pthread_create(&thread_id, NULL, serves_client, ((void *) &nsfd));
 	}
 }
 
@@ -132,4 +120,3 @@ int main(int argc, char* argv[]) {
 		
 		
 		
-
