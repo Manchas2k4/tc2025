@@ -8,8 +8,6 @@
 #include <pthread.h>
 #include <unistd.h>
 
-#define LIMIT 10
-
 void* task(void* param) {
 	int i, limit;
 	

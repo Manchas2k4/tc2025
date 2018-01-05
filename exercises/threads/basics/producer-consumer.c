@@ -1,10 +1,11 @@
 /**
-* To compile: gcc pthrads1.c -lpthread
+* To compile: gcc producer-consumer.c -lpthread
 **/
 
 #include <sys/time.h>
 #include <stdio.h>
 #include <pthread.h>
+#include <unistd.h>
 #include <errno.h>
 
 #define SIZE 10
@@ -52,13 +53,13 @@ void* producer(void *arg) {
 void* consumer(void *arg) {
 	int i,v;
 	printf("consumer starting...\n");
-	for (i=0;i<100;i++) {
+	for (i=0;i<20;i++) {
    		pthread_mutex_lock(&mutex);
    		if (size == 0) {
        		pthread_cond_wait(&data_available, &mutex); 
    		}
 		v = get_buffer();
-		printf("consumer getting %i...\n", v);
+		printf("consumer %i getting %i...\n", ((int) pthread_self()), v);
 		pthread_cond_signal(&space_available);
 		pthread_mutex_unlock(&mutex);
 	}
@@ -67,12 +68,17 @@ void* consumer(void *arg) {
 }
  
 int main(int argc, char* argv[])   {
+	int i;
 	pthread_t producer_thread; 
-	pthread_t consumer_thread; 
+	pthread_t consumer_thread[10];
 	
-	pthread_create(&consumer_thread, NULL, consumer, NULL);
+	for (i = 0; i < 10; i++) {
+		pthread_create(&consumer_thread[i], NULL, consumer, NULL);
+	}
     pthread_create(&producer_thread, NULL, producer, NULL);
-    pthread_join(consumer_thread, NULL);
+    for (i = 0; i < 10; i++) {
+   		pthread_join(consumer_thread[i], NULL);
+   	}
     return 0;
 }
 
