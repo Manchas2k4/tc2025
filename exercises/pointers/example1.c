@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 int main(int argc, char* argv[]) {
-	int a = 025;
+	int a = 0666;
 	
 	printf("decimal = %d\n", a);
 	printf("octal = %o\n", a);

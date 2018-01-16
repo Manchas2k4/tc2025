@@ -22,7 +22,7 @@ float distance(const Point *p1, const Point *p2) {
 }
 
 /* A IMPLEMENTAR
-   Carga los datos de entrada entandar (consola). Primero 
+   Carga los datos de entrada estandar (consola). Primero 
    recibe la cantidad de elementos a leer (size), seguido por
    por 'size' pares de flotantes, los puntos a leer */
 void load_data() {
@@ -71,7 +71,7 @@ int main(int argc, char* argv[]) {
 	near = get_near_from(&p);
 	printf("near = (%4.2f, %4.2f)\n", near->x, near->y);
 
-	lasts = get_last_elements(20);
+	lasts = get_last_elements(10);
 	printf("last 10: ");
 	display_points(lasts, 10);
 

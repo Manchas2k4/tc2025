@@ -4,7 +4,7 @@
 
 int main(int argc, char* argv[]) {
 	long *p;
-	long x = 10;
+	long x = 10; //, y = 1000;
 	
 	/*
 	p = (long*) malloc(sizeof(long));
@@ -14,21 +14,22 @@ int main(int argc, char* argv[]) {
 	}
 	*/
 	p = &x;
-	printf("x = %d\n", x);
+	printf("x = %li\n", x);
 	printf("&x = %p\n", (&x));
 	printf("p = %p\n", p);
 	
 	(*p) = 10;
 	printf("p = %p\n", p);
-	printf("*p = %d\n", (*p));
+	printf("*p = %li\n", (*p));
 	
 	(*p)++;
 	printf("p = %p\n", p);
-	printf("*p = %d\n", (*p));
+	printf("*p = %li\n", (*p));
 	
 	*(++p) = 11;
+	//printf("x = %li\n", y);
 	printf("p = %p\n", p);
-	printf("*p = %d\n", (*p));
+	printf("*p = %li\n", (*p));
 	
 	//free(p);
 	
