@@ -42,7 +42,7 @@ int main(int argc, char* argv[]) {
 	
 	length_text = lseek(fd_text, 0, SEEK_END);
 	length_img = width * height;
-	if (length_img < length_text) {
+	if ((length_img - 1) < length_text) {
 		fprintf(stderr, "%s: the text must have the same size of the image\n", argv[0]);
 		close(fd_img);
 		close(fd_text);
@@ -63,6 +63,7 @@ int main(int argc, char* argv[]) {
 		img[i] = text[j];
 		i += 3;
 	}
+	img[i] = '\0';
 	
 	lseek(fd_img, 54, SEEK_SET);
 	write(fd_img, img, length_img * 3 * sizeof(char));
