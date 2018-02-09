@@ -116,7 +116,7 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 	
-	strcpy(dir_name, ".");
+	strcpy(dir_name, "."); //getcwd
 	recursive = 0;
 	directory = dir_name;
 	if (argc == 2) {
