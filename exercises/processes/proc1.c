@@ -23,6 +23,7 @@ int main(int argc, char* argv[]) {
 		printf("PARENT PID = %i PPID = %i\n", getpid(), getppid());
 		wait(&result);
 		printf("EXIT STATUS = %i\n", WEXITSTATUS(result));
+		//printf("EXIT STATUS = %i\n", result);
 	}
 	return 0;
 }

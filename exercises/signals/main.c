@@ -79,7 +79,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	free(data);
-	printf("PID = %i, minimum = %i.\n", getpid(), min);
+	printf("PID = %i, RESULT = %i.\n", getpid(), min);
 	remove("inter");
 	return 0;
 }	

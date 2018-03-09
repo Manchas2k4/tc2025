@@ -50,7 +50,7 @@ void execute(char* order1, char* order2, char* order3, char* program) {
 		close(p1p2[1]);
 		execlp(order3, order3, (char*) 0);
 	}
-	}
+}
 
 int main(int argc, char* argv[]) {
 	if (argc != 4) {

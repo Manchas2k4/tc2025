@@ -7,6 +7,7 @@ int main(int argc, char* argv[]) {
 	
 	val = fork();
 	if (val == 0) {
+		sleep(5);
 		printf("PID = %i PPID = %i\n", getpid(), getppid());
 	} else if (val > 0) {
 		for (i = 0; i < 3; i++) {
