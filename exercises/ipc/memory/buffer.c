@@ -21,8 +21,8 @@ int main(int argc, char* argv[]) {
 	}
 	
 	semctl(semid, MUTEX, SETVAL, 1);
-	semctl(semid, EMPTY, SETVAL, SIZE);
-	semctl(semid, FULL, SETVAL, 0);
+	semctl(semid, FREESPACES, SETVAL, SIZE);
+	semctl(semid, ITEMS, SETVAL, 0);
 	
 	semctl(semid, 0, GETALL, final_values);
 	for (i = 0; i < 3; i++) {
@@ -35,6 +35,11 @@ int main(int argc, char* argv[]) {
 		perror(argv[0]);
 		return -1;
 	}
+	
+	Buffer *b;
+	b = (Buffer*) shmat(shmid, (void*) 0, 0);
+	b->next = 0;
+	shmdt(b);
 	
 	return 0;
 }

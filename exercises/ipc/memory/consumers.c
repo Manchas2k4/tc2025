@@ -19,13 +19,14 @@ void a_consumer(char* program) {
 		perror(program);
 		exit(-1);
 	}
+	
 	b = (Buffer*) shmat(shmid, (void*) 0, 0);
 	
 	srand( getpid() );
 	for (k = 0; k < 10; k++) {
 		i = (rand() % 5) + 1;
 		printf("Consumer %i trying to get %i items\n", getpid(), i);
-		sem_wait(semid, FULL, i);
+		sem_wait(semid, ITEMS, i);
 		
 		printf("Consumer %i trying to get the lock over the buffer.\n", getpid());
 		sem_wait(semid, MUTEX, 1);
@@ -45,7 +46,7 @@ void a_consumer(char* program) {
 		sem_signal(semid, MUTEX, 1);
 		printf("Consumer %i has released the lock.\n", getpid());
 		
-		sem_signal(semid, EMPTY, i);
+		sem_signal(semid, FREESPACES, i);
 		
 		sleep(rand() % 10 + 1);
 	}

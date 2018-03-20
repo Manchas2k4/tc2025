@@ -8,18 +8,10 @@
 #include <sys/sem.h>
 #include <sys/shm.h>
 
-#define SIZE	10
-#define MUTEX	0
-#define FREESPACES	1
-#define ITEMS	2
-
-typedef struct buffer {
-	int data[SIZE];
-	int next;
-} Buffer;
-
-typedef unsigned char uchar;
-typedef long long int lli;
+#define SERVINGS 	0
+#define MUTEX		1
+#define EMPTYPOT	2
+#define FULLPOT		3
 
 int sem_wait(int semid, int semnum, unsigned int val) {
 	struct sembuf op;

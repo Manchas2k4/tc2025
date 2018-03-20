@@ -25,7 +25,7 @@ void a_producer(char* program) {
 	for (k = 0; k < 10; k++) {
 		i = (rand() % 5) + 1;
 		printf("Producer %i trying to put %i items\n", getpid(), i);
-		sem_wait(semid, EMPTY, i);
+		sem_wait(semid, FREESPACES, i);
 		
 		printf("Producer %i trying to get the lock over the buffer.\n", getpid());
 		sem_wait(semid, MUTEX, 1);
@@ -46,7 +46,7 @@ void a_producer(char* program) {
 		sem_signal(semid, MUTEX, 1);
 		printf("Producer %i has released the lock.\n", getpid());
 		
-		sem_signal(semid, FULL, i);
+		sem_signal(semid, ITEMS, i);
 		
 		sleep(rand() % 10 + 1);
 	}
