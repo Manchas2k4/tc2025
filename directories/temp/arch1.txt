@@ -1,0 +1,8 @@
+total 32
+drwxr-xr-x 3 pperezm pperezm  4096 ago 24 09:15 .
+drwxr-xr-x 6 pperezm pperezm  4096 ago 21 08:44 ..
+lrwxrwxrwx 1 pperezm pperezm    12 ago 21 09:45 a_file -> ../README.md
+-rwxr-xr-x 1 pperezm pperezm 13096 ago 24 09:15 dir
+-rw-r--r-- 1 pperezm pperezm  2264 ago 24 09:14 dir.c
+-rw-r--r-- 1 pperezm pperezm     0 ago 21 09:36 .patito
+drwxr-xr-x 2 pperezm pperezm  4096 ago 24 09:17 temp
