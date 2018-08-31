@@ -7,6 +7,7 @@
 #define MAX_EMAIL   256
 
 typedef unsigned char uchar;
+typedef unsigned long ulong;
 
 struct entry {
     char name[MAX_NAME];
@@ -19,7 +20,7 @@ struct entry {
 };
 
 struct index {
-  long pos;
+  ulong pos;
   char name[MAX_NAME];
   uchar len_name;
 };
@@ -46,57 +47,66 @@ void deserialize(struct entry *c) {
     c->email[c->len_email] = '\0';
 }
 
-/*
-    Una operación para serializar y deseria-
-    lizar una estructura tipo índice. Esta 
-    función se utilizará al momento de guar-
-    dar los índices en un arreglo.
-*/
 void serialize_index(struct index *i) {
+	i->len_name = strlen(i->name);
+	i->name[i->len_name] = ' ';
+	i->name[MAX_NAME - 1] = '\0';
 }
 
 void deserialize_index(struct index *i) {
+	i->name[i->len_name] = '\0';
 }
 
-/* 
-	Agregar una función de comparación de
-	indexes usando el nombre
-*/
 int compare(const void *a, const void *b) {
-	return -1;
+	struct index *left = (struct index *) a;
+	struct index *right = (struct index *) b;
+	
+	return strcmp(left->name, right->name);
 }
 
-/*
-    Agregar:
-        a) antes de escribir obtenga la posi-
-        ción en que se va a escribir.
-        b) escribir el registro.
-        c) agregar un nuevo índice al arreglo
-        usando la posición obtenida y el nom-
-        bre del contacto.
-        d) ordenar el arreglo usando qsort.
-*/
-void insert(FILE *arch, struct entry *c) {
+void insert(FILE *file, struct entry *c) {
+	ulong pos;
+	
+	serialize(c);
+	fseek(file, 0, SEEK_END);
+	pos = ftell(file) / sizeof(struct entry);	
+	
+	if (fwrite(c, sizeof(struct entry), 1, file) == 1) {
+		
+		strcpy(indexes[next].name, c->name);
+		indexes[next].pos = pos;
+		indexes[next].len_name = c->len_name;
+		next++;
+		
+		qsort(indexes, next, sizeof(struct index), compare);
+		  
+		printf("The record has been added.\n");
+	} else {
+		printf("There was an error, the record is not added.\n");
+	}
 }
 
-/*
-    Modificar el display para que muestre
-    siempre los elementos ordenados de menor
-    a mayor. TIP: usar el arreglo de índices
-    para desplegar la información.
-*/
-void display(FILE *arch, int show_deleted) {
+void display(FILE *file, int show_deleted) {
+	struct entry c;
+	long i = 0, size = 0;
+
+	printf("%-20s%-13s%-20s%-5s\n", "NAME", "PHONE", "EMAIL", "DEL");
+	for (i = 0; i < next; i++) {
+		fseek(file, (indexes[i].pos * sizeof(struct entry)) , SEEK_SET);
+		fread(&c, sizeof(struct entry), 1, file);
+		if (show_deleted || c.deleted == 0) {
+			deserialize(&c);
+			printf("%-20s%-13s%-20s%2i\n", c.name, c.phone, c.email,c.deleted);
+		}
+	}
 }
 
-/*
-    Modificar el index_of para hacer utilizar 
-    bsearch (búsqueda binaria) en el arre----
-    glo de índices y regresar la posición que 
-    ese nombre debe tener en el archivo. En 
-    caso de no existir o que el registro está 
-    marcado como borrado, regresa -1.
-*/
-long index_of(FILE *arch, char *name) {
+ulong index_of(FILE *file, char *name) {
+	struct index key, *result;
+	
+	strcpy(key.name, name);
+	result = bsearch(&key, indexes, next, sizeof(struct index), compare);
+	return (result == NULL)? -1 : result->pos;
 }
 
 void show(FILE *arch, char *name) {
@@ -151,27 +161,22 @@ void erase(FILE *arch, char *name) {
     printf("%s has been deleted\n", name);
 }
 
-/*
-    agregar una función que se encarga de guardar
-    todos los índices en un archivo llamado 
-    agenda.idx. Recuerda cerrar el archivo al 
-    final.
-*/
 void save_idx() {
+	FILE *idx;
+	
+	idx = fopen("agenda.idx", "wb");
+	fwrite(indexes, sizeof(struct index), next, idx);
+	fclose(idx);
 }
 
-/*
-    agregar una función que se encarga de cargar
-    los índices que se hallan en archivo 
-    agenda.idx. La función recibe un FILE*
-    del archivo ya abierto. Esta función deberá 
-    calcular el número de registros que hay en el 
-    archivo, dimensionar en apuntador (estructura
-    del arreglo de índices) al tamaño + 10, y
-    guardar cada uno de esos registros en el 
-    arreglo. 
-*/
 void load_idx(FILE * in) {
+	fseek(in, 0, SEEK_END);
+	next = ftell(in) / sizeof(struct index);
+	
+	indexes = (struct index*) malloc( sizeof(struct index) * (next + 100) );
+	
+	fseek(in, 0, SEEK_SET);
+	fread(indexes, sizeof(struct index), next, in);
 }
 
 void init_idx() {
@@ -179,20 +184,11 @@ void init_idx() {
 	
 	idx = fopen("agenda.idx", "rb+");
 	if (!idx) {
-	    /*
-	    dimensiona el apuntador (estructura
-	    del arreglo de índices) a un tamaño 
-	    de 20. La posición inicial es 0.
-	    */
 	    indexes = malloc(sizeof(struct index) * 20);
 	    next = 0;
 	    
 	} else {
 	    load_idx(idx);
-	    /*
-	    invoca al a función que carga los 
-	    indices el archivo de índices.
-	    */
 	}
 }
 
