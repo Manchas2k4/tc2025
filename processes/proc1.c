@@ -16,7 +16,7 @@ void child_process() {
 }
 
 int main(int argc, char* argv[]) {
-	int i, num, pid, result;
+	int i, num, pid;
 	
 	if (argc != 2) {
 		printf("usage: %s number_of_childs\n", argv[0]);
@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
 		} else if (pid == 0) {
 			child_process();
 		} else {
-			wait(&result);
+			wait(NULL);
 		}
 	}
 	return 0;

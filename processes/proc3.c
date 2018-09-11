@@ -23,9 +23,9 @@ void child_process(int level, char *program) {
 		} else if (pid == 0) {
 			child_process(--level, program);
 		} else {
-			printf("PID = %i PPID = %i\n is waiting", getpid(), getppid());
+			printf("PID = %i PPID = %i\n is waiting\n", getpid(), getppid());
 			wait(NULL);
-			printf("PID = %i PPID = %i\n has ended", getpid(), getppid());
+			printf("PID = %i PPID = %i\n has ended\n", getpid(), getppid());
 			exit(0);
 		}
 	}
