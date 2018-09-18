@@ -4,6 +4,10 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <limits.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/wait.h>
+#include "child.h"
 
 int main(int argc, char* argv[]) {
 	int fd_out;
@@ -54,7 +58,7 @@ int main(int argc, char* argv[]) {
 		kill(data[i], SIGUSR2);
 	}
 	while (i > 0) {
-		wait();
+		wait(NULL);
 		printf("PID = %i a child has ended\n", getpid());
 		i--;
 	}
