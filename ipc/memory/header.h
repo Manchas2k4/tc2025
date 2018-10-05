@@ -1,23 +1,23 @@
-#ifndef SEMAFOROS_H
-#define SEMAFOROS_H
+#ifndef HEADER_H
+#define HEADER_H
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <sys/shm.h>
 
-#define	LLENO 		0
-#define VACIO		1
+#define	EMPTY 		0
+#define FULL		1
 #define MUTEX 		2
 
 #define SIZE		10
-#define NUMSEM		3
 
 struct buffer {
-	int next;
 	int data[SIZE];
+	int head, tail;
 };
 
 int sem_wait(int semid, int sem_num, int val) {
