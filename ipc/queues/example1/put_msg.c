@@ -1,5 +1,4 @@
 #include "header.h"
-#include <time.h>
 
 int main(int argc, char* argv[]) {
     struct message msg;
