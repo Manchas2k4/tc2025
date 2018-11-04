@@ -52,7 +52,7 @@ void* producer(void *arg) {
 void* consumer(void *arg) {
 	int i,v;
 	printf("consumer starting...\n");
-	for (i=0;i<100;i++) {
+	for (i=0; i<10; i++) {
    		pthread_mutex_lock(&mutex);
    		if (size == 0) {
        		pthread_cond_wait(&data_available, &mutex); 

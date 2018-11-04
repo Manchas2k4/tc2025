@@ -27,8 +27,8 @@ int main(int arg, char* argv[]) {
 	void* ret;
 	
 	printf("PID = %i - creating threads\n", getpid());
-	for (i = 0; i < 10; i++) {
-	    limit = (i + 1) * 5;
+	for (i = 0; i < 3; i++) {
+	    limit = (i + 1) * 2;
 		pthread_create(&pthread_id[i], 
 			            NULL, task, (void *) &limit);
 	}

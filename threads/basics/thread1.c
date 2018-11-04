@@ -26,7 +26,7 @@ int main(int arg, char* argv[]) {
 	void* ret;
 	
 	printf("PID = %i - creating threads\n", getpid());
-	for (i = 0; i < 10; i++) {
+	for (i = 0; i < 3; i++) {
 		pthread_create(&pthread_id[i], 
 			            NULL, task, (void *) 0);
 	}
