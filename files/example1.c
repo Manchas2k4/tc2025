@@ -1,3 +1,10 @@
+/**
+	Copy a file (origin) to a new file (destination). The copy 
+	is done character by character.
+	
+	@author Pedro Perez
+	@version 2.0 13/01/2019
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

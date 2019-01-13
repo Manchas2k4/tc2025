@@ -1,9 +1,18 @@
+/**
+	Copy a file (origin) to a new file (destination). The 
+	copy is made by reading one block of bytes at a time.
+	
+	@author Pedro Perez
+	@version 2.0 13/01/2019
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+
+#define SIZE 2028
 
 int main(int argc, char* argv[]) {
 	int fd_in, fd_out;
@@ -23,9 +32,9 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 	
-	char buffer[2048];
+	char buffer[SIZE];
 	ssize_t nbytes;
-	while ( (nbytes = read(fd_in, buffer, sizeof(buffer))) != 0 ) {
+	while ( (nbytes = read(fd_in, buffer, SIZE)) != 0 ) {
 		write(fd_out, buffer, nbytes);
 	}	
 	
