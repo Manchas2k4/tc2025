@@ -1,6 +1,6 @@
 /**
-	Copy a file (origin) to a new file (destination). The copy 
-	is done character by character.
+	Copy a file (origin) to a new file (destination). The 
+	copy is done character by character.
 	
 	@author Pedro Perez
 	@version 2.0 13/01/2019

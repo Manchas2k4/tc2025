@@ -1,7 +1,8 @@
 /**
-	Copy a file (origin) to a new file (destination). The copy is made
-	to redirect the standard input and output to the files; the reading
-	is carried out as if it were made of a keyboard.
+	Copy a file (origin) to a new file (destination). The 
+	copy is made to redirect the standard input and output 
+	to the files; the reading is carried out as if it were
+	made of a keyboard.
 	
 	@author Pedro Perez
 	@version 2.0 13/01/2019
