@@ -1,8 +1,18 @@
+/**
+	Like the previous example (example2.c), this program
+	attempts to declare and initialize an array of 
+	100,000,000 whole elements. However, this time dynamic
+	memory is used.
+	
+	@author Pedro Perez
+	@version 2.0 13/01/2019
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-#define SIZE 10000000
+//SIZE = 100,000,000
+#define SIZE 100000000
 
 int main(int argc, char* argv[]) {
 	int *arr, i;

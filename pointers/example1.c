@@ -1,3 +1,11 @@
+/**
+	Perform several operations on a static variable. The
+	program also has the option of working with a dynamic
+	variable.
+	
+	@author Pedro Perez
+	@version 2.0 13/01/2019
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -35,7 +43,6 @@ int main(int argc, char* argv[]) {
 	printf("pointer p = %p\n", p);
 	printf("content (*p) = %li\n\n\n", (*p));
 	
-	/* This code generates an exception. */
 	(*p) = 14;
 	printf("modifying through p\n");
 	printf("pointer p = %p\n", p);

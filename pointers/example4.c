@@ -1,39 +1,37 @@
+/**
+	This program uses function pointers to make the 
+	comparison when ordering an array using Bubble Sort.
+	
+	@author Pedro Perez
+	@version 2.0 13/01/2019
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <time.h>
 
-void intercambia(int *a, int *b) {
+void swap(int *a, int *b) {
 	int aux;
 	aux = *a;
 	*a = *b;
 	*b = aux;
 }
 
-int es_mayor(int a, int b) {
+int greater_than(int a, int b) {
 	return (a > b);
 }
 
-int es_menor(int a, int b) {
+int less_than(int a, int b) {
 	return (a < b);
 }
 
-int aleatorio(int a, int b) {
-	if (rand() % 2 == 0) {
-		return 1;
-	} else {
-		return 0;
-	}
-}
-
-// void quick_sort(void *arr, int num_loc, int data_size, int (*fn) (int, int) ) {
 void bubble_sort(int arr[], int size, int (*fn) (int, int) ) {
 	int i, j;
 	
 	for (i = size - 1; i > 0; i--) {
 		for (j = 0; j < i; j++) {
 			if ( fn(arr[j], arr[j + 1]) ) {
-				intercambia((arr + j), (arr + j + 1));
+				swap((arr + j), (arr + j + 1));
 			}
 		}
 	}
@@ -52,14 +50,17 @@ void display(int arr[], int size) {
 int main(int argc, char* argv[]) {
 	int a[10] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
 	
-	srand(time(0));
+	printf("initial array: ");
+	display(a, 10);
+	printf("ascend array: ");
+	bubble_sort(a, 10, greater_than);
+	display(a, 10);
+	printf("\n\n");
 	
+	printf("initial array: ");
 	display(a, 10);
-	bubble_sort(a, 10, es_mayor);
-	display(a, 10);
-	bubble_sort(a, 10, es_menor);
-	display(a, 10);
-	bubble_sort(a, 10, aleatorio);
+	printf("descend array: ");
+	bubble_sort(a, 10, less_than);
 	display(a, 10);
 	
 	return 0;
