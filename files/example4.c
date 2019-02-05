@@ -9,6 +9,7 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include <fcntl.h>
 #include <sys/types.h>
 
@@ -29,6 +30,9 @@ int main(int argc, char* argv[]) {
 
 	char c = 'a';
 	lseek(fd, OFFSET, SEEK_SET);
+	write(fd, &c, sizeof(char));
+	
+	lseek(fd, -(OFFSET/2), SEEK_CUR);
 	write(fd, &c, sizeof(char));
 	
 	close(fd);

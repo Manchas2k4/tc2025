@@ -15,10 +15,12 @@
 typedef unsigned int uint;
 typedef long int li;
 
-typedef struct a_queue{
+struct a_queue{
 	uint *data;
 	uint size, elements, front, rear;
-} queue;
+};
+
+typedef struct a_queue queue;
 
 queue* create_queue(uint size) {
 	if (size == 0) {

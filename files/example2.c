@@ -12,7 +12,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#define SIZE 2028
+#define SIZE 2048
 
 int main(int argc, char* argv[]) {
 	int fd_in, fd_out;

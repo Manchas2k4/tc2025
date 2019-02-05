@@ -79,7 +79,6 @@ void list(char *directory, int recursive, char* program) {
 	while ( (direntry = readdir(dir)) != NULL ) {
 		if (strcmp(direntry->d_name, ".") != 0 &&
 			strcmp(direntry->d_name, "..") != 0) {
-			sprintf(filename, "%s/%s", directory, direntry->d_name);
 			get_info(direntry->d_name, directory, program);
 		}
 	}
@@ -102,7 +101,7 @@ void list(char *directory, int recursive, char* program) {
 }
 
 int main(int argc, char* argv[]) {
-	char dir_name[NAME_MAX + 1];
+	char dir_name[PATH_MAX + 1];
 	char *directory;
 	int recursive;
 	
@@ -111,7 +110,7 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 	
-	getcwd(dir_name, NAME_MAX);
+	getcwd(dir_name, PATH_MAX);
 	directory = dir_name;
 	recursive = 0;
 	if (argc == 2) {

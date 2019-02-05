@@ -37,6 +37,7 @@ int main(int argc, char* argv[]) {
 	close(1);
 	dup(fd_out);
 	
+	char c;
 	while (scanf("%c", &c) != EOF) {
 		if ((c & 0x01) == 0) {
 			printf("%c ", c);
