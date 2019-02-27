@@ -5,8 +5,8 @@
 
 int main(int argc, char* argv[]) {
 	FILE* file;
-	int aux, total, num, i;
-	int maximum;
+	int total, num, counts[101];
+	int maximo;
 	
 	if (argc != 2) {
 		fprintf(stderr, "usage: %s filename\n", argv[0]);
@@ -18,24 +18,24 @@ int main(int argc, char* argv[]) {
 		perror(argv[1]);
 		return -1;
 	}
+	
+	memset(counts, 0, sizeof(int) * 101);
 
-	//feof(file)
-	maximum = 0;
-	while (fscanf(file, "%i,%i", &aux, &total) != 0) {
-		fprintf(stdout, "aux = %i - total = %i\n", aux, total);
-		total *= total;
-		for (i = 0; i < total; i++) {
-			fscanf(file, ",%i", &num);
-			//fprintf(stdout, "i = %i - num = %i\n", i, num);
-			if (maximum < num) {
-				maximum = num;
-			}
-		}
+	fscanf(file, "%i", &total);
+	for (i = 0; i < total; i++) {
+		fscanf(file, ",%i", &num);
+		counts[num]++;
 	}
 	
-	fprintf(stdout, "maximum = %i\n", maximum);
-	
 	fclose(file);
+	
+	maximo = 0;
+	for (int i = 1; i < 101; i++) {
+		if (counts[i] > maximo) {
+			maximo = counts[i];
+		}
+	}
+
 	
 	return 0;
 }

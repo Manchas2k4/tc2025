@@ -8,7 +8,7 @@ void child_process() {
 	int time;
 	
 	srand( getpid() );
-	time = rand() % 5;
+	time = rand() % 5 + 1;
 	printf("PID = %i PPID = %i SLEEP = %i\n", getpid(), getppid(), time);
 	sleep( time );
 	printf("PID = %i PPID = %i\n", getpid(), getppid());
