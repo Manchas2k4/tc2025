@@ -105,7 +105,6 @@ int main(int argc, char* argv[]) {
 	
 	free(vals);
 
-
 	printf("result = %lf\n", (acum * 4));
 	
 	remove("temp");

@@ -7,7 +7,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
-#include "child.h"
+#include "child.c"
 
 int main(int argc, char* argv[]) {
 	int fd_out;

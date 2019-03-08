@@ -65,15 +65,3 @@ int child_process(char* program, char* file_in, char* file_out, int pos, int blo
 	printf("PID = %i ending...\n", getpid());
 	exit(0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
