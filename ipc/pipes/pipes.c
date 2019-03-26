@@ -17,7 +17,7 @@ void execute(char *program, char *order1, char *order2, char *order3) {
         perror(program);
         exit(-1);
     } if (pid == 0) {
-        // PADRE
+        // PADRE --- P2
         if (pipe(p2p3) < 0) {
             perror(program);
             exit(-1);
@@ -27,7 +27,7 @@ void execute(char *program, char *order1, char *order2, char *order3) {
             perror(program);
             exit(-1);
         } else if (pid == 0) {
-            // HIJO
+            // HIJO -- P3
             close(1);
             dup(p2p3[1]);
             close(p2p3[0]);
@@ -47,7 +47,7 @@ void execute(char *program, char *order1, char *order2, char *order3) {
             execlp(order2, order2, (char*) 0);
         }
     } else {
-        // ABUELO
+        // ABUELO --- P1
         close(0);
         dup(p1p2[0]);
         close(p1p2[0]);

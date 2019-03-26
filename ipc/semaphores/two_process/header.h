@@ -6,19 +6,10 @@
 #include <unistd.h>
 #include <sys/ipc.h>
 #include <sys/sem.h>
-#include <sys/shm.h>
 
-#define	LLENO 		0
-#define VACIO		1
-#define MUTEX 		2
-
-#define SIZE		10
-#define NUMSEM		3
-
-struct buffer {
-	int next;
-	int data[SIZE];
-};
+#define PROCESS1	0
+#define PROCESS2	1
+#define N			10
 
 int sem_wait(int semid, int sem_num, int val) {
 	struct sembuf op;
@@ -33,7 +24,7 @@ int sem_signal(int semid, int sem_num, int val) {
 	struct sembuf op;
 	
 	op.sem_num = sem_num;
-	op.sem_op = val;
+	op.sem_op = +val;
 	op.sem_flg = 0;
 	return semop(semid, &op, 1);
 }
