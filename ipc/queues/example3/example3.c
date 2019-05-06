@@ -10,7 +10,7 @@
 #include <time.h> 
 #include <fcntl.h>
 
-#define SIZE 10000000
+#define SIZE 100000000
 #define GRAIN 100000
 #define CHILDS 4
 
@@ -99,7 +99,7 @@ void process_type2(int id) {
     
     min = INT_MAX;
     ended = 0;
-    while (ended < 4) {
+    while (ended < CHILDS) {
     	msgrcv(msqid, &mt2, len2, id, 0);
     	if (mt2.ended) {
     		ended++;

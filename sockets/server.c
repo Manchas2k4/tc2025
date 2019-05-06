@@ -52,7 +52,7 @@ void server(char* ip, int port, char* program) {
 			exit(-1);
 		}
 		
-		/* CONCURRENTE
+		//CONCURRENTE
 		if ( (pid = fork()) < 0 ) {
 			perror(program);
 		} else if (pid == 0) {
@@ -62,9 +62,9 @@ void server(char* ip, int port, char* program) {
 		} else {
 			close(nsfd);
 		}
-		CONCURRENTE */
+		//CONCURRENTE */
 		
-		serves_client(nsfd); // ITERATIVO
+		//serves_client(nsfd); // ITERATIVO
 	}
 }
 

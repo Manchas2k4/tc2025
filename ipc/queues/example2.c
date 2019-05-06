@@ -9,7 +9,7 @@
 #include <sys/wait.h> 
 
 #define SIZE 1000
-#define TIMES 3
+#define TIMES 10
 #define CHILDS 2
 
 struct message {
