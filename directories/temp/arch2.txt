@@ -1,8 +1,0 @@
-total 28
-drwxr-xr-x 6 pperezm pperezm 4096 ago 21 08:44 .
-drwxr-xr-x 6 pperezm pperezm 4096 ago 23 10:18 ..
-drwxr-xr-x 2 pperezm pperezm 4096 ago 23 10:26 basic-io
-drwxr-xr-x 3 pperezm pperezm 4096 ago 24 09:15 directories
-drwxr-xr-x 8 pperezm pperezm 4096 ago 18 13:00 .git
-drwxr-xr-x 2 pperezm pperezm 4096 ago 13 13:53 pointers
--rw-r--r-- 1 pperezm pperezm   80 ago 11 15:01 README.md
