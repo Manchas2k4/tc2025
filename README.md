@@ -1,2 +1,2 @@
 # Advanced Programming
-Code generated for the Advanced Programming class (AD19)
+The repository contains the generated source code for the AD 2019 Advanced Programming material.
