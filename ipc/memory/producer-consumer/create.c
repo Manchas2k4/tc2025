@@ -36,6 +36,12 @@ int main(int argc, char* argv[]) {
 		perror("shmid");
 		return -1;
 	} 	
+	
+	struct buffer *b;
+	b = (struct buffer*) shmat(shmid, (void*) 0, 0);
+	b->next = 0;
+	memset(b->data, 0, SIZE * sizeof(int));
+	shmdt(b);
 
 	return 0;
 }

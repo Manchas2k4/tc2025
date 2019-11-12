@@ -1,5 +1,4 @@
 #include "header.h"
-#include <time.h>
 
 void a_consumer(char* program) {
 	int semid, i, k;

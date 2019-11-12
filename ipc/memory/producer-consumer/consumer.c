@@ -31,8 +31,8 @@ void a_consumer() {
 		printf("Consumer %i has accessed the buffer...\n", getpid());
 		sem_wait(semid, MUTEX, 1);
 		for (j = 0; j < i; j++) {
-			b->data[b->next++] = (rand() % 3) + 1;
 			printf("Consumer %i is taking the number %i\n", getpid(), b->data[b->next - 1]);
+			b->next--;
 		}
 		printf("buffer = ");
 		for (j = 0; j < SIZE; j++) {
