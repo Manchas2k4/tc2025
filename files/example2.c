@@ -1,38 +1,39 @@
+/**
+* file: 	example2.c
+* author:	Pedro Perez
+* version:	26-02-2020
+* description: 
+	In this file, you will find the code that allows you to create a "hole" in
+	an ordinary file. The program creates an empty file, and due to the 
+	logical-physical handling of UNIX, you can advance to byte 5,000 to write a
+	single character.
+**/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <fcntl.h>
 #include <sys/types.h>
-
-#define SIZE 4096
-
-typedef unsigned char uchar;
+#include <sys/stat.h>
+#include <fcntl.h>
 
 int main(int argc, char* argv[]) {
-	int source, destination;
+  int fd;
+  char buffer;
 
-	if (argc != 3) {
-		printf("usage: %s source destination\n", argv[0]);
-		return -1;
-	}
+  if (argc != 2) {
+    printf("usage: %s filename\n", argv[0]);
+    return -1;
+  }
 
-	if ( (source = open(argv[1], O_RDONLY)) < 0 ) {
-		perror(argv[0]);
-		return -2;
-	}
+  if ( (fd = open(argv[1], O_WRONLY | O_CREAT | O_TRUNC, 0666)) < 0 ) {
+    perror("open");
+    return -2;
+  }
 
-	if ( (destination = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0666)) < 0 ) {
-		perror(argv[0]);
-		return -3;
-	}
+  buffer = 'a';
+  lseek(fd, 5000, SEEK_SET);
+  write(fd, &buffer, sizeof(char));
 
-	int bytes;
-	uchar buffer[SIZE];
-	while ( (bytes = read(source, buffer, sizeof(uchar) * SIZE)) != 0) {
-		write(destination, buffer, bytes);
-	}
+  close(fd);
 
-	close(source);
-	close(destination);
-	return 0;
+  return 0;
 }
