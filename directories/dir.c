@@ -58,11 +58,7 @@ void list(char *dir_name, int recursive, char *program) {
 
 	printf("%s:\n", dir_name);
 	while( (direntry = readdir(dir)) != NULL) {
-		if (strcmp(direntry->d_name, ".") != 0 &&
-			strcmp(direntry->d_name, "..") != 0) {
-
-			get_info(direntry->d_name, dir_name, program);
-		}
+		get_info(direntry->d_name, dir_name, program);
 	}
 	if (recursive) {
 		rewinddir(dir);
@@ -77,6 +73,7 @@ void list(char *dir_name, int recursive, char *program) {
 				}
 			}
 		}
+		closedir(dir);
 	}
 	printf("\n");
 }
@@ -116,13 +113,20 @@ void get_info(char *name, char *directory, char *program) {
 	} else {
 		printf(" %8s", pw->pw_name);
 	}
+	
+	if ( (gr = getgrgid(info.st_gid)) == NULL ) {
+		printf(" ????????");
+	} else {
+		printf(" %8s", gr->gr_name);
+	}
+
 
 	printf(" %7li", info.st_size);
-	
+
 	raw_time = info.st_mtime;
 	timeinfo = localtime( &raw_time );
 	strftime(date, 13, "%b %d %R", timeinfo);
 	printf(" %s", date);
-	
+
 	printf(" %s\n", name);
 }

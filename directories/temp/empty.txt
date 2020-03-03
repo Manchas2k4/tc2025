@@ -1,0 +1,1300 @@
+/home/pperezm/Documentos/:
+total 24
+drwxr-xr-x  6 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 31 pperezm pperezm 4096 mar  3 08:33 ..
+drwxr-xr-x 10 pperezm pperezm 4096 feb 24 12:26 advanced_programming
+drwxr-xr-x 11 pperezm pperezm 4096 feb 24 12:27 algorithms
+drwxr-xr-x  6 pperezm pperezm 4096 feb 24 12:27 compilers
+drwxr-xr-x  6 pperezm pperezm 4096 feb 24 12:27 data_structures
+
+/home/pperezm/Documentos/advanced_programming:
+total 44
+drwxr-xr-x 10 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x  6 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x  3 pperezm pperezm 4096 mar  3 09:27 directories
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:16 files
+drwxr-xr-x  8 pperezm pperezm 4096 feb 26 12:26 .git
+drwxr-xr-x  6 pperezm pperezm 4096 feb 24 12:26 ipc
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 processes
+-rw-r--r--  1 pperezm pperezm  127 feb 24 12:26 README.md
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 signals
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 sockets
+drwxr-xr-x  4 pperezm pperezm 4096 feb 24 12:26 threads
+
+/home/pperezm/Documentos/advanced_programming/directories:
+total 56
+drwxr-xr-x  3 pperezm pperezm  4096 mar  3 09:27 .
+drwxr-xr-x 10 pperezm pperezm  4096 feb 24 12:26 ..
+-rwxr-xr-x  1 pperezm pperezm 13224 mar  3 09:27 d
+-rw-r--r--  1 pperezm pperezm  2715 mar  3 09:42 dir.c
+-rw-r--r--  1 pperezm pperezm  2700 feb 24 12:26 otro.c
+drwxr-xr-x  2 pperezm pperezm  4096 feb 24 12:26 temp
+-rwxr-xr-x  1 pperezm pperezm 13000 mar  3 09:17 w
+-rw-r--r--  1 pperezm pperezm  1129 mar  3 09:42 whereis.c
+
+/home/pperezm/Documentos/advanced_programming/directories/temp:
+total 8
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 3 pperezm pperezm 4096 mar  3 09:27 ..
+-rw-r--r-- 1 pperezm pperezm    0 mar  3 09:46 empty.txt
+
+/home/pperezm/Documentos/advanced_programming/files:
+total 32
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:16 .
+drwxr-xr-x 10 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r--  1 pperezm pperezm  536 feb 26 12:07 example1.c
+-rw-rw-r--  1 pperezm pperezm  821 feb 26 12:09 example2.c
+-rw-r--r--  1 pperezm pperezm 1106 feb 26 12:11 example3.c
+-rw-r--r--  1 pperezm pperezm 1000 feb 26 12:12 example4.c
+-rw-r--r--  1 pperezm pperezm 2174 feb 26 12:16 example5.c
+-rw-r--r--  1 pperezm pperezm 1240 feb 26 12:16 example6.c
+
+/home/pperezm/Documentos/advanced_programming/.git:
+total 60
+drwxr-xr-x  8 pperezm pperezm 4096 feb 26 12:26 .
+drwxr-xr-x 10 pperezm pperezm 4096 feb 24 12:26 ..
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 branches
+-rw-r--r--  1 pperezm pperezm   14 feb 26 12:26 COMMIT_EDITMSG
+-rw-r--r--  1 pperezm pperezm  275 feb 26 12:22 config
+-rw-r--r--  1 pperezm pperezm   73 feb 24 12:26 description
+-rw-r--r--  1 pperezm pperezm   23 feb 24 12:26 HEAD
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 hooks
+-rw-r--r--  1 pperezm pperezm 5414 feb 26 12:22 index
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 info
+drwxr-xr-x  3 pperezm pperezm 4096 feb 24 12:26 logs
+drwxr-xr-x 13 pperezm pperezm 4096 feb 26 12:26 objects
+-rw-r--r--  1 pperezm pperezm  114 feb 24 12:26 packed-refs
+drwxr-xr-x  5 pperezm pperezm 4096 feb 24 12:26 refs
+
+/home/pperezm/Documentos/advanced_programming/.git/branches:
+total 8
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:26 ..
+
+/home/pperezm/Documentos/advanced_programming/.git/hooks:
+total 56
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:26 ..
+-rwxr-xr-x 1 pperezm pperezm  478 feb 24 12:26 applypatch-msg.sample
+-rwxr-xr-x 1 pperezm pperezm  896 feb 24 12:26 commit-msg.sample
+-rwxr-xr-x 1 pperezm pperezm 3327 feb 24 12:26 fsmonitor-watchman.sample
+-rwxr-xr-x 1 pperezm pperezm  189 feb 24 12:26 post-update.sample
+-rwxr-xr-x 1 pperezm pperezm  424 feb 24 12:26 pre-applypatch.sample
+-rwxr-xr-x 1 pperezm pperezm 1642 feb 24 12:26 pre-commit.sample
+-rwxr-xr-x 1 pperezm pperezm 1492 feb 24 12:26 prepare-commit-msg.sample
+-rwxr-xr-x 1 pperezm pperezm 1348 feb 24 12:26 pre-push.sample
+-rwxr-xr-x 1 pperezm pperezm 4898 feb 24 12:26 pre-rebase.sample
+-rwxr-xr-x 1 pperezm pperezm  544 feb 24 12:26 pre-receive.sample
+-rwxr-xr-x 1 pperezm pperezm 3610 feb 24 12:26 update.sample
+
+/home/pperezm/Documentos/advanced_programming/.git/info:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:26 ..
+-rw-r--r-- 1 pperezm pperezm  240 feb 24 12:26 exclude
+
+/home/pperezm/Documentos/advanced_programming/.git/logs:
+total 16
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:26 ..
+-rw-r--r-- 1 pperezm pperezm  367 feb 26 12:26 HEAD
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:26 refs
+
+/home/pperezm/Documentos/advanced_programming/.git/logs/refs:
+total 16
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:26 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 heads
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:26 remotes
+
+/home/pperezm/Documentos/advanced_programming/.git/logs/refs/heads:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r-- 1 pperezm pperezm  367 feb 26 12:26 master
+
+/home/pperezm/Documentos/advanced_programming/.git/logs/refs/remotes:
+total 12
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:26 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 26 12:26 origin
+
+/home/pperezm/Documentos/advanced_programming/.git/logs/refs/remotes/origin:
+total 16
+drwxr-xr-x 2 pperezm pperezm 4096 feb 26 12:26 .
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r-- 1 pperezm pperezm  217 feb 24 12:26 HEAD
+-rw-r--r-- 1 pperezm pperezm  143 feb 26 12:26 master
+
+/home/pperezm/Documentos/advanced_programming/.git/objects:
+total 52
+drwxr-xr-x 13 pperezm pperezm 4096 feb 26 12:26 .
+drwxr-xr-x  8 pperezm pperezm 4096 feb 26 12:26 ..
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 0f
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 2a
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 3e
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 5e
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 85
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:26 b0
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 b1
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 d7
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 f8
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 info
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 pack
+
+/home/pperezm/Documentos/advanced_programming/.git/objects/0f:
+total 12
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 .
+drwxr-xr-x 13 pperezm pperezm 4096 feb 26 12:26 ..
+-r--r--r--  1 pperezm pperezm  922 feb 26 12:22 8b558af1d835a66dbf9fc51eda61b2fc840e0a
+
+/home/pperezm/Documentos/advanced_programming/.git/objects/2a:
+total 12
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 .
+drwxr-xr-x 13 pperezm pperezm 4096 feb 26 12:26 ..
+-r--r--r--  1 pperezm pperezm  538 feb 26 12:22 57894da1be5f79a0d45abe74ffea061d2a26cf
+
+/home/pperezm/Documentos/advanced_programming/.git/objects/3e:
+total 12
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 .
+drwxr-xr-x 13 pperezm pperezm 4096 feb 26 12:26 ..
+-r--r--r--  1 pperezm pperezm  273 feb 26 12:22 dd85905bbf86f23eee2bfae180c2c1c1dfa60f
+
+/home/pperezm/Documentos/advanced_programming/.git/objects/5e:
+total 12
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 .
+drwxr-xr-x 13 pperezm pperezm 4096 feb 26 12:26 ..
+-r--r--r--  1 pperezm pperezm  188 feb 26 12:22 8bdfb325db612d8634d5b550f7ba99a940ab5e
+
+/home/pperezm/Documentos/advanced_programming/.git/objects/85:
+total 12
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 .
+drwxr-xr-x 13 pperezm pperezm 4096 feb 26 12:26 ..
+-r--r--r--  1 pperezm pperezm  516 feb 26 12:22 ab5de4d25175ab6d63c4b1d45c0ba01798ce57
+
+/home/pperezm/Documentos/advanced_programming/.git/objects/b0:
+total 12
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:26 .
+drwxr-xr-x 13 pperezm pperezm 4096 feb 26 12:26 ..
+-r--r--r--  1 pperezm pperezm  156 feb 26 12:26 906a05dfdb47968a3427cbd82cbf4faed91182
+
+/home/pperezm/Documentos/advanced_programming/.git/objects/b1:
+total 12
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 .
+drwxr-xr-x 13 pperezm pperezm 4096 feb 26 12:26 ..
+-r--r--r--  1 pperezm pperezm  353 feb 26 12:22 770ebd16b34f2fe01989cda6a4ccab6c6835d0
+
+/home/pperezm/Documentos/advanced_programming/.git/objects/d7:
+total 12
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 .
+drwxr-xr-x 13 pperezm pperezm 4096 feb 26 12:26 ..
+-r--r--r--  1 pperezm pperezm  625 feb 26 12:22 e04342ba895e668aa18be4f7dc76bfc4c67433
+
+/home/pperezm/Documentos/advanced_programming/.git/objects/f8:
+total 12
+drwxr-xr-x  2 pperezm pperezm 4096 feb 26 12:22 .
+drwxr-xr-x 13 pperezm pperezm 4096 feb 26 12:26 ..
+-r--r--r--  1 pperezm pperezm  616 feb 26 12:22 15a173f872aaf1deb43d9bcdb8d3df0241db1f
+
+/home/pperezm/Documentos/advanced_programming/.git/objects/info:
+total 8
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 13 pperezm pperezm 4096 feb 26 12:26 ..
+
+/home/pperezm/Documentos/advanced_programming/.git/objects/pack:
+total 75772
+drwxr-xr-x  2 pperezm pperezm     4096 feb 24 12:26 .
+drwxr-xr-x 13 pperezm pperezm     4096 feb 26 12:26 ..
+-r--r--r--  1 pperezm pperezm    38396 feb 24 12:26 pack-4045c18123da6e2e637e3a51043380c35e61f0df.idx
+-r--r--r--  1 pperezm pperezm 77539055 feb 26 12:22 pack-4045c18123da6e2e637e3a51043380c35e61f0df.pack
+
+/home/pperezm/Documentos/advanced_programming/.git/refs:
+total 20
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:26 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 26 12:26 heads
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:26 remotes
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 tags
+
+/home/pperezm/Documentos/advanced_programming/.git/refs/heads:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 26 12:26 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r-- 1 pperezm pperezm   41 feb 26 12:26 master
+
+/home/pperezm/Documentos/advanced_programming/.git/refs/remotes:
+total 12
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:26 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 26 12:26 origin
+
+/home/pperezm/Documentos/advanced_programming/.git/refs/remotes/origin:
+total 16
+drwxr-xr-x 2 pperezm pperezm 4096 feb 26 12:26 .
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r-- 1 pperezm pperezm   32 feb 24 12:26 HEAD
+-rw-r--r-- 1 pperezm pperezm   41 feb 26 12:26 master
+
+/home/pperezm/Documentos/advanced_programming/.git/refs/tags:
+total 8
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:26 ..
+
+/home/pperezm/Documentos/advanced_programming/ipc:
+total 24
+drwxr-xr-x  6 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 10 pperezm pperezm 4096 feb 24 12:26 ..
+drwxr-xr-x  3 pperezm pperezm 4096 feb 24 12:26 memory
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 pipes
+drwxr-xr-x  4 pperezm pperezm 4096 feb 24 12:26 queue
+drwxr-xr-x  5 pperezm pperezm 4096 feb 24 12:26 semaphores
+
+/home/pperezm/Documentos/advanced_programming/ipc/memory:
+total 12
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 6 pperezm pperezm 4096 feb 24 12:26 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 producer-consumer
+
+/home/pperezm/Documentos/advanced_programming/ipc/memory/producer-consumer:
+total 24
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r-- 1 pperezm pperezm 1652 feb 24 12:26 consumer.c
+-rw-r--r-- 1 pperezm pperezm  966 feb 24 12:26 create.c
+-rw-r--r-- 1 pperezm pperezm  663 feb 24 12:26 header.h
+-rw-r--r-- 1 pperezm pperezm 1685 feb 24 12:26 producer.c
+
+/home/pperezm/Documentos/advanced_programming/ipc/pipes:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 6 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r-- 1 pperezm pperezm 1502 feb 24 12:26 example1.c
+
+/home/pperezm/Documentos/advanced_programming/ipc/queue:
+total 20
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 6 pperezm pperezm 4096 feb 24 12:26 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 example1
+-rw-r--r-- 1 pperezm pperezm 2331 feb 24 12:26 example2.c
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 example3
+
+/home/pperezm/Documentos/advanced_programming/ipc/queue/example1:
+total 24
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r-- 1 pperezm pperezm  382 feb 24 12:26 create_queue.c
+-rw-r--r-- 1 pperezm pperezm  221 feb 24 12:26 header.h
+-rw-r--r-- 1 pperezm pperezm  869 feb 24 12:26 put_msg.c
+-rw-r--r-- 1 pperezm pperezm  869 feb 24 12:26 read_msg.c
+
+/home/pperezm/Documentos/advanced_programming/ipc/queue/example3:
+total 16
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r-- 1 pperezm pperezm 3365 feb 24 12:26 example3.c
+-rw-r--r-- 1 pperezm pperezm  517 feb 24 12:26 make_data.c
+
+/home/pperezm/Documentos/advanced_programming/ipc/semaphores:
+total 20
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 6 pperezm pperezm 4096 feb 24 12:26 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 alternating
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 producer-consumer
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 smokers
+
+/home/pperezm/Documentos/advanced_programming/ipc/semaphores/alternating:
+total 16
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r-- 1 pperezm pperezm 1279 feb 24 12:26 example1.c
+-rw-r--r-- 1 pperezm pperezm  528 feb 24 12:26 header.h
+
+/home/pperezm/Documentos/advanced_programming/ipc/semaphores/producer-consumer:
+total 24
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r-- 1 pperezm pperezm 1424 feb 24 12:26 consumer.c
+-rw-r--r-- 1 pperezm pperezm  878 feb 24 12:26 create.c
+-rw-r--r-- 1 pperezm pperezm  595 feb 24 12:26 header.h
+-rw-r--r-- 1 pperezm pperezm 1420 feb 24 12:26 producer.c
+
+/home/pperezm/Documentos/advanced_programming/ipc/semaphores/smokers:
+total 24
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r-- 1 pperezm pperezm  800 feb 24 12:26 agent.c
+-rw-r--r-- 1 pperezm pperezm  680 feb 24 12:26 create.c
+-rw-r--r-- 1 pperezm pperezm  584 feb 24 12:26 header.h
+-rw-r--r-- 1 pperezm pperezm  817 feb 24 12:26 smocker.c
+
+/home/pperezm/Documentos/advanced_programming/processes:
+total 24
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 10 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r--  1 pperezm pperezm  573 feb 24 12:26 example1.c
+-rw-r--r--  1 pperezm pperezm  960 feb 24 12:26 example2.c
+-rw-r--r--  1 pperezm pperezm 1003 feb 24 12:26 example3.c
+-rw-r--r--  1 pperezm pperezm 1094 feb 24 12:26 example4.c
+
+/home/pperezm/Documentos/advanced_programming/signals:
+total 28
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 10 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r--  1 pperezm pperezm 1448 feb 24 12:26 child.c
+-rw-r--r--  1 pperezm pperezm  280 feb 24 12:26 example0.c
+-rw-r--r--  1 pperezm pperezm  752 feb 24 12:26 example1.c
+-rw-r--r--  1 pperezm pperezm 1765 feb 24 12:26 main.c
+-rw-r--r--  1 pperezm pperezm  515 feb 24 12:26 make_data.c
+
+/home/pperezm/Documentos/advanced_programming/sockets:
+total 20
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 10 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r--  1 pperezm pperezm 1305 feb 24 12:26 client.c
+-rw-r--r--  1 pperezm pperezm  398 feb 24 12:26 header.h
+-rw-r--r--  1 pperezm pperezm 2934 feb 24 12:26 server.c
+
+/home/pperezm/Documentos/advanced_programming/threads:
+total 16
+drwxr-xr-x  4 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 10 pperezm pperezm 4096 feb 24 12:26 ..
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 basics
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:26 client-server
+
+/home/pperezm/Documentos/advanced_programming/threads/basics:
+total 20
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r-- 1 pperezm pperezm 1629 feb 24 12:26 producer-consumer.c
+-rw-r--r-- 1 pperezm pperezm  733 feb 24 12:26 thread1.c
+-rw-r--r-- 1 pperezm pperezm  904 feb 24 12:26 thread2.c
+
+/home/pperezm/Documentos/advanced_programming/threads/client-server:
+total 20
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:26 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:26 ..
+-rw-r--r-- 1 pperezm pperezm 1304 feb 24 12:26 client.c
+-rw-r--r-- 1 pperezm pperezm  377 feb 24 12:26 header.h
+-rw-r--r-- 1 pperezm pperezm 2829 feb 24 12:26 server.c
+
+/home/pperezm/Documentos/algorithms:
+total 48
+drwxr-xr-x 11 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x  6 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 analysis
+drwxr-xr-x  4 pperezm pperezm 4096 feb 24 12:27 divide_and_conquer
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 dp
+drwxr-xr-x  8 pperezm pperezm 4096 feb 26 12:27 .git
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 greedy
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 number_theory
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 pair_programming
+drwxr-xr-x  4 pperezm pperezm 4096 feb 24 12:27 problems
+-rwxr-xr-x  1 pperezm pperezm   12 feb 24 12:27 README.md
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 slides
+
+/home/pperezm/Documentos/algorithms/analysis:
+total 12
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm  336 feb 24 12:27 example1.c
+
+/home/pperezm/Documentos/algorithms/divide_and_conquer:
+total 52
+drwxr-xr-x  4 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm  865 feb 24 12:27 bs.c
+-rwxr-xr-x  1 pperezm pperezm   26 feb 24 12:27 bs.in
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 closest_pair
+-rwxr-xr-x  1 pperezm pperezm  914 feb 24 12:27 common.cpp
+-rwxr-xr-x  1 pperezm pperezm 1343 feb 24 12:27 common_prefix.in
+-rwxr-xr-x  1 pperezm pperezm  456 feb 24 12:27 fast_pow.c
+-rwxr-xr-x  1 pperezm pperezm 1071 feb 24 12:27 find_closest.c
+-rwxr-xr-x  1 pperezm pperezm   20 feb 24 12:27 find_closest.in
+-rwxr-xr-x  1 pperezm pperezm  350 feb 24 12:27 hanoi.c
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 inversion
+-rwxr-xr-x  1 pperezm pperezm  585 feb 24 12:27 permutation.c
+
+/home/pperezm/Documentos/algorithms/divide_and_conquer/closest_pair:
+total 68
+drwxr-xr-x 2 pperezm pperezm  4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm  4096 feb 24 12:27 ..
+-rwxr-xr-x 1 pperezm pperezm  3175 feb 24 12:27 closest_pair.cpp
+-rwxr-xr-x 1 pperezm pperezm 30955 feb 24 12:27 closest_pair.in
+-rwxr-xr-x 1 pperezm pperezm   521 feb 24 12:27 Point.java
+-rwxr-xr-x 1 pperezm pperezm  1121 feb 24 12:27 RecursiveClosestPair.java
+-rwxr-xr-x 1 pperezm pperezm  2921 feb 24 12:27 SequentialClosestPair.java
+-rwxr-xr-x 1 pperezm pperezm   156 feb 24 12:27 SortByX.java
+-rwxr-xr-x 1 pperezm pperezm   156 feb 24 12:27 SortByY.java
+-rwxr-xr-x 1 pperezm pperezm  2254 feb 24 12:27 Task.java
+
+/home/pperezm/Documentos/algorithms/divide_and_conquer/inversion:
+total 28
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x 1 pperezm pperezm 1298 feb 24 12:27 inversion.c
+-rwxr-xr-x 1 pperezm pperezm   14 feb 24 12:27 inversion.in
+-rwxr-xr-x 1 pperezm pperezm 1170 feb 24 12:27 RecursiveInversion.java
+-rwxr-xr-x 1 pperezm pperezm 2039 feb 24 12:27 SequentialInversion.java
+-rwxr-xr-x 1 pperezm pperezm 1217 feb 24 12:27 Task.java
+
+/home/pperezm/Documentos/algorithms/dp:
+total 48
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm  719 feb 24 12:27 coin_change.c
+-rwxr-xr-x  1 pperezm pperezm   10 feb 24 12:27 coin_change.in
+-rwxr-xr-x  1 pperezm pperezm  899 feb 24 12:27 fibonacci.c
+-rwxr-xr-x  1 pperezm pperezm  740 feb 24 12:27 lis.c
+-rwxr-xr-x  1 pperezm pperezm   20 feb 24 12:27 lis.in
+-rwxr-xr-x  1 pperezm pperezm  522 feb 24 12:27 max_sum.c
+-rwxr-xr-x  1 pperezm pperezm   28 feb 24 12:27 max_sum.in
+-rwxr-xr-x  1 pperezm pperezm  718 feb 24 12:27 ugly.c
+-rwxr-xr-x  1 pperezm pperezm 1072 feb 24 12:27 way_change.c
+-rwxr-xr-x  1 pperezm pperezm   13 feb 24 12:27 way_change.in
+
+/home/pperezm/Documentos/algorithms/.git:
+total 56
+drwxr-xr-x  8 pperezm pperezm 4096 feb 26 12:27 .
+drwxr-xr-x 11 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 branches
+-rw-r--r--  1 pperezm pperezm  265 feb 26 12:27 config
+-rw-r--r--  1 pperezm pperezm   73 feb 24 12:27 description
+-rw-r--r--  1 pperezm pperezm   23 feb 24 12:27 HEAD
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 hooks
+-rw-r--r--  1 pperezm pperezm 6037 feb 24 12:27 index
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 info
+drwxr-xr-x  3 pperezm pperezm 4096 feb 24 12:27 logs
+drwxr-xr-x  4 pperezm pperezm 4096 feb 24 12:27 objects
+-rw-r--r--  1 pperezm pperezm  114 feb 24 12:27 packed-refs
+drwxr-xr-x  5 pperezm pperezm 4096 feb 24 12:27 refs
+
+/home/pperezm/Documentos/algorithms/.git/branches:
+total 8
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:27 ..
+
+/home/pperezm/Documentos/algorithms/.git/hooks:
+total 56
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:27 ..
+-rwxr-xr-x 1 pperezm pperezm  478 feb 24 12:27 applypatch-msg.sample
+-rwxr-xr-x 1 pperezm pperezm  896 feb 24 12:27 commit-msg.sample
+-rwxr-xr-x 1 pperezm pperezm 3327 feb 24 12:27 fsmonitor-watchman.sample
+-rwxr-xr-x 1 pperezm pperezm  189 feb 24 12:27 post-update.sample
+-rwxr-xr-x 1 pperezm pperezm  424 feb 24 12:27 pre-applypatch.sample
+-rwxr-xr-x 1 pperezm pperezm 1642 feb 24 12:27 pre-commit.sample
+-rwxr-xr-x 1 pperezm pperezm 1492 feb 24 12:27 prepare-commit-msg.sample
+-rwxr-xr-x 1 pperezm pperezm 1348 feb 24 12:27 pre-push.sample
+-rwxr-xr-x 1 pperezm pperezm 4898 feb 24 12:27 pre-rebase.sample
+-rwxr-xr-x 1 pperezm pperezm  544 feb 24 12:27 pre-receive.sample
+-rwxr-xr-x 1 pperezm pperezm 3610 feb 24 12:27 update.sample
+
+/home/pperezm/Documentos/algorithms/.git/info:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:27 ..
+-rw-r--r-- 1 pperezm pperezm  240 feb 24 12:27 exclude
+
+/home/pperezm/Documentos/algorithms/.git/logs:
+total 16
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:27 ..
+-rw-r--r-- 1 pperezm pperezm  207 feb 24 12:27 HEAD
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 refs
+
+/home/pperezm/Documentos/algorithms/.git/logs/refs:
+total 16
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 heads
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 remotes
+
+/home/pperezm/Documentos/algorithms/.git/logs/refs/heads:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm  207 feb 24 12:27 master
+
+/home/pperezm/Documentos/algorithms/.git/logs/refs/remotes:
+total 12
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 origin
+
+/home/pperezm/Documentos/algorithms/.git/logs/refs/remotes/origin:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm  207 feb 24 12:27 HEAD
+
+/home/pperezm/Documentos/algorithms/.git/objects:
+total 16
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:27 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 info
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 pack
+
+/home/pperezm/Documentos/algorithms/.git/objects/info:
+total 8
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+
+/home/pperezm/Documentos/algorithms/.git/objects/pack:
+total 14636
+drwxr-xr-x 2 pperezm pperezm     4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm     4096 feb 24 12:27 ..
+-r--r--r-- 1 pperezm pperezm     9976 feb 24 12:27 pack-6e0a2060eb26ad6fa84a26198ab7487d3bb6295e.idx
+-r--r--r-- 1 pperezm pperezm 14966488 feb 24 12:27 pack-6e0a2060eb26ad6fa84a26198ab7487d3bb6295e.pack
+
+/home/pperezm/Documentos/algorithms/.git/refs:
+total 20
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:27 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 heads
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 remotes
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 tags
+
+/home/pperezm/Documentos/algorithms/.git/refs/heads:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm   41 feb 24 12:27 master
+
+/home/pperezm/Documentos/algorithms/.git/refs/remotes:
+total 12
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 origin
+
+/home/pperezm/Documentos/algorithms/.git/refs/remotes/origin:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm   32 feb 24 12:27 HEAD
+
+/home/pperezm/Documentos/algorithms/.git/refs/tags:
+total 8
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 ..
+
+/home/pperezm/Documentos/algorithms/greedy:
+total 64
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm 1047 feb 24 12:27 activity.c
+-rwxr-xr-x  1 pperezm pperezm   26 feb 24 12:27 activity.in
+-rwxr-xr-x  1 pperezm pperezm 1049 feb 24 12:27 booking.c
+-rwxr-xr-x  1 pperezm pperezm   24 feb 24 12:27 booking.in
+-rwxr-xr-x  1 pperezm pperezm 1152 feb 24 12:27 coin_change.c
+-rwxr-xr-x  1 pperezm pperezm 1490 feb 24 12:27 dfs.cpp
+-rwxr-xr-x  1 pperezm pperezm   24 feb 24 12:27 dfs.in
+-rwxr-xr-x  1 pperezm pperezm  789 feb 24 12:27 egyptian.c
+-rwxr-xr-x  1 pperezm pperezm 1095 feb 24 12:27 fractional.c
+-rwxr-xr-x  1 pperezm pperezm   25 feb 24 12:27 fractional.in
+-rwxr-xr-x  1 pperezm pperezm  921 feb 24 12:27 maximum.c
+-rwxr-xr-x  1 pperezm pperezm  800 feb 24 12:27 sieve.c
+-rwxr-xr-x  1 pperezm pperezm  733 feb 24 12:27 subsequence.c
+-rwxr-xr-x  1 pperezm pperezm 1822 feb 24 12:27 union.cpp
+
+/home/pperezm/Documentos/algorithms/number_theory:
+total 8
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm    0 feb 24 12:27 nt.txt
+
+/home/pperezm/Documentos/algorithms/pair_programming:
+total 192
+drwxr-xr-x  2 pperezm pperezm   4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm   4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm 136250 feb 24 12:27 pair_programming.pdf
+-rwxr-xr-x  1 pperezm pperezm  46592 feb 24 12:27 Programación en Parejas.doc
+
+/home/pperezm/Documentos/algorithms/problems:
+total 16
+drwxr-xr-x  4 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 p160a
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 p415b
+
+/home/pperezm/Documentos/algorithms/problems/p160a:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x 1 pperezm pperezm  500 feb 24 12:27 p160a.c
+
+/home/pperezm/Documentos/algorithms/problems/p415b:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x 1 pperezm pperezm  416 feb 24 12:27 p415b.c
+
+/home/pperezm/Documentos/algorithms/slides:
+total 2856
+drwxr-xr-x  2 pperezm pperezm   4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm   4096 feb 24 12:27 ..
+-rw-r--r--  1 pperezm pperezm 563628 feb 24 12:27 divide.pdf
+-rwxr-xr-x  1 pperezm pperezm 394812 feb 24 12:27 dp.pdf
+-rw-r--r--  1 pperezm pperezm 571849 feb 24 12:27 graphs.pdf
+-rw-r--r--  1 pperezm pperezm 322283 feb 24 12:27 greedy.pdf
+-rw-r--r--  1 pperezm pperezm 323448 feb 24 12:27 info.pdf
+-rw-r--r--  1 pperezm pperezm 234759 feb 24 12:27 intro.pdf
+-rw-r--r--  1 pperezm pperezm 288017 feb 24 12:27 iterative.pdf
+-rw-r--r--  1 pperezm pperezm 202806 feb 24 12:27 recursive.pdf
+
+/home/pperezm/Documentos/compilers:
+total 32
+drwxr-xr-x 6 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 6 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:28 .git
+-rw-r--r-- 1 pperezm pperezm  557 feb 24 12:27 Gramática.txt
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 programs
+-rw-r--r-- 1 pperezm pperezm   31 feb 24 12:27 README.md
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 semantic
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 sintactic
+
+/home/pperezm/Documentos/compilers/.git:
+total 52
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:28 .
+drwxr-xr-x 6 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 branches
+-rw-r--r-- 1 pperezm pperezm  264 feb 26 12:28 config
+-rw-r--r-- 1 pperezm pperezm   73 feb 24 12:27 description
+-rw-r--r-- 1 pperezm pperezm   23 feb 24 12:27 HEAD
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 hooks
+-rw-r--r-- 1 pperezm pperezm 3217 feb 24 12:27 index
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 info
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 logs
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 objects
+-rw-r--r-- 1 pperezm pperezm  114 feb 24 12:27 packed-refs
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 refs
+
+/home/pperezm/Documentos/compilers/.git/branches:
+total 8
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:28 ..
+
+/home/pperezm/Documentos/compilers/.git/hooks:
+total 56
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:28 ..
+-rwxr-xr-x 1 pperezm pperezm  478 feb 24 12:27 applypatch-msg.sample
+-rwxr-xr-x 1 pperezm pperezm  896 feb 24 12:27 commit-msg.sample
+-rwxr-xr-x 1 pperezm pperezm 3327 feb 24 12:27 fsmonitor-watchman.sample
+-rwxr-xr-x 1 pperezm pperezm  189 feb 24 12:27 post-update.sample
+-rwxr-xr-x 1 pperezm pperezm  424 feb 24 12:27 pre-applypatch.sample
+-rwxr-xr-x 1 pperezm pperezm 1642 feb 24 12:27 pre-commit.sample
+-rwxr-xr-x 1 pperezm pperezm 1492 feb 24 12:27 prepare-commit-msg.sample
+-rwxr-xr-x 1 pperezm pperezm 1348 feb 24 12:27 pre-push.sample
+-rwxr-xr-x 1 pperezm pperezm 4898 feb 24 12:27 pre-rebase.sample
+-rwxr-xr-x 1 pperezm pperezm  544 feb 24 12:27 pre-receive.sample
+-rwxr-xr-x 1 pperezm pperezm 3610 feb 24 12:27 update.sample
+
+/home/pperezm/Documentos/compilers/.git/info:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:28 ..
+-rw-r--r-- 1 pperezm pperezm  240 feb 24 12:27 exclude
+
+/home/pperezm/Documentos/compilers/.git/logs:
+total 16
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:28 ..
+-rw-r--r-- 1 pperezm pperezm  206 feb 24 12:27 HEAD
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 refs
+
+/home/pperezm/Documentos/compilers/.git/logs/refs:
+total 16
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 heads
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 remotes
+
+/home/pperezm/Documentos/compilers/.git/logs/refs/heads:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm  206 feb 24 12:27 master
+
+/home/pperezm/Documentos/compilers/.git/logs/refs/remotes:
+total 12
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 origin
+
+/home/pperezm/Documentos/compilers/.git/logs/refs/remotes/origin:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm  206 feb 24 12:27 HEAD
+
+/home/pperezm/Documentos/compilers/.git/objects:
+total 16
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:28 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 info
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 pack
+
+/home/pperezm/Documentos/compilers/.git/objects/info:
+total 8
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+
+/home/pperezm/Documentos/compilers/.git/objects/pack:
+total 48
+drwxr-xr-x 2 pperezm pperezm  4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm  4096 feb 24 12:27 ..
+-r--r--r-- 1 pperezm pperezm  4264 feb 24 12:27 pack-4b4a6b54de53c54be655a8d158892d30f33d4acd.idx
+-r--r--r-- 1 pperezm pperezm 31222 feb 24 12:27 pack-4b4a6b54de53c54be655a8d158892d30f33d4acd.pack
+
+/home/pperezm/Documentos/compilers/.git/refs:
+total 20
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:28 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 heads
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 remotes
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 tags
+
+/home/pperezm/Documentos/compilers/.git/refs/heads:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm   41 feb 24 12:27 master
+
+/home/pperezm/Documentos/compilers/.git/refs/remotes:
+total 12
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 origin
+
+/home/pperezm/Documentos/compilers/.git/refs/remotes/origin:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm   32 feb 24 12:27 HEAD
+
+/home/pperezm/Documentos/compilers/.git/refs/tags:
+total 8
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 ..
+
+/home/pperezm/Documentos/compilers/programs:
+total 20
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 6 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm   65 feb 24 12:27 prog1.txt
+-rw-r--r-- 1 pperezm pperezm  159 feb 24 12:27 prog2.txt
+-rw-r--r-- 1 pperezm pperezm  111 feb 24 12:27 prog3.txt
+
+/home/pperezm/Documentos/compilers/semantic:
+total 36
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 6 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 bugs
+-rw-r--r-- 1 pperezm pperezm  764 feb 24 12:27 ConsoleApp.java
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 errors
+-rw-r--r-- 1 pperezm pperezm 3015 feb 24 12:27 Lexer.java
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 nodes
+-rw-r--r-- 1 pperezm pperezm 4990 feb 24 12:27 Translator.java
+
+/home/pperezm/Documentos/compilers/semantic/bugs:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm 2104 feb 24 12:27 Bug.java
+
+/home/pperezm/Documentos/compilers/semantic/errors:
+total 16
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm  157 feb 24 12:27 SemanticError.java
+-rw-r--r-- 1 pperezm pperezm  151 feb 24 12:27 SyntaxError.java
+
+/home/pperezm/Documentos/compilers/semantic/nodes:
+total 72
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm  331 feb 24 12:27 Assignment.java
+-rw-r--r-- 1 pperezm pperezm  687 feb 24 12:27 BinaryOp.java
+-rw-r--r-- 1 pperezm pperezm  147 feb 24 12:27 BooleanNode.java
+-rw-r--r-- 1 pperezm pperezm  255 feb 24 12:27 Declaration.java
+-rw-r--r-- 1 pperezm pperezm  145 feb 24 12:27 FactorNode.java
+-rw-r--r-- 1 pperezm pperezm  242 feb 24 12:27 Id.java
+-rw-r--r-- 1 pperezm pperezm  417 feb 24 12:27 If.java
+-rw-r--r-- 1 pperezm pperezm   60 feb 24 12:27 Node.java
+-rw-r--r-- 1 pperezm pperezm  242 feb 24 12:27 NumberNode.java
+-rw-r--r-- 1 pperezm pperezm  344 feb 24 12:27 Print.java
+-rw-r--r-- 1 pperezm pperezm  757 feb 24 12:27 RelationalOp.java
+-rw-r--r-- 1 pperezm pperezm  300 feb 24 12:27 Sequence.java
+-rw-r--r-- 1 pperezm pperezm  987 feb 24 12:27 SymbolTable.java
+-rw-r--r-- 1 pperezm pperezm  377 feb 24 12:27 UnitOp.java
+-rw-r--r-- 1 pperezm pperezm  141 feb 24 12:27 VoidNode.java
+-rw-r--r-- 1 pperezm pperezm  370 feb 24 12:27 While.java
+
+/home/pperezm/Documentos/compilers/sintactic:
+total 24
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 6 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm  780 feb 24 12:27 ConsoleApp.java
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 errors
+-rw-r--r-- 1 pperezm pperezm 3015 feb 24 12:27 Lexer.java
+-rw-r--r-- 1 pperezm pperezm 3166 feb 24 12:27 Parser.java
+
+/home/pperezm/Documentos/compilers/sintactic/errors:
+total 16
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm  157 feb 24 12:27 SemanticError.java
+-rw-r--r-- 1 pperezm pperezm  151 feb 24 12:27 SyntaxError.java
+
+/home/pperezm/Documentos/data_structures:
+total 28
+drwxr-xr-x  6 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x  6 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 class_code
+drwxr-xr-x  5 pperezm pperezm 4096 feb 24 12:27 examples
+drwxr-xr-x  8 pperezm pperezm 4096 feb 26 12:28 .git
+-rwxr-xr-x  1 pperezm pperezm    0 feb 24 12:27 .gitignore
+drwxr-xr-x 11 pperezm pperezm 4096 feb 24 12:27 homework
+-rw-r--r--  1 pperezm pperezm   18 feb 24 12:27 README.md
+
+/home/pperezm/Documentos/data_structures/class_code:
+total 72
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x  6 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 bst
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 doublelinkedlist
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 evaltree
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 graphs
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 hash
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 heap
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 includes
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 intro
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 linkedlist
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 pointers
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 queue
+drwxr-xr-x  4 pperezm pperezm 4096 feb 24 12:27 rational
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 recursion
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 sorts
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 stack
+drwxr-xr-x  4 pperezm pperezm 4096 feb 24 12:27 vector
+
+/home/pperezm/Documentos/data_structures/class_code/bst:
+total 32
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm 4396 feb 24 12:27 bst.h
+-rwxr-xr-x  1 pperezm pperezm   45 feb 24 12:27 compile
+-rwxr-xr-x  1 pperezm pperezm 1729 feb 24 12:27 exception.h
+-rwxr-xr-x  1 pperezm pperezm 3205 feb 24 12:27 main.cpp
+-rwxr-xr-x  1 pperezm pperezm 1834 feb 24 12:27 unit.h
+
+/home/pperezm/Documentos/data_structures/class_code/doublelinkedlist:
+total 24
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm   30 feb 24 12:27 compile
+-rwxr-xr-x  1 pperezm pperezm 4474 feb 24 12:27 dlist.h
+-rwxr-xr-x  1 pperezm pperezm 3619 feb 24 12:27 main.cpp
+
+/home/pperezm/Documentos/data_structures/class_code/evaltree:
+total 24
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm   36 feb 24 12:27 compile
+-rwxr-xr-x  1 pperezm pperezm 8047 feb 24 12:27 evaltree.h
+-rwxr-xr-x  1 pperezm pperezm 2308 feb 24 12:27 main.cpp
+
+/home/pperezm/Documentos/data_structures/class_code/graphs:
+total 36
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm 1729 feb 24 12:27 exception.h
+-rwxr-xr-x  1 pperezm pperezm 4060 feb 24 12:27 main.cpp
+-rwxr-xr-x  1 pperezm pperezm 6272 feb 24 12:27 ugraph.h
+-rwxr-xr-x  1 pperezm pperezm 1834 feb 24 12:27 unit.h
+-rwxr-xr-x  1 pperezm pperezm 6941 feb 24 12:27 wgraph.h
+
+/home/pperezm/Documentos/data_structures/class_code/hash:
+total 28
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm   47 feb 24 12:27 compile
+-rwxr-xr-x  1 pperezm pperezm 1729 feb 24 12:27 exception.h
+-rwxr-xr-x  1 pperezm pperezm 3288 feb 24 12:27 hash.h
+-rwxr-xr-x  1 pperezm pperezm 3642 feb 24 12:27 main.cpp
+-rwxr-xr-x  1 pperezm pperezm 1834 feb 24 12:27 unit.h
+
+/home/pperezm/Documentos/data_structures/class_code/heap:
+total 28
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm   47 feb 24 12:27 compile
+-rwxr-xr-x  1 pperezm pperezm 1729 feb 24 12:27 exception.h
+-rwxr-xr-x  1 pperezm pperezm 2776 feb 24 12:27 heap.h
+-rwxr-xr-x  1 pperezm pperezm 1956 feb 24 12:27 main.cpp
+-rwxr-xr-x  1 pperezm pperezm 1834 feb 24 12:27 unit.h
+
+/home/pperezm/Documentos/data_structures/class_code/includes:
+total 16
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm 1729 feb 24 12:27 exception.h
+-rwxr-xr-x  1 pperezm pperezm 1834 feb 24 12:27 unit.h
+
+/home/pperezm/Documentos/data_structures/class_code/intro:
+total 20
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm   34 feb 24 12:27 compile
+-rw-r--r--  1 pperezm pperezm 1479 feb 24 12:27 functions.h
+-rw-r--r--  1 pperezm pperezm 1809 feb 24 12:27 main.cpp
+
+/home/pperezm/Documentos/data_structures/class_code/linkedlist:
+total 24
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm   28 feb 24 12:27 compile
+-rwxr-xr-x  1 pperezm pperezm 4996 feb 24 12:27 list.h
+-rwxr-xr-x  1 pperezm pperezm 3869 feb 24 12:27 main.cpp
+
+/home/pperezm/Documentos/data_structures/class_code/pointers:
+total 36
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r--  1 pperezm pperezm  462 feb 24 12:27 example0.cpp
+-rw-r--r--  1 pperezm pperezm  586 feb 24 12:27 example1.cpp
+-rw-r--r--  1 pperezm pperezm  622 feb 24 12:27 example2.cpp
+-rw-r--r--  1 pperezm pperezm  494 feb 24 12:27 example3.cpp
+-rw-r--r--  1 pperezm pperezm  646 feb 24 12:27 example4.cpp
+-rw-r--r--  1 pperezm pperezm  728 feb 24 12:27 example5.cpp
+-rw-r--r--  1 pperezm pperezm 1024 feb 24 12:27 example6.cpp
+
+/home/pperezm/Documentos/data_structures/class_code/queue:
+total 24
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm   30 feb 24 12:27 compile
+-rwxr-xr-x  1 pperezm pperezm 4714 feb 24 12:27 main.cpp
+-rwxr-xr-x  1 pperezm pperezm 3225 feb 24 12:27 queue.h
+
+/home/pperezm/Documentos/data_structures/class_code/rational:
+total 16
+drwxr-xr-x  4 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 application
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 implementation
+
+/home/pperezm/Documentos/data_structures/class_code/rational/application:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm  810 feb 24 12:27 using_rational.cpp
+
+/home/pperezm/Documentos/data_structures/class_code/rational/implementation:
+total 28
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x 1 pperezm pperezm   36 feb 24 12:27 compile
+-rw-r--r-- 1 pperezm pperezm 4373 feb 24 12:27 main.cpp
+-rw-r--r-- 1 pperezm pperezm 4465 feb 24 12:27 rational.h
+
+/home/pperezm/Documentos/data_structures/class_code/recursion:
+total 24
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm   38 feb 24 12:27 compile
+-rw-r--r--  1 pperezm pperezm 2520 feb 24 12:27 main.cpp
+-rw-r--r--  1 pperezm pperezm 6100 feb 24 12:27 recursion.h
+
+/home/pperezm/Documentos/data_structures/class_code/sorts:
+total 20
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm   30 feb 24 12:27 compile
+-rwxr-xr-x  1 pperezm pperezm 2407 feb 24 12:27 main.cpp
+-rwxr-xr-x  1 pperezm pperezm 3849 feb 24 12:27 sorts.h
+
+/home/pperezm/Documentos/data_structures/class_code/stack:
+total 24
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm   30 feb 24 12:27 compile
+-rwxr-xr-x  1 pperezm pperezm 4700 feb 24 12:27 main.cpp
+-rwxr-xr-x  1 pperezm pperezm 2925 feb 24 12:27 stack.h
+
+/home/pperezm/Documentos/data_structures/class_code/vector:
+total 16
+drwxr-xr-x  4 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 18 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x  4 pperezm pperezm 4096 feb 24 12:27 application
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 implementation
+
+/home/pperezm/Documentos/data_structures/class_code/vector/application:
+total 16
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 enumeration_sort
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 p414
+
+/home/pperezm/Documentos/data_structures/class_code/vector/application/enumeration_sort:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm  958 feb 24 12:27 enumeration_sort.cpp
+
+/home/pperezm/Documentos/data_structures/class_code/vector/application/p414:
+total 48
+drwxr-xr-x 2 pperezm pperezm  4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm  4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm 31156 feb 24 12:27 414.pdf
+-rw-r--r-- 1 pperezm pperezm   892 feb 24 12:27 p414.cpp
+-rw-r--r-- 1 pperezm pperezm   880 feb 24 12:27 p414.in
+
+/home/pperezm/Documentos/data_structures/class_code/vector/implementation:
+total 24
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x 1 pperezm pperezm   32 feb 24 12:27 compile
+-rw-r--r-- 1 pperezm pperezm 2478 feb 24 12:27 main.cpp
+-rw-r--r-- 1 pperezm pperezm 5182 feb 27 10:46 vector.h
+
+/home/pperezm/Documentos/data_structures/examples:
+total 24
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 6 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x 1 pperezm pperezm  591 feb 24 12:27 eval.cpp
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 using_lists
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 using_queues
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 using_stacks
+
+/home/pperezm/Documentos/data_structures/examples/using_lists:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x 1 pperezm pperezm 1323 feb 24 12:27 example1.cpp
+
+/home/pperezm/Documentos/data_structures/examples/using_queues:
+total 48
+drwxr-xr-x 2 pperezm pperezm  4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm  4096 feb 24 12:27 ..
+-rwxr-xr-x 1 pperezm pperezm 28880 feb 24 12:27 a.out
+-rwxr-xr-x 1 pperezm pperezm   987 feb 24 12:27 palindrome.cpp
+-rwxr-xr-x 1 pperezm pperezm  1282 feb 24 12:27 pqueue.cpp
+
+/home/pperezm/Documentos/data_structures/examples/using_stacks:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x 1 pperezm pperezm 2796 feb 24 12:27 eval.cpp
+
+/home/pperezm/Documentos/data_structures/.git:
+total 60
+drwxr-xr-x 8 pperezm pperezm  4096 feb 26 12:28 .
+drwxr-xr-x 6 pperezm pperezm  4096 feb 24 12:27 ..
+drwxr-xr-x 2 pperezm pperezm  4096 feb 24 12:27 branches
+-rw-r--r-- 1 pperezm pperezm   270 feb 26 12:28 config
+-rw-r--r-- 1 pperezm pperezm    73 feb 24 12:27 description
+-rw-r--r-- 1 pperezm pperezm    23 feb 24 12:27 HEAD
+drwxr-xr-x 2 pperezm pperezm  4096 feb 24 12:27 hooks
+-rw-r--r-- 1 pperezm pperezm 11092 feb 24 12:27 index
+drwxr-xr-x 2 pperezm pperezm  4096 feb 24 12:27 info
+drwxr-xr-x 3 pperezm pperezm  4096 feb 24 12:27 logs
+drwxr-xr-x 4 pperezm pperezm  4096 feb 24 12:27 objects
+-rw-r--r-- 1 pperezm pperezm   114 feb 24 12:27 packed-refs
+drwxr-xr-x 5 pperezm pperezm  4096 feb 24 12:27 refs
+
+/home/pperezm/Documentos/data_structures/.git/branches:
+total 8
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:28 ..
+
+/home/pperezm/Documentos/data_structures/.git/hooks:
+total 56
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:28 ..
+-rwxr-xr-x 1 pperezm pperezm  478 feb 24 12:27 applypatch-msg.sample
+-rwxr-xr-x 1 pperezm pperezm  896 feb 24 12:27 commit-msg.sample
+-rwxr-xr-x 1 pperezm pperezm 3327 feb 24 12:27 fsmonitor-watchman.sample
+-rwxr-xr-x 1 pperezm pperezm  189 feb 24 12:27 post-update.sample
+-rwxr-xr-x 1 pperezm pperezm  424 feb 24 12:27 pre-applypatch.sample
+-rwxr-xr-x 1 pperezm pperezm 1642 feb 24 12:27 pre-commit.sample
+-rwxr-xr-x 1 pperezm pperezm 1492 feb 24 12:27 prepare-commit-msg.sample
+-rwxr-xr-x 1 pperezm pperezm 1348 feb 24 12:27 pre-push.sample
+-rwxr-xr-x 1 pperezm pperezm 4898 feb 24 12:27 pre-rebase.sample
+-rwxr-xr-x 1 pperezm pperezm  544 feb 24 12:27 pre-receive.sample
+-rwxr-xr-x 1 pperezm pperezm 3610 feb 24 12:27 update.sample
+
+/home/pperezm/Documentos/data_structures/.git/info:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:28 ..
+-rw-r--r-- 1 pperezm pperezm  240 feb 24 12:27 exclude
+
+/home/pperezm/Documentos/data_structures/.git/logs:
+total 16
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:28 ..
+-rw-r--r-- 1 pperezm pperezm  212 feb 24 12:27 HEAD
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 refs
+
+/home/pperezm/Documentos/data_structures/.git/logs/refs:
+total 16
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 heads
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 remotes
+
+/home/pperezm/Documentos/data_structures/.git/logs/refs/heads:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm  212 feb 24 12:27 master
+
+/home/pperezm/Documentos/data_structures/.git/logs/refs/remotes:
+total 12
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 origin
+
+/home/pperezm/Documentos/data_structures/.git/logs/refs/remotes/origin:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm  212 feb 24 12:27 HEAD
+
+/home/pperezm/Documentos/data_structures/.git/objects:
+total 16
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:28 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 info
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 pack
+
+/home/pperezm/Documentos/data_structures/.git/objects/info:
+total 8
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm 4096 feb 24 12:27 ..
+
+/home/pperezm/Documentos/data_structures/.git/objects/pack:
+total 3484
+drwxr-xr-x 2 pperezm pperezm    4096 feb 24 12:27 .
+drwxr-xr-x 4 pperezm pperezm    4096 feb 24 12:27 ..
+-r--r--r-- 1 pperezm pperezm   13952 feb 24 12:27 pack-7349784d25b7244e5537a5d21913fc0b08d73fd8.idx
+-r--r--r-- 1 pperezm pperezm 3540539 feb 24 12:27 pack-7349784d25b7244e5537a5d21913fc0b08d73fd8.pack
+
+/home/pperezm/Documentos/data_structures/.git/refs:
+total 20
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 8 pperezm pperezm 4096 feb 26 12:28 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 heads
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 remotes
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 tags
+
+/home/pperezm/Documentos/data_structures/.git/refs/heads:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm   41 feb 24 12:27 master
+
+/home/pperezm/Documentos/data_structures/.git/refs/remotes:
+total 12
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 origin
+
+/home/pperezm/Documentos/data_structures/.git/refs/remotes/origin:
+total 12
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 3 pperezm pperezm 4096 feb 24 12:27 ..
+-rw-r--r-- 1 pperezm pperezm   32 feb 24 12:27 HEAD
+
+/home/pperezm/Documentos/data_structures/.git/refs/tags:
+total 8
+drwxr-xr-x 2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 5 pperezm pperezm 4096 feb 24 12:27 ..
+
+/home/pperezm/Documentos/data_structures/homework:
+total 44
+drwxr-xr-x 11 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x  6 pperezm pperezm 4096 feb 24 12:27 ..
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 exercises_avl
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 exercises_class
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 exercises_graph
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 exercises_hashtables
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 exercises_lists
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 exercises_sorts
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 exercises_stack_queue
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 exercises_tree
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 includes
+
+/home/pperezm/Documentos/data_structures/homework/exercises_avl:
+total 32
+drwxr-xr-x  2 pperezm pperezm  4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm  4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm 21560 feb 24 12:27 avl.pdf
+
+/home/pperezm/Documentos/data_structures/homework/exercises_class:
+total 120
+drwxr-xr-x  2 pperezm pperezm  4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm  4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm    30 feb 24 12:27 compile
+-rwxr-xr-x  1 pperezm pperezm 99974 feb 24 12:27 exercise_timer.pdf
+-rwxr-xr-x  1 pperezm pperezm  2293 feb 24 12:27 main.cpp
+-rwxr-xr-x  1 pperezm pperezm  1021 feb 24 12:27 timer.h
+
+/home/pperezm/Documentos/data_structures/homework/exercises_graph:
+total 84
+drwxr-xr-x  2 pperezm pperezm  4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm  4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm 77094 feb 24 12:27 exercises_graph.pdf
+
+/home/pperezm/Documentos/data_structures/homework/exercises_hashtables:
+total 1348
+drwxr-xr-x  2 pperezm pperezm    4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm    4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm 1369560 feb 24 12:27 hash.pdf
+
+/home/pperezm/Documentos/data_structures/homework/exercises_lists:
+total 140
+drwxr-xr-x  2 pperezm pperezm   4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm   4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm     28 feb 24 12:27 compile
+-rwxr-xr-x  1 pperezm pperezm 117395 feb 24 12:27 exercises_lists.pdf
+-rwxr-xr-x  1 pperezm pperezm   5134 feb 24 12:27 list.h
+-rwxr-xr-x  1 pperezm pperezm   2249 feb 24 12:27 main.cpp
+
+/home/pperezm/Documentos/data_structures/homework/exercises_sorts:
+total 136
+drwxr-xr-x  2 pperezm pperezm   4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm   4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm     30 feb 24 12:27 compile
+-rwxr-xr-x  1 pperezm pperezm 115994 feb 24 12:27 exercises_sorts.pdf
+-rwxr-xr-x  1 pperezm pperezm   2063 feb 24 12:27 main.cpp
+-rwxr-xr-x  1 pperezm pperezm    950 feb 24 12:27 sorts.h
+
+/home/pperezm/Documentos/data_structures/homework/exercises_stack_queue:
+total 964
+drwxr-xr-x  2 pperezm pperezm   4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm   4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm     50 feb 24 12:27 compile
+-rwxr-xr-x  1 pperezm pperezm 960510 feb 24 12:27 exercises_stack_queue.pdf
+-rwxr-xr-x  1 pperezm pperezm   5636 feb 24 12:27 main.cpp
+-rwxr-xr-x  1 pperezm pperezm   1549 feb 24 12:27 stacksandqueues.h
+
+/home/pperezm/Documentos/data_structures/homework/exercises_tree:
+total 248
+drwxr-xr-x  2 pperezm pperezm   4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm   4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm     47 feb 24 12:27 compile
+-rwxr-xr-x  1 pperezm pperezm   1729 feb 24 12:27 exception.h
+-rwxr-xr-x  1 pperezm pperezm 115075 feb 24 12:27 exercises_tree.pdf
+-rwxr-xr-x  1 pperezm pperezm   1176 feb 24 12:27 main.cpp
+-rwxr-xr-x  1 pperezm pperezm 103099 feb 24 12:27 test_cases.pdf
+-rwxr-xr-x  1 pperezm pperezm   3294 feb 24 12:27 tree.h
+-rwxr-xr-x  1 pperezm pperezm   1834 feb 24 12:27 unit.h
+
+/home/pperezm/Documentos/data_structures/homework/includes:
+total 16
+drwxr-xr-x  2 pperezm pperezm 4096 feb 24 12:27 .
+drwxr-xr-x 11 pperezm pperezm 4096 feb 24 12:27 ..
+-rwxr-xr-x  1 pperezm pperezm 1729 feb 24 12:27 exception.h
+-rwxr-xr-x  1 pperezm pperezm 1834 feb 24 12:27 unit.h

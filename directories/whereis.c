@@ -31,7 +31,7 @@ void find(char *directory, char *file, char* program) {
 	char filename[PATH_MAX + NAME_MAX + 1];
 
 	if ( (dir = opendir(directory)) == NULL ) {
-		perror(directory);
+		perror(program);
 		exit(-2);
 	}
 
@@ -50,4 +50,6 @@ void find(char *directory, char *file, char* program) {
 			}
 		}
 	}
+
+	closedir(dir);
 }
