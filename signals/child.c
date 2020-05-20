@@ -9,14 +9,14 @@
 int find_minimum(char* input_file, int wid, int block) {
 	int fd, num, min, i, *data;
 
-	if ( (fd = open(input_file, O_RDONLY)) < 0 ) {
-		perror("open find minimum");
-		return -1;
-	}
-
 	data = (int*) malloc(block * sizeof(int));
 	if (data == 0) {
 		fprintf(stderr, "not enough memory.\n");
+		return -1;
+	}
+
+	if ( (fd = open(input_file, O_RDONLY)) < 0 ) {
+		perror("open find minimum");
 		return -1;
 	}
 

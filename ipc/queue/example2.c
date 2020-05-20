@@ -10,7 +10,7 @@
 
 #define SIZE 1000
 #define TIMES 3
-#define CHILDS 2
+#define CHILDS 4
 
 struct message {
 	long type;
@@ -112,7 +112,7 @@ int main(int argc, char* argv[]) {
 			perror(argv[0]);
 			exit(-1);
 		} else if (pid == 0) {
-			switch (i) {
+			switch (i % 2) {
 			case 0 : process_one(); break;
 			case 1 : process_two(); break;
 			}
@@ -125,6 +125,8 @@ int main(int argc, char* argv[]) {
 		wait(NULL);
 		i--;
 	}
+	
+	msgctl(msqid, IPC_RMID, 0);
 	
 	return 0;
 }

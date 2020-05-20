@@ -46,7 +46,7 @@ void* producer(void *arg) {
 		add_buffer(i);
 		pthread_cond_signal(&data_available);
 		pthread_mutex_unlock(&mutex);
-		i = i + 1;
+		i = (i + 1) % 1000000000;
 	}
 	pthread_exit(NULL);
 }

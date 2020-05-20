@@ -8,6 +8,7 @@ void execute(char *program, char *order1, char *order2, char *order3) {
     int p1p2[2], p2p3[2];
     int pid;
     
+    // THE FIRST
     if (pipe(p1p2) < 0) {
         perror(program);
         exit(-1);
@@ -27,7 +28,7 @@ void execute(char *program, char *order1, char *order2, char *order3) {
             perror(program);
             exit(-1);
         } else if (pid == 0) {
-            // HIJO
+            // CHILD
             close(1);
             dup(p2p3[1]);
             close(p2p3[0]);

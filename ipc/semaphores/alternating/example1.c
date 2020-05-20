@@ -20,7 +20,8 @@ void child_process() {
 
 	for (i = 0; i < N; i++) {
 		sem_wait(semid, CHILD, 1);
-		printf("PARENT %i CHILD %i\n", getppid(), getpid());
+		printf("CHILD %i\n", getpid());
+		sleep(1);
 		sem_signal(semid, PARENT, 1);
 	}
 	exit(0);
@@ -40,7 +41,7 @@ void parent_process() {
 	}
 	for (i = 0; i < N; i++) {
 		sem_wait(semid, PARENT, 1);
-		printf("PARENT %i CHILD %i\n", getppid(), getpid());
+		printf("PARENT %i \n", getpid());
 		sleep(1);
 		sem_signal(semid, CHILD, 1);
 	}
@@ -61,8 +62,8 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 
-	semctl(semid, PARENT, SETVAL, 1);
-	semctl(semid, CHILD, SETVAL, 0);
+	semctl(semid, PARENT, SETVAL, 0);
+	semctl(semid, CHILD, SETVAL, 1);
 
 	if ( (pid = fork()) < 0 ) {
 		perror("fork");
