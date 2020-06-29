@@ -1,2 +1,2 @@
 # Advanced Programming (TC2025)
-The repository contains the source code generated for the AD 2019 Advanced Programming course.
+Our main intention is that you acquire the ability to design and program the solutions to these problems, in a platform-dependent low-level (C) language, using the UNIX operating system API correctly.
