@@ -2,7 +2,7 @@
 * file: 	example5.c
 * author:	Pedro Perez
 * version:	26-02-2020
-* description: 
+* description:
 	In this file, you will find the code that allows you to hide text within a
 	BMP image. Some checks are made: the text file must exist, the image file
 	must exist, the text must be less than or equal to the number of pixels.
@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
   	printf("%s: No memory space for IMG\n", argv[0]);
   	return -5;
   }
-  lseek(img_file, 54, SEEK_SET);
+  lseek(img_file, 54, SEEK_SET); // lseek(img_file, 28, SEEK_CUR);
   read(img_file, img_data, sizeof(uchar) * width * height * 3);
 
   for (i = 0; i < txt_size; i++) {
@@ -73,7 +73,9 @@ int main(int argc, char* argv[]) {
   }
   img_data[i * 3] = END;
 
+  // block = sizeof(uchar) * width * height * 3;
   lseek(img_file, 54, SEEK_SET);
+  // lseek(img_file, -block, SEEK_CUR);
   write(img_file, img_data, sizeof(uchar) * width * height * 3);
 
   free(txt_data);
