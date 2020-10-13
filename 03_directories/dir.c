@@ -73,8 +73,8 @@ void list(char *dir_name, int recursive, char *program) {
 				}
 			}
 		}
-		closedir(dir);
 	}
+	closedir(dir);
 	printf("\n");
 }
 
@@ -113,7 +113,7 @@ void get_info(char *name, char *directory, char *program) {
 	} else {
 		printf(" %8s", pw->pw_name);
 	}
-	
+
 	if ( (gr = getgrgid(info.st_gid)) == NULL ) {
 		printf(" ????????");
 	} else {

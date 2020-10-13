@@ -78,6 +78,7 @@ void list(char *dir_name, int recursive, char *program) {
 			}
 		}
 	}
+	closedir(dir);
 	printf("\n");
 }
 
@@ -118,11 +119,11 @@ void get_info(char *name, char *directory, char *program) {
 	}
 
 	printf(" %7li", info.st_size);
-	
+
 	raw_time = info.st_mtime;
 	timeinfo = localtime( &raw_time );
 	strftime(date, 13, "%b %d %R", timeinfo);
 	printf(" %s", date);
-	
+
 	printf(" %s\n", name);
 }

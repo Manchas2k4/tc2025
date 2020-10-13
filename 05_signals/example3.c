@@ -47,7 +47,7 @@ void fun3() {
   int i;
 
   setjmp(env3);
-  printf("Punto de retorno: 3\n");
+  printf("Punto de retorno: 3 - 1\n");
   printf("Logaritmo de los primeros 10 numeros naturales\n");
   for (i = 1; i <= 10; i++) {
     printf("%i - %f\n", i, log(i));
