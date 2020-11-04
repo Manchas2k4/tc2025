@@ -8,7 +8,7 @@
 #include <pthread.h>
 #include <unistd.h>
 
-#define LIMIT 100
+#define LIMIT 10
 
 void* task(void* param) {
 	int i;
@@ -30,11 +30,11 @@ int main(int arg, char* argv[]) {
 		pthread_create(&pthread_id[i],
 			            NULL, task, (void *) 0);
 	}
-	
+
 	for (i = 0; i < 10; i++) {
 		pthread_join(pthread_id[i], &ret);
 	}
-	
+
 	printf("PID = %i - all threads are terminated\n", getpid());
 	return 0;
 }

@@ -43,7 +43,12 @@ void process_type1(int id) {
 		exit(-1);
 	}
 
-	while (msgrcv(msqid, &mt1, len1, id, IPC_NOWAIT) != -1) {
+	while (1) {
+		msgrcv(msqid, &mt1, len1, id, 0);
+
+		if (mt1.size == -1) {
+			break;
+		}
 
 		data = (int *) malloc(sizeof(int) * mt1.size);
 		if (data == 0) {
@@ -55,6 +60,7 @@ void process_type1(int id) {
 			perror("open_type1");
 			exit(-1);
 		}
+
 		lseek(fd, mt1.offset * sizeof(int), SEEK_SET);
 		read(fd, data, mt1.size * sizeof(int));
 		close(fd);
@@ -115,7 +121,7 @@ void process_type2(int id) {
 
 int main(int argc, char* argv[]) {
 	key_t key;
-	int msqid, i, pid;
+	int msqid, i, j, pid;
 	struct message_type1 mt1;
 	long block_size, offset;
 	long len1 = sizeof(struct message_type1) - sizeof(long);
@@ -136,24 +142,6 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 
-	i = 0;
-	offset = 0;
-	while (offset < SIZE) {
-		mt1.type = i + 1;
-		mt1.offset = offset;
-		if (offset + GRAIN <= SIZE) {
-			mt1.size = GRAIN;
-		} else {
-			mt1.size = SIZE - offset;
-		}
-
-		msgsnd(msqid, &mt1, len1, 0);
-
-		offset += GRAIN;
-		i = (i + 1) % CHILDS;
-	}
-
-
 	for (i = 0; i <= CHILDS; i++) {
 		if ( (pid = fork()) < 0 ) {
 			perror(argv[0]);
@@ -167,6 +155,32 @@ int main(int argc, char* argv[]) {
 		} else {
 			printf("PID = %i a process type %i has been created\n", pid, (i + 1));
 		}
+	}
+
+	sleep (2);
+
+	j = 0;
+	offset = 0;
+	while (offset < SIZE) {
+		mt1.type = j + 1;
+		mt1.offset = offset;
+		if (offset + GRAIN <= SIZE) {
+			mt1.size = GRAIN;
+		} else {
+			mt1.size = SIZE - offset;
+		}
+
+		msgsnd(msqid, &mt1, len1, 0);
+
+		offset += GRAIN;
+		j = (j + 1) % CHILDS;
+	}
+
+	for (j = 1; j <= CHILDS; j++) {
+		mt1.type = j;
+		mt1.offset = 0;
+		mt1.size = -1;
+		msgsnd(msqid, &mt1, len1, 0);
 	}
 
 	while (i > 0) {
