@@ -2,9 +2,9 @@
 * file: 	example3.c
 * author:	Pedro Perez
 * version:	26-02-2020
-* description: 
+* description:
 	In this file, you will find the code that copies a source file to a
-	destination. The following checks are made: correct number of parameters, 
+	destination. The following checks are made: correct number of parameters,
 	the source file must exist and it must be possible to create the destination
 	file. Finally, a large buffer is created to be able to do the least amount
 	of readings / writes.
@@ -15,7 +15,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 
-#define SIZE 4096
+#define SIZE 8192
 
 typedef unsigned char uchar;
 

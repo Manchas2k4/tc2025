@@ -2,7 +2,7 @@
 * file: 	example4.c
 * author:	Pedro Perez
 * version:	26-02-2020
-* description: 
+* description:
 	In this file, you will find a code similar to the example3.c file; The
 	difference is the creation of a dynamic buffer.
 **/
@@ -39,8 +39,8 @@ int main(int argc, char* argv[]) {
 	buffer = (uchar*) malloc(sizeof(uchar) * size);
 
 	lseek(source, 0, SEEK_SET);
-	read(source, buffer, size);
-	write(destination, buffer, size);
+	read(source, buffer, sizeof(uchar) * size);
+	write(destination, buffer, sizeof(uchar) * size);
 
 	free(buffer);
 	close(source);
