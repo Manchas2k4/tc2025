@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <time.h>
 
 int main(int argc, char* argv[]) {
   int i, fd, amount, *buffer;
@@ -27,7 +28,7 @@ int main(int argc, char* argv[]) {
 
   buffer = (int*) malloc(sizeof(int) * amount);
 
-  srand(12345);
+  srand(time(0));
   for (i = 0; i < amount; i++) {
     buffer[i] = rand(); //(rand() % 100) + 1;
   }

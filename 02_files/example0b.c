@@ -5,6 +5,8 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#define MAXLOC 50
+
 int main(int argc, char* argv[]) {
   int i, fd, *buffer, loc;
   long size;
@@ -26,7 +28,8 @@ int main(int argc, char* argv[]) {
   buffer = (int*) malloc(sizeof(int) * loc);
   read(fd, buffer, sizeof(int) * loc);
 
-  for (i = 0; i < 200; i++) {
+  int max = (loc < MAXLOC)? loc : MAXLOC;
+  for (i = 0; i < max; i++) {
     printf("%-12i", buffer[i]);
   }
   printf("\n");
