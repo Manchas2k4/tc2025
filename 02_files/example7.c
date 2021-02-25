@@ -12,9 +12,9 @@
 #include <fcntl.h>
 #include <sys/types.h>
 
-#define PCT_RED 0.299
-#define PCT_GREEN 0.587
-#define PCT_BLUE 0.114
+//#define PCT_RED 0.299
+//#define PCT_GREEN 0.587
+//#define PCT_BLUE 0.114
 
 enum Chanel {RED, GREEN, BLUE};
 
@@ -39,17 +39,19 @@ int main(int argc, char* argv[]) {
   lseek(img_file, 18, SEEK_SET);
   read(img_file, &width, sizeof(uint));
   read(img_file, &height, sizeof(uint));
+  // pread( 18 ), pread( 22 )
 
-  img_data = (uchar*) malloc(sizeof(uchar) * width * height * 3);
+  img_data = (uchar*) malloc(width * height * 3 * sizeof(uchar));
   if (img_data == NULL) {
   	printf("%s: No memory space for IMG\n", argv[0]);
   	return -3;
   }
 
   lseek(img_file, 28, SEEK_CUR);
-  read(img_file, img_data, sizeof(uchar) * width * height * 3);
+  read(img_file, img_data, width * height * 3 * sizeof(uchar));
 
   uchar avg = 0;
+  // for (i = 0; i < (width * height * 3 * sizeof(uchar)); i +=3) {
   for (i = 0; i < (width * height); i++) {
     avg = (uchar) ((img_data[(i * 3) + RED] +
                     img_data[(i * 3) + GREEN] +

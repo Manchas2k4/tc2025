@@ -60,13 +60,13 @@ int main(int argc, char* argv[]) {
   }
   read(txt_file, txt_data, sizeof(uchar) * txt_size);
 
-  img_data = (uchar*) malloc(sizeof(uchar) * width * height * 3);
+  img_data = (uchar*) malloc(width * height * 3 * sizeof(uchar) );
   if (img_data == NULL) {
   	printf("%s: No memory space for IMG\n", argv[0]);
   	return -5;
   }
   lseek(img_file, 54, SEEK_SET); // lseek(img_file, 28, SEEK_CUR);
-  read(img_file, img_data, sizeof(uchar) * width * height * 3);
+  read(img_file, img_data, width * height * 3 * sizeof(uchar));
 
   for (i = 0; i < txt_size; i++) {
   	img_data[i * 3] = txt_data[i];
