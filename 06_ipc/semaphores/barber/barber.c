@@ -23,15 +23,15 @@ int main(int argc, char* argv[]) {
   srand(getpid());
   while(1) {
     printf("Barber: waiting for a client...\n");
-    sem_wait(semid, CUSTOMER, 1);
-    sem_signal(semid, BARBER, 1);
+    acquire(semid, CUSTOMER, 1);
+    release(semid, BARBER, 1);
 
     printf("Barber: cuting the hair...\n");
     sleep((rand() % 3) + 1);
     printf("Barber: I finished...\n");
 
-    sem_wait(semid, CUSTOMERDONE, 1);
-    sem_signal(semid, BARBERDONE, 1);
+    acquire(semid, CUSTOMERDONE, 1);
+    release(semid, BARBERDONE, 1);
     printf("Barber: another client?...\n");
   }
   return 0;

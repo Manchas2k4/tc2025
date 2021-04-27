@@ -20,7 +20,7 @@ typedef struct {
 	int n, customers;
 } SharedVariables;
 
-int sem_wait(int semid, int sem_num, unsigned int val) {
+int acquire(int semid, int sem_num, unsigned int val) {
 	struct sembuf op;
 
 	op.sem_num = sem_num;
@@ -29,7 +29,7 @@ int sem_wait(int semid, int sem_num, unsigned int val) {
 	return semop(semid, &op, 1);
 }
 
-int sem_signal(int semid, int sem_num, unsigned int val) {
+int release(int semid, int sem_num, unsigned int val) {
 	struct sembuf op;
 
 	op.sem_num = sem_num;

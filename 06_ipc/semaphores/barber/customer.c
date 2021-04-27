@@ -28,28 +28,28 @@ void a_customer() {
 	k = 10;
 	while (k > 0) {
     printf("Customer %i: arriving to the barbershop\n", getpid());
-    sem_wait(semid, MUTEX, 1);
+    acquire(semid, MUTEX, 1);
     if (b->customers == b->n) {
       printf("Customer %i: It's full, I will return later\n", getpid());
-      sem_signal(semid, MUTEX, 1);
+      release(semid, MUTEX, 1);
     } else {
       b->customers++;
-      sem_signal(semid, MUTEX, 1);
+      release(semid, MUTEX, 1);
 
       printf("Customer %i: waiting for the barber\n", getpid());
-      sem_signal(semid, CUSTOMER, 1);
-      sem_wait(semid, BARBER, 1);
+      release(semid, CUSTOMER, 1);
+      acquire(semid, BARBER, 1);
 
       printf("Customer %i: waiting...\n", getpid());
       sleep((rand() % 2) + 2);
       printf("Customer %i: done...\n", getpid());
 
-      sem_signal(semid, CUSTOMERDONE, 1);
-      sem_wait(semid, BARBERDONE, 1);
+      release(semid, CUSTOMERDONE, 1);
+      acquire(semid, BARBERDONE, 1);
 
-      sem_wait(semid, MUTEX, 1);
+      acquire(semid, MUTEX, 1);
       b->customers--;
-      sem_signal(semid, MUTEX, 1);
+      release(semid, MUTEX, 1);
 
       k--;
       printf("Customer %i: I will return later for another cut\n", getpid());

@@ -9,21 +9,21 @@
 
 #define TABLE 	0
 #define TOBACCO	1
-#define PAPER	2
-#define MATCH	3
+#define PAPER		2
+#define MATCH		3
 
-int sem_wait(int semid, int sem_num, unsigned int val) {
+int acquire(int semid, int sem_num, unsigned int val) {
 	struct sembuf op;
-	
+
 	op.sem_num = sem_num;
 	op.sem_op = -val;
 	op.sem_flg = 0;
 	return semop(semid, &op, 1);
 }
 
-int sem_signal(int semid, int sem_num, unsigned int val) {
+int release(int semid, int sem_num, unsigned int val) {
 	struct sembuf op;
-	
+
 	op.sem_num = sem_num;
 	op.sem_op = val;
 	op.sem_flg = 0;
