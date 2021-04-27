@@ -31,14 +31,14 @@ int main(int argc, char* argv[]) {
 	}
 	printf("\n");
 
-	if ( (shmid = shmget(key, sizeof(struct buffer), 0666 | IPC_CREAT)) < 0 ) {
+	if ( (shmid = shmget(key, sizeof(Buffer), 0666 | IPC_CREAT)) < 0 ) {
 		semctl(semid, 0, IPC_RMID, 0);
 		perror("shmid");
 		return -1;
 	}
 
-	struct buffer *b;
-	b = (struct buffer*) shmat(shmid, (void*) 0, 0);
+	Buffer *b;
+	b = (Buffer *) shmat(shmid, (void*) 0, 0);
 	memset(b->data, 0, SIZE * sizeof(int));
 	b->front = b->rear = b->amount = 0;
 	print_buffer(b);

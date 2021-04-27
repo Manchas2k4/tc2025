@@ -3,7 +3,7 @@
 void a_producer() {
 	int semid, shmid, i, j, k, size, aux;
 	key_t key;
-	struct buffer *b;
+	Buffer *b;
 
 	if ( (key = ftok("/dev/null", 200)) == (key_t) -1 ) {
 		perror("ftok");
@@ -15,11 +15,12 @@ void a_producer() {
 		exit(-1);
 	}
 
-	if ( (shmid = shmget(key, sizeof(struct buffer), 0666)) < 0 ) {
+	if ( (shmid = shmget(key, sizeof(Buffer), 0666)) < 0 ) {
 		perror("shmid");
 		exit(-1);
 	}
-	b = (struct buffer *) shmat(shmid, (void *) 0, 0);
+
+	b = (Buffer *) shmat(shmid, (void *) 0, 0);
 
 	srand( getpid() );
 	k = 10;
@@ -36,7 +37,6 @@ void a_producer() {
 			printf("Producer %i is putting the number %i\n", getpid(), aux);
 		}
 		print_buffer(b);
-		sleep(1);
 
 		printf("Producer %i put their products.\n", getpid());
 		release(semid, MUTEX, 1);
@@ -74,6 +74,11 @@ int main(int argc, char* argv[]) {
 			a_producer();
 		} else {
 		}
+	}
+
+	while (i > 0) {
+		wait(NULL);
+		i--;
 	}
 	return 0;
 }

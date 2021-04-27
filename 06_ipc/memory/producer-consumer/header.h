@@ -8,29 +8,30 @@
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <sys/shm.h>
+#include <sys/wait.h>
 
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
 #define	OCCUPIED	0
 #define FREESPACE	1
-#define MUTEX		2
+#define MUTEX			2
 
 #define SIZE		10
 
-struct buffer {
+typedef struct {
 	int data[SIZE];
 	int front, rear;
 	int amount;
-};
+} Buffer;
 
-void enqueue(struct buffer *buffer, int val) {
+void enqueue(Buffer *buffer, int val) {
 	buffer->data[buffer->rear] = val;
 	buffer->rear = (buffer->rear + 1) % SIZE;
 	buffer->amount++;
 }
 
-int dequeue(struct buffer *buffer) {
+int dequeue(Buffer *buffer) {
 	int val = buffer->data[buffer->front];
 	buffer->data[buffer->front] = 0;
 	buffer->front = (buffer->front + 1) % SIZE;
@@ -38,18 +39,14 @@ int dequeue(struct buffer *buffer) {
 	return val;
 }
 
-void print_buffer(struct buffer *buffer) {
-	int i, inf, sup;
+void print_buffer(Buffer *buffer) {
+	int i;
 
 	printf("amount = %i - front = %i - rear = %i\n",
 		buffer->amount, buffer->front, buffer->rear);
-	inf = MIN(buffer->front, buffer->rear);
-	sup = MAX(buffer->front, buffer->rear);
 	for (i = 0; i < SIZE; i++) {
 		if (buffer->data[i] != 0) {
 			printf("%3i", buffer->data[i]);
-		} else {
-			printf("   X");
 		}
 	}
 	printf("\n");
