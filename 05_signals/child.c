@@ -56,8 +56,11 @@ void handler(int sig) {
 void child_process(char* input_file, char* output_file, int wid, int block) {
 	int minimum, aux;
 
+	/*
 	signal(SIGUSR2, handler);
 	pause();
+	*/
+	
 	printf("PID %i finding minimum...\n", getpid());
 	minimum = find_minimum(input_file, wid, block);
 	if (minimum < 0) {

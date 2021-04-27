@@ -13,7 +13,8 @@ int main(int argc, char* argv[]) {
       return -1;
     } else if (pid == 0) {
       printf("before pid = %i - ppid - %i\n", getpid(), getppid());
-      execlp("/bin/ls", "ls", "-l", "-a", (char*) 0);
+      execlp("ls", "ls", "-l", "-a", (char*) 0);
+      //execl("ls", "ls", "-l", "-a", (char*) 0);
       printf("after pid = %i - ppid - %i\n", getpid(), getppid());
       return 0;
     } else {

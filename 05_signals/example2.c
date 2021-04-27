@@ -10,11 +10,11 @@ jmp_buf env1, env2, env3;
 
 void handler(int sig) {
 	if (sig == SIGUSR1) {
-    longjmp(env1, 1);
+    longjmp(env1, 0);
   } else if (sig == SIGUSR2) {
-    longjmp(env2, 1);
+    longjmp(env2, 0);
   } else if (sig == SIGHUP) {
-    longjmp(env3, 1);
+    longjmp(env3, 0);
   }
 }
 

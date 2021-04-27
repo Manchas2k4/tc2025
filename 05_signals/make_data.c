@@ -5,7 +5,7 @@
 #include <time.h>
 #include <limits.h>
 
-#define SIZE 100000 //1e9
+#define SIZE 1000000000 //1e9
 
 int main(int argc, char* argv[]) {
 	int fd, i, num, *data;

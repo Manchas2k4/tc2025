@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[]) {
     int pid;
-    char* env[] = {"PATH=$PATH$:.", (char*) 0};
+    char* env[] = {"PATH=$PATH$:./", (char*) 0};
 
     printf("pid = %i\n", getpid());
     if ( (pid = vfork()) < 0 ) {

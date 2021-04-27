@@ -54,12 +54,15 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
+	/*
 	sleep(5);
 
 	for (i = 0; i < number_of_processes; i++) {
 		printf("PID %i sending signal to CPID %i...\n", getpid(), data[i]);
 		kill(data[i], SIGUSR2);
 	}
+	*/
+	
 	while(i > 0) {
 		wait(NULL);
 		printf("PID %i, a child has ended.\n", getpid());
