@@ -41,7 +41,7 @@ int main(int argc, char *argv[]) {
 		} else if (sh->elves == 3) {
 			printf("Santa: Three elves need my help.\n");
 			sleep(1);
-			printf("Santa: Clever! Solved the elf problem. Now to continue sleeping..\n");
+			printf("Santa: Ready! Solved the elf problem. Now to continue sleeping..\n");
 		}
 		release(semid, MUTEX, 1);
 	}

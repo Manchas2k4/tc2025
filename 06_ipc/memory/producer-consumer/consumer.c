@@ -36,14 +36,15 @@ void a_consumer() {
 			printf("Consumer %i is taking the number %i\n", getpid(), aux);
 		}
 		print_buffer(b);
-		printf("Consumer %i took their products.\n", getpid());
 		release(semid, MUTEX, 1);
+		printf("Consumer %i took their products.\n", getpid());
 
 		release(semid, FREESPACE, i);
 
 		printf("Consumer %i is going to sleep.\n", getpid());
 		sleep((rand() % 10) + 1);
 	}
+
 	shmdt(b);
 	exit(0);
 }

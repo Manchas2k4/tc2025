@@ -17,7 +17,7 @@
 #define FREESPACE	1
 #define MUTEX			2
 
-#define SIZE		10
+#define SIZE			10
 
 typedef struct {
 	int data[SIZE];

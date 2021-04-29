@@ -37,9 +37,8 @@ void a_producer() {
 			printf("Producer %i is putting the number %i\n", getpid(), aux);
 		}
 		print_buffer(b);
-
-		printf("Producer %i put their products.\n", getpid());
 		release(semid, MUTEX, 1);
+		printf("Producer %i put their products.\n", getpid());
 
 		release(semid, OCCUPIED, i);
 
