@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
 		return -1;
 	}
 
-	semctl(semid, TABLE, SETVAL, 1);
+	semctl(semid, AGENTSEM, SETVAL, 1);
 	semctl(semid, TOBACCO, SETVAL, 0);
 	semctl(semid, PAPER, SETVAL, 0);
 	semctl(semid, MATCH, SETVAL, 0);

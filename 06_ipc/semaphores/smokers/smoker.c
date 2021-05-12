@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
 
 		sleep( rand() % 5 + 1 );
 
-		release(semid, TABLE, 1);
+		release(semid, AGENTSEM, 1);
 	}
 
 	return 0;

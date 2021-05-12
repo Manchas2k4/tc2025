@@ -35,6 +35,7 @@ int main(int argc, char *argv[]) {
 		acquire(semid, MUTEX, 1);
 		if (sh->reindeer >= 9) {
 			printf("Santa: The nine reindeer arrived, prepare the sleigh.\n");
+			sleep(1);
 			release(semid, REINDEERSEM, 9);
 			sh->reindeer -= 9;
 			finished = 1;

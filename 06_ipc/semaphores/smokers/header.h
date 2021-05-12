@@ -7,10 +7,10 @@
 #include <sys/ipc.h>
 #include <sys/sem.h>
 
-#define TABLE 	0
-#define TOBACCO	1
-#define PAPER		2
-#define MATCH		3
+#define AGENTSEM 	0
+#define TOBACCO		1
+#define PAPER			2
+#define MATCH			3
 
 int acquire(int semid, int sem_num, unsigned int val) {
 	struct sembuf op;

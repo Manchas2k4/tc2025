@@ -1,37 +1,16 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <limits.h>
-#include <math.h>
-#include <sys/ipc.h>
-#include <sys/msg.h>
-#include <sys/wait.h>
-#include <time.h>
-#include <fcntl.h>
+#include "header.h"
 
-#define SIZE 100000000
-#define GRAIN 100000
+#define SIZE 1e8
+#define GRAIN 102400
 #define CHILDS 4
-
-struct message_type1 {
-	long type; // 1 - 4, process the data
-	long offset, size;
-};
-
-struct message_type2 {
-	long type; // 5, integrate the data
-	int min;
-	int ended;
-};
 
 void process_type1(int id) {
 	key_t key;
 	int msqid, *data, i, fd;
-	struct message_type1 mt1;
-	struct message_type2 mt2;
-	long len1 = sizeof(struct message_type1) - sizeof(long);
-	long len2 = sizeof(struct message_type2) - sizeof(long);
+	Type1 mt1;
+	Type2 mt2;
+	long len1 = sizeof(Type1) - sizeof(long);
+	long len2 = sizeof(Type2) - sizeof(long);
 
 	if ( (key = ftok("/dev/null", 65)) == (key_t) -1 ) {
 		perror("ftok_type1");
@@ -84,8 +63,8 @@ void process_type1(int id) {
 void process_type2(int id) {
 	key_t key;
 	int msqid, min, i, ended;
-	struct message_type2 mt2;
-	long len2 = sizeof(struct message_type2) - sizeof(long);
+	Type2 mt2;
+	long len2 = sizeof(Type2) - sizeof(long);
 
 	if ( (key = ftok("/dev/null", 65)) == (key_t) -1 ) {
 		perror("ftok_type1");
@@ -116,15 +95,14 @@ void process_type2(int id) {
 int main(int argc, char* argv[]) {
 	key_t key;
 	int msqid, i, pid;
-	struct message_type1 mt1;
+	Type1 mt1;
 	long block_size, offset;
-	long len1 = sizeof(struct message_type1) - sizeof(long);
+	long len1 = sizeof(Type1) - sizeof(long);
 
 	if (argc != 1) {
 		printf("usage: %s\n", argv[0]);
 		return -1;
 	}
-
 
 	if ( (key = ftok("/dev/null", 65)) == (key_t) -1 ) {
 		perror(argv[0]);

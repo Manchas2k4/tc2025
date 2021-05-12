@@ -7,10 +7,11 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 
-struct message {
+typedef struct {
 	long type;
 	int process, value;
-};
+} Message;
 
 #endif

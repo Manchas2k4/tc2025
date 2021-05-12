@@ -5,7 +5,7 @@
 #include <unistd.h>
 #include <limits.h>
 
-#define SIZE 100000000
+#define SIZE 1e8
 
 int main(int argc, char* argv[]) {
 	int fd, i, num, *data;

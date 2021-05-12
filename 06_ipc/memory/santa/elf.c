@@ -27,7 +27,6 @@ void an_elf(int id) {
 	i = 0;
 	while (i < 10) {
 		num = rand() % 3 + 1;
-
 		sleep(num);
 
 		printf("Elf %i: I need help from Santa, I will wait for more elves to arrive.\n", id);
@@ -47,6 +46,7 @@ void an_elf(int id) {
 
 		acquire(semid, MUTEX, 1);
 		sh->elves--;
+		printf("Elf %i: Now, I come back to work!\n", getpid());
 		if (sh->elves == 0) {
 			release(semid, ELFTEX, 1);
 		}

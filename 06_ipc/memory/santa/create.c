@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
 	sh->reindeer = 0;
 	sh->elves = 0;
 	shmdt(sh);
-	printf("Shred memory created...\n");
-	
+	printf("Shared memory created...\n");
+
 	return 0;
 }

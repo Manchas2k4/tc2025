@@ -1,9 +1,9 @@
 #include "header.h"
 
 int main(int argc, char* argv[]) {
-  struct message msg;
-  int msqid, length = sizeof(struct message) - sizeof(long);
-  long msg_type;
+  Message msg;
+  int msqid, length = sizeof(Message) - sizeof(long);
+  long msg_type = 0;
   key_t key;
 
   if (argc != 2) {

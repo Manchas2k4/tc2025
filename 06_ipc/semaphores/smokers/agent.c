@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 
 	srand( getpid() );
 	while (1) {
-		acquire(semid, TABLE, 1);
+		acquire(semid, AGENTSEM, 1);
 
 		value = (rand() % 3 ) + 1;
 		switch (value) {
