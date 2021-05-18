@@ -24,11 +24,9 @@
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
-#define N 			10
+#define N					10
 #define DISPLAY		100
 #define TOP_VALUE	10000
-
-typedef enum color {BLUE, GREEN, RED} Color;
 
 struct timeval startTime, stopTime;
 int started = 0;
@@ -64,7 +62,6 @@ void random_array(int *array, int size) {
 void fill_array(int *array, int size) {
 	int i;
 
-	srand(time(0));
 	for (i = 0; i < size; i++) {
 		array[i] = (i % TOP_VALUE) + 1;
 	}

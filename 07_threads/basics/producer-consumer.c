@@ -8,7 +8,8 @@
 #include <pthread.h>
 #include <errno.h>
 
-#define SIZE 10
+#define SIZE 		10
+#define MAXNUM 	10000
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t space_available = PTHREAD_COND_INITIALIZER;
@@ -27,7 +28,7 @@ void add_buffer(int i) {
 int get_buffer(){
 	int v;
 	v = b[front];
-	front= (front+1) % SIZE;
+	front= (front + 1) % SIZE;
 	size--;
 	return v ;
 }
@@ -39,14 +40,15 @@ void* producer(void *arg) {
 	i = 0;
 	while (1) {
 		pthread_mutex_lock(&mutex);
-			if (size == SIZE) {
-				pthread_cond_wait(&space_available, &mutex);
-			}
-			printf("producer adding %i...\n", i);
-			add_buffer(i);
-			pthread_cond_signal(&data_available);
+		if (size == SIZE) {
+			pthread_cond_wait(&space_available, &mutex);
+		}
+		printf("producer adding %i...\n", i);
+		add_buffer(i);
+		pthread_cond_signal(&data_available);
 		pthread_mutex_unlock(&mutex);
-		i = (i + 1) % 1000000000;
+		i = (i + 1) % MAXNUM;
+		sleep(1);
 	}
 	pthread_exit(NULL);
 }
@@ -73,7 +75,7 @@ int main(int argc, char* argv[])   {
 	pthread_t consumer_thread;
 
 	pthread_create(&producer_thread, NULL, producer, NULL);
-	sleep(5);
+	sleep(10);
 	pthread_create(&consumer_thread, NULL, consumer, NULL);
 	pthread_join(consumer_thread, NULL);
 	return 0;

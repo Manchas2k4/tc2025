@@ -27,7 +27,7 @@ double sum(int *arr, int size) {
   return acum;
 }
 
-void* partial_sum(void *param) {
+void* partial_sum(void* param) {
   double *acum;
   Block *block;
   int i;
@@ -38,11 +38,11 @@ void* partial_sum(void *param) {
   for (i = block->start; i < block->end; i++) {
     (*acum) += block->arr[i];
   }
-  return ( (void **) acum );
+  return ( (void**) acum );
 }
 
 int main(int argc, char* argv[]) {
-  int *arr, block_size, i;
+  int *arr, block_size, i, j;
   double result, seq, concur, *acum;
   Block blocks[THREADS];
   pthread_t tids[THREADS];
@@ -51,31 +51,45 @@ int main(int argc, char* argv[]) {
   fill_array(arr, SIZE);
   display_array("arr:", arr);
 
-  start_timer();
-  result = sum(arr, SIZE);
-  seq = stop_timer();
-  printf("sum = %.0lf - time = %.4lf\n", result, seq);
+  printf("Running sequential code..\n");
+  seq = 0;
+  for (i = 0; i < N; i++) {
+    start_timer();
+    result = sum(arr, SIZE);
+    seq += stop_timer();
+  }
+  printf("sum = %.0lf - time = %.4lf\n", result, (seq / N));
 
   block_size = SIZE / THREADS;
   for (i = 0; i < THREADS; i++) {
-    blocks[i].start = i * block_size;
-    blocks[i].end = MIN((i + 1) * block_size, SIZE);
     blocks[i].arr = arr;
+    blocks[i].start = i * block_size;
+    if (i != (THREADS - 1)) {
+      blocks[i].end = (i + 1) * block_size;
+    } else {
+      blocks[i].end = SIZE;
+    }
   }
 
-  start_timer();
-  result = 0;
-  for (i = 0; i < THREADS; i++) {
-    pthread_create(&tids[i], NULL,
-      partial_sum, (void *) &blocks[i]);
+  printf("Running concurrent code..\n");
+  concur = 0;
+  for (j = 0; j < N; j++) {
+    start_timer();
+    result = 0;
+    for (i = 0; i < THREADS; i++) {
+      pthread_create(&tids[i], NULL,
+        partial_sum, (void*) &blocks[i]);
+    }
+    for (i = 0; i < THREADS; i++) {
+  		pthread_join(tids[i], (void*) &acum);
+      result += (*acum);
+      free(acum);
+  	}
+    concur += stop_timer();
   }
-  for (i = 0; i < THREADS; i++) {
-		pthread_join(tids[i], (void *) &acum);
-    result += (*acum);
-    free(acum);
-	}
-  concur = stop_timer();
-  printf("sum = %.0lf - time = %.4lf\n", result, concur);
+  printf("sum = %.0lf - time = %.4lf\n", result, (concur / N));
 
   printf("speedup = %.6lf\n", (seq / concur));
+
+  free(arr);
 }
