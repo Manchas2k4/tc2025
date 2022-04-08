@@ -27,14 +27,19 @@ void handler2(int sig) {
 
 int main(int argc, char* argv[]) {
 	int i;
+	struct sigaction act1, act2;
 
-	/*
-	signal(SIGUSR1, handler);
-	signal(SIGUSR2, handler);
-	*/
+	act1.sa_handler = handler1;
+	sigemptyset(&act1.sa_mask);
+	sigaddset(&act1.sa_mask, SIGUSR2);
+	act1.sa_flags = 0;
+	sigaction(SIGUSR1, &act1, 0);
 
-	signal(SIGUSR1, handler1);
-	signal(SIGUSR2, handler2);
+	act2.sa_handler = handler2;
+	sigemptyset(&act2.sa_mask);
+	sigaddset(&act2.sa_mask, SIGUSR1);
+	act2.sa_flags = 0;
+	sigaction(SIGUSR2, &act2, 0);
 
 	i = 0;
 	while(1) {

@@ -44,6 +44,7 @@ int main(int argc, char* argv[]) {
 	while (i > 0) {
 		rid = wait(NULL);
 		printf("PID = %i, CPID = %i\n", getpid(), rid);
+		sleep(1);
 		i--;
 	}
 	return 0;

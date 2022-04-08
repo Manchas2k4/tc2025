@@ -60,6 +60,7 @@ void list(char *dir_name, int recursive, char *program) {
 	while( (direntry = readdir(dir)) != NULL) {
 		get_info(direntry->d_name, dir_name, program);
 	}
+
 	if (recursive) {
 		rewinddir(dir);
 		while ( (direntry = readdir(dir)) != NULL ) {
@@ -74,6 +75,7 @@ void list(char *dir_name, int recursive, char *program) {
 			}
 		}
 	}
+
 	closedir(dir);
 	printf("\n");
 }

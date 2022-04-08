@@ -5,7 +5,7 @@
 #include <sys/wait.h>
 
 int main(int argc, char* argv[]) {
-	int pid;
+	int pid, i;
 
 	if (argc != 1) {
 		fprintf(stderr, "usage: %s\n", argv[0]);
@@ -16,12 +16,15 @@ int main(int argc, char* argv[]) {
 		perror("fork");
 		return -2;
 	} else if (pid == 0) {
-		printf("id = %i - CHILD PROCESS\n", getpid());
-		sleep(2);
+		for (i = 0; i < 1000; i++) {
+			printf("id = %i - CHILD PROCESS <-> i = %i\n", getpid(), i);
+		}
 		exit(10);
 	} else {
 		int result, rid;
-
+		for (i = 0; i < 1000; i++) {
+			printf("id = %i - PARENT PROCESS <-> i = %i\n", getpid(), i);
+		}
 		rid = wait(&result);
 		printf("id = %i - PARENT PROCESS\n", getpid());
 		printf("child id = %i, result = %i\n", rid, WEXITSTATUS(result));

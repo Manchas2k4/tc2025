@@ -3,6 +3,8 @@
 
 #define SIZE 10
 
+typeder unsigned int uint;
+
 typedef enum {NONE, INTEGER, DOUBLE} Type;
 
 typedef union {
@@ -21,13 +23,13 @@ typedef struct {
 } Node;
 
 typedef struct {
-	int free, used;
+	uint free, used;
 	Node data[SIZE];
 } List;
 
 void init(List *lst) {
 	int i;
-	
+
 	lst->free = 0;
 	lst->used = -1;
 	for (i = 0; i < SIZE; i++) {
@@ -40,7 +42,7 @@ void init(List *lst) {
 
 void traverse(List *lst) {
 	int p;
-	
+
 	printf("USED: ");
 	p = lst->used;
 	while (p != -1) {
@@ -53,7 +55,7 @@ void traverse(List *lst) {
 		p = lst->data[p].next;
 	}
 	printf("\n");
-	
+
 	printf("FREE: ");
 	p = lst->free;
 	while (p != -1) {
@@ -81,15 +83,15 @@ double convert(NodeValue *nv) {
 
 int add(List *lst, Type type, void* val) {
 	int p, q, r;
-	
+
 	if (lst->free == -1) {
 		printf("there are no free nodes\n");
 		return 0;
 	}
-	
+
 	p = lst->free;
 	lst->free = lst->data[lst->free].next;
-	
+
 	NodeValue nv;
 	nv.type = type;
 	if (nv.type == INTEGER) {
@@ -97,14 +99,14 @@ int add(List *lst, Type type, void* val) {
 	} else {
 		nv.value.valDouble = *( (double*) val );
 	}
-	
+
 	r = -1;
 	q = lst->used;
 	while (q != -1 && convert(&(lst->data[q].nv)) < convert(&nv)) {
 		r = q;
 		q = lst->data[q].next;
 	}
-	
+
 	lst->data[p].nv = nv;
 	if (r == -1) {
 		lst->data[p].next = lst->used;
@@ -117,17 +119,17 @@ int add(List *lst, Type type, void* val) {
 
 NodeValue* del(List *lst) {
 	int p;
-	
+
 	if (lst->used == -1) {
 		return NULL;
 	}
-	
+
 	p = lst->used;
 	lst->used = lst->data[lst->used].next;
-	
+
 	lst->data[p].next = lst->free;
 	lst->free = p;
-	
+
 	NodeValue* nv = (NodeValue*) malloc(sizeof(NodeValue));
 	*nv = lst->data[p].nv;
 	return nv;
@@ -137,79 +139,79 @@ int main(int argc, char* argv[]) {
 	List myList;
 	int valInt;
 	double valDouble;
-	
+
 	init(&myList);
 	traverse(&myList);
 	printf("\n");
-	
+
 	valInt = 10;
 	add(&myList, INTEGER, (void*) &valInt);
 	printf("adding 10...\n");
 	traverse(&myList);
 	printf("\n");
-	
+
 	valDouble = 15.0;
 	add(&myList, DOUBLE, (void*) &valDouble);
 	printf("adding 15.0...\n");
 	traverse(&myList);
 	printf("\n");
-	
+
 	valInt = 12;
 	add(&myList, INTEGER, (void*) &valInt);
 	printf("adding 12...\n");
 	traverse(&myList);
 	printf("\n");
-	
+
 	del(&myList);
 	printf("removing...\n");
 	traverse(&myList);
 	printf("\n");
-	
+
 	valDouble = 9.0;
 	add(&myList, DOUBLE, (void*) &valDouble);
 	printf("adding 9.0...\n");
 	traverse(&myList);
 	printf("\n");
-	
+
 	valInt = 14;
 	printf("adding 14...\n");
 	add(&myList, INTEGER, (void*) &valInt);
 	traverse(&myList);
 	printf("\n");
-	
+
 	del(&myList);
 	printf("removing...\n");
 	traverse(&myList);
 	printf("\n");
-	
+
 	valDouble = 20.0;
 	printf("adding 20.0...\n");
 	add(&myList, DOUBLE, (void*) &valDouble);
 	traverse(&myList);
 	printf("\n");
-	
+
 	del(&myList);
 	printf("removing...\n");
 	traverse(&myList);
 	printf("\n");
-	
+
 	del(&myList);
 	printf("removing...\n");
 	traverse(&myList);
 	printf("\n");
-	
+
 	valDouble = 5.0;
 	printf("adding 5.0...\n");
 	add(&myList, DOUBLE, (void*) &valDouble);
 	traverse(&myList);
 	printf("\n");
-	
+
 	valInt = 2;
 	printf("adding 2...\n");
 	add(&myList, INTEGER, (void*) &valInt);
 	traverse(&myList);
 	printf("\n");
-	
+
 	valInt = 4;
 	printf("adding 4...\n");
 	add(&myList, INTEGER, (void*) &valInt);

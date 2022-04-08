@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
 		kill(data[i], SIGUSR2);
 	}
 	*/
-	
+
 	while(i > 0) {
 		wait(NULL);
 		printf("PID %i, a child has ended.\n", getpid());
@@ -82,7 +82,7 @@ int main(int argc, char* argv[]) {
 
 	free(data);
 	printf("PID %i, minimum = % i.\n", getpid(), min);
-	remove("inter");
+	remove(TEMP);
 
 	return 0;
 }

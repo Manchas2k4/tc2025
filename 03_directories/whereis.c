@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
 #include <string.h>
 #include <dirent.h>
-#include <sys/types.h>
 #include <sys/stat.h>
 
 void find(char*, char*, char*);
@@ -43,8 +43,11 @@ void find(char *directory, char *file, char* program) {
 				printf("find in %s\n", directory);
 			}
 
+			/*
 			sprintf(filename, "%s/%s", directory, direntry->d_name);
 			stat(filename, &info);
+			*/
+			stat(direntry->d_name, &info);
 			if (S_ISDIR(info.st_mode)) {
 				find(filename, file, program);
 			}

@@ -12,13 +12,13 @@ int main(int argc, char* argv[]) {
       perror("fork");
       return -1;
     } else if (pid == 0) {
-      printf("before pid = %i - ppid - %i\n", getpid(), getppid());
+      printf("CHILD before pid = %i - ppid - %i\n", getpid(), getppid());
       execl("/bin/ls", "ls", "-l", "-a", (char*) 0);
-      printf("after pid = %i - ppid - %i\n", getpid(), getppid());
+      printf("CHILD after pid = %i - ppid - %i\n", getpid(), getppid());
       return 0;
     } else {
       wait(NULL);
     }
-    printf("pid = %i\n", getpid());
+    printf("PARENT pid = %i\n", getpid());
     return 0;
 }

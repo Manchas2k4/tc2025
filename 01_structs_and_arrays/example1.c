@@ -12,7 +12,7 @@ union option {
   int a;
   double b;
   char c[100];
-}; //
+}; // sizeof(struct record) => 100
 
 int main(int argc, char* argv[]) {
   struct record var1;
@@ -39,6 +39,6 @@ int main(int argc, char* argv[]) {
   for (int i = 0; i < 10; i++) {
       printf("%i %lf %c\n", a[i], b[i], c[i]);
   }
-  
+
   return 0;
 }

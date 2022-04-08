@@ -26,7 +26,7 @@ void handler(int sig) {
 }
 
 int main(int argc, char* argv[]) {
-	f = signal(SIGINT, handler);
+	signal(SIGINT, handler);
 
 	arr = (int*) malloc(sizeof(int) * MAX);
 	arr[0] = SEED - 1;
